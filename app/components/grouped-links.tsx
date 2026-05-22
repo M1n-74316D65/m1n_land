@@ -10,9 +10,9 @@ const GroupedLinks: React.FC = () => {
       {groupedLinks.map((group) => (
         <div
           key={group.title}
-          className="bg-muted border-2 border-border shadow-brutal p-4"
+          className="bg-card border-[3px] border-border shadow-brutal p-5 transition-all duration-100 hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-[0.5deg]"
         >
-          <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-accent mb-3">
+          <h3 className="font-mono text-xs font-black uppercase tracking-widest text-accent mb-3">
             {group.title}
           </h3>
           <ul className="space-y-1.5">

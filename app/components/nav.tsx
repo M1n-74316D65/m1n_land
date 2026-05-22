@@ -18,7 +18,7 @@ const Navbar = React.memo(() => {
           aria-label="Main navigation"
         >
           <div className="flex flex-row items-center w-full">
-            <div className="flex flex-row items-center border-2 border-border bg-muted shadow-brutal">
+            <div className="flex flex-row items-center border-[3px] border-border bg-card shadow-brutal-lg">
               {navItems.map(({ path, name }, index) => {
                 const isExternal = path.startsWith('http')
                 const isActive = !isExternal && pathname !== null && pathname === path
@@ -27,11 +27,11 @@ const Navbar = React.memo(() => {
                   <Link
                     key={path}
                     href={path}
-                    className={`relative flex items-center px-4 py-2 text-sm font-mono uppercase tracking-wider transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
+                    className={`relative flex items-center px-4 py-2 text-sm font-mono uppercase tracking-wider font-bold transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                       isActive
-                        ? 'bg-accent text-accent-foreground font-bold'
+                        ? 'bg-accent text-accent-foreground font-black'
                         : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                    } ${index > 0 ? 'border-l-2 border-border' : ''} ${
+                    } ${index > 0 ? 'border-l-[3px] border-border' : ''} ${
                       isActive && index > 0 ? 'border-l-accent' : ''
                     }`}
                     {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

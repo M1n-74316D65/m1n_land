@@ -6,6 +6,7 @@ export const designSystem = {
       tertiary: 'text-muted-foreground/70',
       link: 'text-foreground hover:text-accent transition-colors',
       accent: 'text-accent',
+      accentSecondary: 'text-accent-secondary',
       mono: 'font-mono text-muted-foreground',
     },
     background: {
@@ -13,11 +14,13 @@ export const designSystem = {
       secondary: 'bg-card',
       tertiary: 'bg-muted',
       accent: 'bg-accent',
+      accentSecondary: 'bg-accent-secondary',
     },
     border: {
       default: 'border-border',
       thick: 'border-2 border-border',
       accent: 'border-2 border-accent',
+      accentSecondary: 'border-2 border-accent-secondary',
     },
   },
   spacing: {
@@ -46,14 +49,14 @@ export const designSystem = {
   interactions: {
     link: 'transition-colors duration-100 hover:text-accent active:text-accent/80',
     button:
-      'transition-all duration-100 hover:-translate-y-0.5 hover:shadow-brutal active:translate-y-0 active:shadow-none',
-    card: 'transition-all duration-100 hover:-translate-y-1 hover:shadow-brutal-lg active:translate-y-0 active:shadow-none',
+      'transition-all duration-100 hover:-translate-y-1 hover:shadow-brutal-lg active:translate-y-0 active:shadow-brutal',
+    card:'transition-all duration-100 hover:-translate-y-1 hover:shadow-brutal-lg active:translate-y-0 active:shadow-brutal',
     navItem: 'transition-colors duration-100 hover:bg-accent hover:text-accent-foreground',
   },
   typography: {
     display: 'text-3xl font-bold tracking-tight',
-    pageTitle: 'text-2xl font-bold tracking-tight',
-    sectionTitle: 'text-xl font-bold tracking-tight',
+    pageTitle: 'text-3xl font-black tracking-tight',
+    sectionTitle: 'text-xl font-extrabold tracking-tight',
     subtitle: 'text-lg font-semibold tracking-tight',
     body: 'text-sm leading-relaxed',
     caption: 'text-xs text-muted-foreground font-mono uppercase tracking-widest',
@@ -61,8 +64,8 @@ export const designSystem = {
   },
   animations: {
     duration: {
-      fast: 100,
-      normal: 150,
+      fast: 80,
+      normal: 120,
       slow: 200,
     },
   },
@@ -71,6 +74,7 @@ export const designSystem = {
       brutal: 'shadow-brutal',
       brutalAccent: 'shadow-brutal-accent',
       brutalLg: 'shadow-brutal-lg',
+      brutalXl: 'shadow-brutal-xl',
     },
   },
 } as const
