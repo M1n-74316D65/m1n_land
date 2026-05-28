@@ -10,7 +10,7 @@ interface StationInfoProps {
 const StationInfo: React.FC<StationInfoProps> = ({ isPlaying, className }) => {
   return (
     <div
-      className={`flex flex-col items-center gap-2 bg-muted border-2 border-border shadow-brutal p-6 ${className ?? ''}`}
+      className={`flex flex-col items-center gap-2 bg-muted border-[3px] border-border shadow-brutal p-6 ${className ?? ''}`}
     >
       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
         Deep Space One

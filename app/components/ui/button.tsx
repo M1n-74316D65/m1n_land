@@ -5,18 +5,18 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'app/lib/utils'
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none text-sm font-bold transition-all duration-100 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-accent focus-visible:ring-accent/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive active:translate-y-0 active:shadow-brutal",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none text-sm font-bold transition-all duration-100 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-accent focus-visible:ring-accent/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
         default:
-          'bg-foreground text-background border-[3px] border-border shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-1 active:translate-y-0 active:shadow-brutal active:rotate-0',
+          'bg-foreground text-background border-[3px] border-border shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         destructive:
-          'bg-destructive text-white border-[3px] border-destructive shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-1 active:translate-y-0 active:shadow-brutal active:rotate-0',
+          'bg-destructive text-white border-[3px] border-destructive shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         outline:
-          'border-[3px] border-border bg-background hover:bg-accent hover:text-accent-foreground hover:border-accent hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-1 active:translate-y-0 active:shadow-brutal active:rotate-0',
+          'border-[3px] border-border bg-background hover:bg-accent hover:text-accent-foreground hover:border-accent hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         secondary:
-          'bg-muted text-foreground border-[3px] border-border hover:bg-accent hover:text-accent-foreground hover:border-accent hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-1 active:translate-y-0 active:rotate-0',
+          'bg-muted text-foreground border-[3px] border-border hover:bg-accent hover:text-accent-foreground hover:border-accent hover:-translate-y-1 hover:shadow-brutal-lg hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-accent underline-offset-4 hover:underline font-mono',
       },

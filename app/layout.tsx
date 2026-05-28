@@ -110,7 +110,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
         </a>
         <main
           id="main-content"
-          className={`flex-auto min-w-0 ${designSystem.spacing.component.section} flex flex-col px-2 md:px-0`}
+          className={`flex-auto min-w-0 ${designSystem.spacing.component.lg} flex flex-col px-2 md:px-0`}
         >
           <DarkModeDetector />
           <Navbar />

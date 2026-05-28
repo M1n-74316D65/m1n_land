@@ -43,17 +43,19 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <section>
-      <div className="mb-8">
-        <h1 className={designSystem.typography.pageTitle}>Projects</h1>
-        <p className={`mt-1 font-mono text-sm text-muted-foreground`}>
+      <div className="mb-8 animate-fade-in-up">
+        <h1 className={`${designSystem.typography.pageTitle} accent-underline`}>Projects</h1>
+        <p className="mt-1 font-mono text-sm text-foreground/70">
           Selected work and experiments.
         </p>
       </div>
-      <BentoGrid className="lg:grid-rows-2 lg:grid-cols-3 gap-4">
-        {features.map((feature) => (
-          <BentoCard key={feature.name} {...feature} />
-        ))}
-      </BentoGrid>
+      <div className="animate-fade-in-up delay-1">
+        <BentoGrid className="lg:grid-rows-2 lg:grid-cols-3 gap-4">
+          {features.map((feature) => (
+            <BentoCard key={feature.name} {...feature} />
+          ))}
+        </BentoGrid>
+      </div>
     </section>
   )
 }

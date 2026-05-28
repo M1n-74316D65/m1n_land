@@ -31,8 +31,8 @@ const PlayButton: React.FC<PlayButtonProps> = ({
       className={cn(
         'relative flex h-24 w-24 items-center justify-center outline-none transition-colors duration-100',
         isPlaying
-          ? 'bg-accent/10 border-2 border-accent shadow-brutal-accent'
-          : 'bg-card border-2 border-border shadow-brutal',
+          ? 'bg-accent/10 border-[3px] border-accent shadow-brutal-accent'
+          : 'bg-card border-[3px] border-border shadow-brutal',
         disabled && 'opacity-50 cursor-not-allowed'
       )}
       whileHover={disabled ? undefined : { y: -2 }}

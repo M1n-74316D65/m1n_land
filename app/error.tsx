@@ -40,7 +40,7 @@ export default function Error({ error, reset }: ErrorProps) {
           <summary className="cursor-pointer text-xs font-mono text-muted-foreground">
             Error details
           </summary>
-          <pre className="mt-2 overflow-auto bg-muted border-2 border-border p-3 text-xs font-mono text-muted-foreground">
+          <pre className="mt-2 overflow-auto bg-muted border-[3px] border-border p-3 text-xs font-mono text-muted-foreground">
             {error.message}
           </pre>
         </details>

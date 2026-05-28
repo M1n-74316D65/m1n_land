@@ -16,7 +16,7 @@ export default function Page() {
   return (
     <section>
       <h1
-        className={`${designSystem.spacing.component.header} ${designSystem.typography.pageTitle}`}
+        className={`${designSystem.spacing.component.md} ${designSystem.typography.pageTitle}`}
       >
         My Guestbook
       </h1>
@@ -29,7 +29,7 @@ export default function Page() {
 
         <div
           id="guestbooks___guestbook-form-container"
-          className="bg-card border-2 border-border p-6 shadow-brutal"
+          className="bg-card border-[3px] border-border p-6 shadow-brutal"
         >
           <form
             id="guestbooks___guestbook-form"
@@ -89,7 +89,7 @@ export default function Page() {
         <div className="border-t-2 border-border pt-6">
           <h3
             id="guestbooks___guestbook-messages-header"
-            className={`${designSystem.spacing.component.header} ${designSystem.typography.sectionTitle}`}
+            className={`${designSystem.spacing.component.md} ${designSystem.typography.sectionTitle}`}
           >
             Messages
           </h3>

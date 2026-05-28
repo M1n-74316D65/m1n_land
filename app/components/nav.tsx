@@ -18,7 +18,7 @@ const Navbar = React.memo(() => {
           aria-label="Main navigation"
         >
           <div className="flex flex-row items-center w-full">
-            <div className="flex flex-row items-center border-[3px] border-border bg-card shadow-brutal-lg">
+            <div className="flex flex-row items-center border-[3px] border-border bg-card shadow-brutal animate-fade-in">
               {navItems.map(({ path, name }, index) => {
                 const isExternal = path.startsWith('http')
                 const isActive = !isExternal && pathname !== null && pathname === path
@@ -29,7 +29,7 @@ const Navbar = React.memo(() => {
                     href={path}
                     className={`relative flex items-center px-4 py-2 text-sm font-mono uppercase tracking-wider font-bold transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                       isActive
-                        ? 'bg-accent text-accent-foreground font-black'
+                        ? 'bg-accent text-accent-foreground font-black shadow-brutal-accent'
                         : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                     } ${index > 0 ? 'border-l-[3px] border-border' : ''} ${
                       isActive && index > 0 ? 'border-l-accent' : ''

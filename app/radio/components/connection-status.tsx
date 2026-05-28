@@ -25,7 +25,7 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className={`flex items-center justify-center gap-2 bg-muted border-2 border-border shadow-brutal px-4 py-3 ${className ?? ''}`}
+          className={`flex items-center justify-center gap-2 bg-muted border-[3px] border-border shadow-brutal px-4 py-3 ${className ?? ''}`}
         >
           <LoaderCircle className="h-4 w-4 animate-spin text-muted-foreground" />
           <span className="text-sm font-mono text-muted-foreground">Connecting to stream...</span>
@@ -38,7 +38,7 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className={`flex flex-col items-center justify-center gap-2 bg-muted border-2 border-destructive shadow-brutal px-4 py-3 ${className ?? ''}`}
+          className={`flex flex-col items-center justify-center gap-2 bg-muted border-[3px] border-destructive shadow-brutal px-4 py-3 ${className ?? ''}`}
           role="alert"
           aria-live="assertive"
         >

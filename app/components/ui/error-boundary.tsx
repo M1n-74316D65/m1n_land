@@ -53,7 +53,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             {this.state.error && (
               <details className="mt-4 text-xs font-mono text-muted-foreground">
                 <summary>Error details</summary>
-                <pre className="mt-2 p-3 bg-muted border-2 border-border text-left overflow-auto">
+                <pre className="mt-2 p-3 bg-muted border-[3px] border-border text-left overflow-auto">
                   {this.state.error.message}
                 </pre>
               </details>

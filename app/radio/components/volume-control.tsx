@@ -26,7 +26,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
   return (
     <div
       className={cn(
-        'flex items-center gap-3 bg-muted border-2 border-border shadow-brutal px-3 py-2',
+        'flex items-center gap-3 bg-muted border-[3px] border-border shadow-brutal px-3 py-2',
         className
       )}
     >

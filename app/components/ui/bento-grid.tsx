@@ -38,23 +38,23 @@ const BentoCard: FC<BentoCardProps> = ({ name, className = '', description, href
     rel="noopener noreferrer"
     className={cn(
       'group relative flex flex-col justify-between overflow-hidden rounded-none cursor-pointer',
-      'border-2 border-border bg-card shadow-brutal',
+      'border-[3px] border-border bg-card shadow-brutal',
       'transition-all duration-100',
       'hover:border-accent hover:shadow-brutal-lg',
-      'hover:-translate-y-1',
-      'active:translate-y-0 active:shadow-none',
+      'hover:-translate-y-1 hover:-rotate-[0.5deg]',
+      'active:translate-y-0 active:shadow-brutal active:rotate-0',
       className
     )}
   >
     <div className="flex flex-col h-full p-6">
       {/* Header with icon and arrow */}
       <div className="flex items-start justify-between mb-4">
-        <div className="p-2.5 rounded-none bg-accent/10 border-2 border-accent text-accent">
+        <div className="p-2.5 rounded-none bg-accent/15 border-[3px] border-accent text-accent shadow-brutal-accent">
           <Icon className="h-5 w-5" />
         </div>
 
         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-100">
-          <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+          <ArrowUpRight className="h-4 w-4 text-accent" />
         </div>
       </div>
 

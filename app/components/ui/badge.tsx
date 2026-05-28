@@ -10,13 +10,13 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          'border-[3px] border-border bg-foreground text-background shadow-brutal hover:shadow-brutal-lg hover:-translate-y-1 hover:-rotate-1',
+          'border-[3px] border-border bg-foreground text-background shadow-brutal hover:shadow-brutal-lg hover:-translate-y-1 hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         secondary:
-          'border-[3px] border-border bg-muted text-foreground hover:bg-accent hover:text-accent-foreground hover:-translate-y-1 hover:-rotate-1',
+          'border-[3px] border-border bg-muted text-foreground hover:bg-accent hover:text-accent-foreground hover:-translate-y-1 hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         destructive:
-          'border-[3px] border-destructive bg-destructive text-white shadow-brutal hover:shadow-brutal-lg hover:-translate-y-1 hover:-rotate-1',
+          'border-[3px] border-destructive bg-destructive text-white shadow-brutal hover:shadow-brutal-lg hover:-translate-y-1 hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
         outline:
-          'border-[3px] border-border bg-muted text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent hover:-translate-y-1 hover:-rotate-1',
+          'border-[3px] border-border bg-muted text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent hover:-translate-y-1 hover:-rotate-[0.5deg] active:translate-y-0 active:shadow-brutal active:rotate-0',
       },
     },
     defaultVariants: {
