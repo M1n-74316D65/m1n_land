@@ -1,7 +1,11 @@
 'use client'
 
-import { motion, AnimatePresence } from 'motion/react'
-import { Play, Pause, LoaderCircle } from 'lucide-react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { LoaderCircle, Pause, Play } from 'lucide-react'
+
+import { Button } from 'app/components/ui/button'
+import { motionFade, motionTransition } from 'app/lib/motion'
+import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
 
 interface PlayButtonProps {
@@ -19,64 +23,39 @@ const PlayButton: React.FC<PlayButtonProps> = ({
   onToggle,
   className,
 }) => {
+  const reduceMotion = useReducedMotion()
   const ariaLabel = isLoading ? 'Loading' : isPlaying ? 'Pause' : 'Play'
+  const iconTransition = reduceMotion ? { duration: 0 } : motionTransition.quick
 
   return (
-    <motion.button
-      type="button"
-      onClick={onToggle}
-      disabled={disabled}
-      aria-label={ariaLabel}
-      aria-pressed={isPlaying}
-      className={cn(
-        'relative flex h-24 w-24 items-center justify-center outline-none transition-colors duration-100',
-        isPlaying
-          ? 'bg-accent/10 border-[3px] border-accent shadow-brutal-accent'
-          : 'bg-card border-[3px] border-border shadow-brutal',
-        disabled && 'opacity-50 cursor-not-allowed'
-      )}
-      whileHover={disabled ? undefined : { y: -2 }}
-      whileTap={disabled ? undefined : { y: 0 }}
-      transition={{
-        type: 'spring',
-        stiffness: 500,
-        damping: 30,
-      }}
-    >
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.span
-            key="loading"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            <LoaderCircle className="h-8 w-8 animate-spin text-muted-foreground" />
-          </motion.span>
-        ) : isPlaying ? (
-          <motion.span
-            key="pause"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            <Pause className="h-8 w-8 text-accent" />
-          </motion.span>
-        ) : (
-          <motion.span
-            key="play"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            <Play className="ml-1 h-8 w-8 fill-current" />
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </motion.button>
+    <motion.div whileTap={reduceMotion || disabled ? undefined : { scale: 0.96 }}>
+      <Button
+        type="button"
+        variant={isPlaying ? 'secondary' : 'default'}
+        size="icon"
+        onClick={onToggle}
+        disabled={disabled}
+        aria-label={ariaLabel}
+        aria-pressed={isPlaying}
+        className={cn('h-16 w-16 rounded-full', designSystem.interactions.press, className)}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {isLoading ? (
+            <motion.span key="loading" {...motionFade} transition={iconTransition}>
+              <LoaderCircle className="h-6 w-6 animate-spin" />
+            </motion.span>
+          ) : isPlaying ? (
+            <motion.span key="pause" {...motionFade} transition={iconTransition}>
+              <Pause className="h-6 w-6" />
+            </motion.span>
+          ) : (
+            <motion.span key="play" {...motionFade} transition={iconTransition}>
+              <Play className="ml-0.5 h-6 w-6 fill-current" />
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </Button>
+    </motion.div>
   )
 }
 

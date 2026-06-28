@@ -3,6 +3,9 @@
 import React from 'react'
 
 import { Button } from 'app/components/ui/button'
+import { entranceClasses } from 'app/lib/animation'
+import { designSystem } from 'app/lib/design-system'
+import { cn } from 'app/lib/utils'
 
 interface ErrorProps {
   error: Error & { digest?: string }
@@ -12,35 +15,28 @@ interface ErrorProps {
 export default function Error({ error, reset }: ErrorProps) {
   return (
     <section className="flex flex-col items-center justify-center py-12 text-center">
-      <div className="mb-4 text-destructive">
-        <svg
-          className="mx-auto h-12 w-12"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-          />
-        </svg>
-      </div>
-      <h2 className="mb-2 text-lg font-bold tracking-tight">Something went wrong</h2>
-      <p className="mb-6 max-w-sm text-sm font-mono text-muted-foreground">
+      <h2 className={cn(designSystem.typography.pageTitle, entranceClasses(0))}>
+        Something went wrong
+      </h2>
+      <p
+        className={cn(
+          `mt-2 max-w-sm ${designSystem.typography.subtitle}`,
+          entranceClasses(1, 'reveal')
+        )}
+      >
         An error occurred while loading this page. You can try again.
       </p>
-      <Button variant="outline" onClick={reset}>
+      <Button className={cn('mt-6', entranceClasses(2, 'reveal'))} onClick={reset}>
         Try again
       </Button>
       {error?.message && (
-        <details className="mt-6 text-left">
-          <summary className="cursor-pointer text-xs font-mono text-muted-foreground">
+        <details className={cn('mt-8 w-full max-w-md text-left', entranceClasses(3, 'reveal'))}>
+          <summary className={`cursor-pointer ${designSystem.typography.caption}`}>
             Error details
           </summary>
-          <pre className="mt-2 overflow-auto bg-muted border-[3px] border-border p-3 text-xs font-mono text-muted-foreground">
+          <pre
+            className={`mt-2 overflow-auto rounded-lg border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
+          >
             {error.message}
           </pre>
         </details>

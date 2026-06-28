@@ -13,19 +13,15 @@ import {
   LayoutDashboard,
 } from 'lucide-react'
 
-// Navigation items for the main nav
 export const navItems = [
   { path: '/', name: 'home' },
   { path: '/projects', name: 'projects' },
   { path: 'https://journal.m1n.land', name: 'blog' },
   { path: '/radio', name: 'radio' },
-  // { path: '/guestbook', name: 'guestbook' },
 ] as const
 
-// Tech stack items (for badges on home page)
 export const techStack = ['Rust', 'Go', 'TypeScript', 'Linux', 'Neovim'] as const
 
-// Projects - with icons for footer and grouped links
 export const projects = [
   {
     href: 'https://links.m1n.land/miraviewer',
@@ -33,13 +29,7 @@ export const projects = [
     label: 'Miraviewer',
     description: 'All-in-one dashboard for managing sales, invoices, and reports.',
     category: 'Projects',
-  },
-  {
-    href: 'https://links.m1n.land/rustlesspass',
-    icon: LockKeyhole,
-    label: 'RustedLessPass',
-    description: 'Stateless password manager - one master password, no sync needed.',
-    category: 'Projects',
+    tags: ['Go', 'Web'],
   },
   {
     href: 'https://links.m1n.land/pastol',
@@ -47,6 +37,7 @@ export const projects = [
     label: 'Pastol',
     description: 'Command-line interface for paste.lol.',
     category: 'Projects',
+    tags: ['Rust', 'CLI'],
   },
   {
     href: 'https://links.m1n.land/rusted-yadm',
@@ -54,6 +45,15 @@ export const projects = [
     label: 'rusted-yadm',
     description: 'A command-line dotfile manager written in Rust.',
     category: 'Projects',
+    tags: ['Rust', 'CLI'],
+  },
+  {
+    href: 'https://links.m1n.land/rustlesspass',
+    icon: LockKeyhole,
+    label: 'RustedLessPass',
+    description: 'Stateless password manager - one master password, no sync needed.',
+    category: 'Projects',
+    tags: ['Rust', 'Security'],
   },
   {
     href: 'https://links.m1n.land/sourcehut-profile',
@@ -69,7 +69,6 @@ export const projects = [
   },
 ] as const
 
-// Social/Connect links
 export const socialLinks = [
   {
     href: 'https://m1n.omg.lol',
@@ -91,7 +90,6 @@ export const socialLinks = [
   },
 ] as const
 
-// External links
 export const externalLinks = [
   {
     href: 'https://journal.m1n.land/atom.xml',
@@ -113,34 +111,10 @@ export const externalLinks = [
   },
 ] as const
 
-// Grouped links for home page (organized by category)
-export const groupedLinks = [
-  {
-    title: 'Projects',
-    links: projects.map((p) => ({ href: p.href, icon: p.icon, label: p.label })),
-  },
-  {
-    title: 'Connect',
-    links: socialLinks.map((s) => ({ href: s.href, icon: s.icon, label: s.label })),
-  },
-  {
-    title: 'Links',
-    links: externalLinks.map((e) => ({ href: e.href, icon: e.icon, label: e.label })),
-  },
-] as const
+export const featuredProjects = [projects[0], projects[1], projects[2], projects[3]] as const
 
-// Footer links (2D array for column layout)
-export const footerLinks = [
-  projects.slice(0, 4).map((p) => ({ href: p.href, icon: p.icon, label: p.label })),
-  socialLinks.map((s) => ({ href: s.href, icon: s.icon, label: s.label })),
-  [
-    { href: 'https://journal.m1n.land/atom.xml', icon: Rss, label: 'rss' },
-    { href: 'https://links.m1n.land/nextjs-portfolio', icon: Code, label: 'source-code' },
-  ],
-  [{ href: 'http://start.m1n.land', icon: LayoutTemplate, label: 'startpage' }],
-] as const
+export const homeFeaturedProjects = [projects[0], projects[1]] as const
 
-// All links combined (for sitemap, etc.)
 export const allLinks = [
   ...navItems.map((n) => ({ href: n.path, label: n.name })),
   ...projects.map((p) => ({ href: p.href, label: p.label })),
@@ -148,10 +122,8 @@ export const allLinks = [
   ...externalLinks.map((e) => ({ href: e.href, label: e.label })),
 ] as const
 
-// Type exports
 export type NavItem = (typeof navItems)[number]
 export type Project = (typeof projects)[number]
 export type SocialLink = (typeof socialLinks)[number]
 export type ExternalLink = (typeof externalLinks)[number]
 export type LinkItem = { href: string; icon: React.ElementType; label: string }
-export type LinkGroup = { title: string; links: LinkItem[] }

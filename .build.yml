@@ -3,8 +3,8 @@ packages:
   - curl
   - rsync
 secrets:
-  - f9b0470f-3ea4-4b49-aeb9-99e9f48d75e5  # SSH key for GitHub mirror
-  - 2d681c1b-dc07-4222-9d9a-599ec1f3dadc  # Pico SSH key for PGS deploy
+  - f9b0470f-3ea4-4b49-aeb9-99e9f48d75e5 # SSH key for GitHub mirror
+  - 2d681c1b-dc07-4222-9d9a-599ec1f3dadc # Pico SSH key for PGS deploy
 environment:
   NODE_ENV: production
   NEXT_TELEMETRY_DISABLED: '1'
@@ -45,4 +45,4 @@ submitter:
     enabled: true
     allow-refs:
       - refs/heads/master
-      - "refs/tags/*"
+      - 'refs/tags/*'

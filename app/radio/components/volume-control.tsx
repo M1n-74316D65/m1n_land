@@ -1,7 +1,10 @@
 'use client'
 
 import { Volume1, Volume2, VolumeX } from 'lucide-react'
+
+import { Button } from 'app/components/ui/button'
 import { cn } from 'app/lib/utils'
+import { designSystem } from 'app/lib/design-system'
 
 interface VolumeControlProps {
   volume: number
@@ -20,24 +23,25 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
 }) => {
   const displayVolume = isMuted ? 0 : volume
   const volumePercent = Math.round(displayVolume * 100)
-
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2
 
   return (
     <div
       className={cn(
-        'flex items-center gap-3 bg-muted border-[3px] border-border shadow-brutal px-3 py-2',
+        'flex w-full max-w-sm items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2',
         className
       )}
     >
-      <button
+      <Button
         type="button"
+        variant="ghost"
+        size="icon"
         onClick={onToggleMute}
-        className="h-8 w-8 text-muted-foreground hover:text-accent transition-colors duration-100"
+        className="h-8 w-8 shrink-0"
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
-        <VolumeIcon className="h-4 w-4 mx-auto" />
-      </button>
+        <VolumeIcon className="h-4 w-4" />
+      </Button>
 
       <input
         type="range"
@@ -50,13 +54,15 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         aria-valuenow={displayVolume}
         aria-valuemin={0}
         aria-valuemax={1}
-        className="h-1.5 cursor-pointer appearance-none bg-muted focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-background [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-3.5 [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:border-2 [&::-moz-slider-thumb]:border-background [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
+        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-3.5 [&::-moz-slider-thumb]:rounded-full [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
         style={{
-          background: `linear-gradient(to right, var(--foreground) ${volumePercent}%, var(--muted) ${volumePercent}%)`,
+          background: `linear-gradient(to right, var(--foreground) ${volumePercent}%, var(--border) ${volumePercent}%)`,
         }}
       />
 
-      <span className="w-10 text-right text-xs font-mono font-medium text-muted-foreground tabular-nums">
+      <span
+        className={`w-10 shrink-0 text-right ${designSystem.typography.mono} text-xs tabular-nums`}
+      >
         {volumePercent}%
       </span>
     </div>

@@ -68,7 +68,7 @@ export default function RadioPlayerClient() {
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col items-center gap-8 sm:gap-10"
+      className="relative flex flex-col items-center gap-8 py-2 sm:gap-10"
       tabIndex={-1}
       role="application"
       aria-label="Radio player"

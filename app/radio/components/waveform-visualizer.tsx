@@ -1,7 +1,9 @@
 'use client'
 
-import { motion, AnimatePresence } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import React from 'react'
+
+import { motionEnter, motionTransition } from 'app/lib/motion'
 
 interface WaveformVisualizerProps {
   isPlaying: boolean
@@ -19,59 +21,54 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
   isLoading,
   className,
 }) => {
+  const reduceMotion = useReducedMotion()
   const state = isPlaying ? 'playing' : isLoading ? 'loading' : 'idle'
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={state}
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: 1,
-        }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-        className={`flex items-end justify-center gap-1.5 h-32 sm:h-40 ${className ?? ''}`}
+        {...motionEnter}
+        transition={reduceMotion ? { duration: 0 } : motionTransition.standard}
+        className={`flex h-32 items-end justify-center gap-1.5 sm:h-40 ${className ?? ''}`}
       >
         {Array.from({ length: BAR_COUNT }).map((_, index) => (
           <motion.div
             key={index}
-            className={`w-1.5 bg-foreground origin-bottom ${isPlaying ? 'bg-accent' : 'bg-foreground'}`}
+            className={`w-1.5 origin-bottom rounded-full ${isPlaying ? 'bg-accent' : 'bg-foreground/70'}`}
             style={{ height: '100%' }}
             animate={
-              state === 'playing'
-                ? {
-                    scaleY: playingKeyframes,
-                  }
-                : state === 'loading'
-                  ? {
-                      scaleY: loadingKeyframes,
-                    }
-                  : {
-                      scaleY: 0.15,
-                    }
+              reduceMotion
+                ? { scaleY: state === 'idle' ? 0.15 : 0.45 }
+                : state === 'playing'
+                  ? { scaleY: playingKeyframes }
+                  : state === 'loading'
+                    ? { scaleY: loadingKeyframes }
+                    : { scaleY: 0.15 }
             }
             transition={
-              state === 'playing'
-                ? {
-                    duration: 1.2,
-                    repeat: Infinity,
-                    repeatType: 'reverse',
-                    ease: 'easeInOut',
-                    delay: index * 0.08,
-                  }
-                : state === 'loading'
+              reduceMotion
+                ? { duration: 0 }
+                : state === 'playing'
                   ? {
-                      duration: 2,
+                      duration: 1.1,
                       repeat: Infinity,
                       repeatType: 'reverse',
                       ease: 'easeInOut',
-                      delay: index * 0.08,
+                      delay: index * 0.07,
                     }
-                  : {
-                      duration: 0.6,
-                      ease: 'easeOut',
-                    }
+                  : state === 'loading'
+                    ? {
+                        duration: 1.8,
+                        repeat: Infinity,
+                        repeatType: 'reverse',
+                        ease: 'easeInOut',
+                        delay: index * 0.07,
+                      }
+                    : {
+                        duration: 0.5,
+                        ease: [0.22, 1, 0.36, 1],
+                      }
             }
           />
         ))}

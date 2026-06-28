@@ -2,6 +2,9 @@
 
 import React from 'react'
 
+import { Button } from 'app/components/ui/button'
+import { designSystem } from 'app/lib/design-system'
+
 interface ErrorBoundaryState {
   hasError: boolean
   error?: Error
@@ -30,30 +33,24 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     if (this.state.hasError) {
       return (
         this.props.fallback || (
-          <div className="flex flex-col items-center justify-center p-8 text-center">
-            <div className="text-destructive mb-4">
-              <svg
-                className="w-12 h-12 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold mb-2">Radio Player Error</h3>
-            <p className="font-mono text-muted-foreground text-sm">
+          <div className="flex flex-col items-center justify-center py-8 text-center">
+            <h3 className={designSystem.typography.pageTitle}>Radio player error</h3>
+            <p className={`mt-2 ${designSystem.typography.subtitle}`}>
               Something went wrong with the radio player. Please try refreshing the page.
             </p>
+            <Button
+              className="mt-4"
+              variant="outline"
+              onClick={() => this.setState({ hasError: false, error: undefined })}
+            >
+              Try again
+            </Button>
             {this.state.error && (
-              <details className="mt-4 text-xs font-mono text-muted-foreground">
-                <summary>Error details</summary>
-                <pre className="mt-2 p-3 bg-muted border-[3px] border-border text-left overflow-auto">
+              <details className="mt-6 w-full max-w-md text-left">
+                <summary className={designSystem.typography.caption}>Error details</summary>
+                <pre
+                  className={`mt-2 overflow-auto rounded-lg border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
+                >
                   {this.state.error.message}
                 </pre>
               </details>

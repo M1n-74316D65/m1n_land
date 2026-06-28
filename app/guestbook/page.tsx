@@ -1,9 +1,14 @@
 import { Button } from 'app/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from 'app/components/ui/card'
 import { Input } from 'app/components/ui/input'
+import { Label } from 'app/components/ui/label'
 import { Textarea } from 'app/components/ui/textarea'
 import Script from 'next/script'
 import Link from 'next/link'
+import PageHeader from 'app/components/page-header'
+import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
+import { cn } from 'app/lib/utils'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -14,87 +19,73 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <section>
-      <h1
-        className={`${designSystem.spacing.component.md} ${designSystem.typography.pageTitle}`}
-      >
-        My Guestbook
-      </h1>
+    <section className={designSystem.spacing.page}>
+      <PageHeader title="My Guestbook" className={entranceClasses(0)} />
 
-      <div className="space-y-6">
-        <Script
-          src="https://guestbooks.meadow.cafe/resources/js/embed_script/590/script.js"
-          strategy="afterInteractive"
-        />
+      <Script
+        src="https://guestbooks.meadow.cafe/resources/js/embed_script/590/script.js"
+        strategy="afterInteractive"
+      />
 
-        <div
-          id="guestbooks___guestbook-form-container"
-          className="bg-card border-[3px] border-border p-6 shadow-brutal"
-        >
+      <Card id="guestbooks___guestbook-form-container" className={entranceClasses(1, 'reveal')}>
+        <CardHeader>
+          <CardTitle className="text-base">Leave a message</CardTitle>
+        </CardHeader>
+        <CardContent>
           <form
             id="guestbooks___guestbook-form"
             action="https://guestbooks.meadow.cafe/guestbook/590/submit"
             method="post"
             className="space-y-4"
           >
-            <div className="guestbooks___input-container">
-              <Input
-                placeholder="Name"
-                type="text"
-                id="name"
-                name="name"
-                required
-                className="w-full"
-              />
+            <div className="guestbooks___input-container space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input type="text" id="name" name="name" required className="w-full" />
             </div>
-            <div className="guestbooks___input-container">
-              <Input
-                placeholder="Website (optional)"
-                type="url"
-                id="website"
-                name="website"
-                className="w-full"
-              />
+            <div className="guestbooks___input-container space-y-2">
+              <Label htmlFor="website">Website (optional)</Label>
+              <Input type="url" id="website" name="website" className="w-full" />
             </div>
             <div id="guestbooks___challenge-answer-container"></div>
-            <div className="guestbooks___input-container">
+            <div className="guestbooks___input-container space-y-2">
+              <Label htmlFor="text">Message</Label>
               <Textarea
-                placeholder="Message (plain text only)..."
                 id="text"
                 name="text"
                 required
-                className="w-full min-h-[100px] resize-vertical"
+                placeholder="Plain text only..."
+                className="w-full min-h-[100px] resize-y"
               />
             </div>
-            <Button type="submit" variant="outline" className="w-full sm:w-auto">
+            <Button type="submit" className="w-full sm:w-auto">
               Submit
             </Button>
             <div id="guestbooks___error-message"></div>
           </form>
-        </div>
+        </CardContent>
+      </Card>
 
-        <div id="guestbooks___guestbook-made-with" className="text-right">
-          <small className={designSystem.typography.caption}>
-            Made with{' '}
-            <Link
-              target="_blank"
-              href="https://guestbooks.meadow.cafe"
-              className={designSystem.colors.text.link}
-            >
-              Guestbooks
-            </Link>
-          </small>
-        </div>
-
-        <div className="border-t-2 border-border pt-6">
-          <h3
-            id="guestbooks___guestbook-messages-header"
-            className={`${designSystem.spacing.component.md} ${designSystem.typography.sectionTitle}`}
+      <div id="guestbooks___guestbook-made-with" className="text-right">
+        <small className={designSystem.typography.caption}>
+          Made with{' '}
+          <Link
+            target="_blank"
+            href="https://guestbooks.meadow.cafe"
+            className={designSystem.colors.text.link}
           >
-            Messages
-          </h3>
-          <div id="guestbooks___guestbook-messages-container"></div>
-        </div>
+            Guestbooks
+          </Link>
+        </small>
+      </div>
+
+      <div className={cn('border-t border-border pt-6', entranceClasses(2, 'reveal'))}>
+        <h2
+          id="guestbooks___guestbook-messages-header"
+          className={`${designSystem.spacing.component.sm} ${designSystem.typography.sectionTitle}`}
+        >
+          Messages
+        </h2>
+        <div id="guestbooks___guestbook-messages-container" className="mt-4" />
       </div>
     </section>
   )

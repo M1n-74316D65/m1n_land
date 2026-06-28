@@ -1,38 +1,10 @@
 import type { Metadata } from 'next'
-import { BentoCard, BentoGrid } from 'app/components/ui/bento-grid'
+import PageHeader from 'app/components/page-header'
+import ProjectRow from 'app/components/project-row'
+import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
-import { LayoutDashboard, Terminal, FolderCog, Lock } from 'lucide-react'
-
-const features = [
-  {
-    name: 'Miraviewer',
-    description: 'All-in-one dashboard for managing sales, invoices, and reports.',
-    href: 'https://links.m1n.land/miraviewer',
-    icon: LayoutDashboard,
-    className: 'lg:col-span-2 lg:row-span-1',
-  },
-  {
-    name: 'Pastol',
-    description: 'Command-line interface for paste.lol.',
-    href: 'https://links.m1n.land/pastol-repo',
-    icon: Terminal,
-    className: 'lg:col-span-1 lg:row-span-1',
-  },
-  {
-    name: 'rusted-yadm',
-    description: 'A command-line dotfile manager written in Rust.',
-    href: 'https://links.m1n.land/rusted-yadm',
-    icon: FolderCog,
-    className: 'lg:col-span-1 lg:row-span-1',
-  },
-  {
-    name: 'RustedLessPass',
-    description: 'Stateless password manager - one master password, no sync needed.',
-    href: 'https://links.m1n.land/rustlesspass',
-    icon: Lock,
-    className: 'lg:col-span-2 lg:row-span-1',
-  },
-]
+import { cn } from 'app/lib/utils'
+import { featuredProjects } from 'app/constants/links'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -41,20 +13,45 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+  const [featured, ...rest] = featuredProjects
+
   return (
-    <section>
-      <div className="mb-8 animate-fade-in-up">
-        <h1 className={`${designSystem.typography.pageTitle} accent-underline`}>Projects</h1>
-        <p className="mt-1 font-mono text-sm text-foreground/70">
-          Selected work and experiments.
-        </p>
-      </div>
-      <div className="animate-fade-in-up delay-1">
-        <BentoGrid className="lg:grid-rows-2 lg:grid-cols-3 gap-4">
-          {features.map((feature) => (
-            <BentoCard key={feature.name} {...feature} />
+    <section className={designSystem.spacing.page}>
+      <PageHeader
+        title="Projects"
+        subtitle="Selected work and experiments."
+        className={entranceClasses(0)}
+      />
+      <div className="space-y-4">
+        <div className={entranceClasses(1, 'reveal')}>
+          <ProjectRow
+            href={featured.href}
+            label={featured.label}
+            description={featured.description}
+            icon={featured.icon}
+            tags={featured.tags}
+            featured
+          />
+        </div>
+        <ul className="border-t border-border">
+          {rest.map((project, index) => (
+            <li
+              key={project.label}
+              className={cn(
+                index > 0 && 'border-t border-border',
+                entranceClasses(index + 2, 'reveal')
+              )}
+            >
+              <ProjectRow
+                href={project.href}
+                label={project.label}
+                description={project.description}
+                icon={project.icon}
+                tags={project.tags}
+              />
+            </li>
           ))}
-        </BentoGrid>
+        </ul>
       </div>
     </section>
   )

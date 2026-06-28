@@ -6,10 +6,8 @@ import { GeistMono } from 'geist/font/mono'
 import Navbar from 'app/components/nav'
 import DarkModeDetector from 'app/components/ui/dark-mode-detector'
 import { baseUrl } from 'app/constants/baseUrl'
-import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
 
-// Metadata configuration
 const siteMetadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
@@ -62,7 +60,6 @@ export const viewport: Viewport = {
   ],
 }
 
-// RootLayout component
 interface RootLayoutProps {
   children: ReactNode
 }
@@ -101,21 +98,20 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           }}
         />
       </head>
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
+      <body className="font-sans antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:border-[3px] focus:border-border focus:shadow-brutal focus:font-mono focus:text-sm focus:font-bold"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-md focus:text-sm focus:font-medium"
         >
           Skip to main content
         </a>
-        <main
-          id="main-content"
-          className={`flex-auto min-w-0 ${designSystem.spacing.component.lg} flex flex-col px-2 md:px-0`}
-        >
-          <DarkModeDetector />
-          <Navbar />
-          {children}
-        </main>
+        <div className="mx-auto min-h-screen w-full max-w-2xl px-6 py-10 sm:px-8 sm:py-14 lg:py-16">
+          <main id="main-content" className="flex flex-col">
+            <DarkModeDetector />
+            <Navbar />
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   )

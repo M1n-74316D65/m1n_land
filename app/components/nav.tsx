@@ -1,78 +1,58 @@
 'use client'
 
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 import { usePathname } from 'next/navigation'
 import { navItems } from 'app/constants/links'
+import { entranceClasses } from 'app/lib/animation'
+import { designSystem } from 'app/lib/design-system'
+import { cn } from 'app/lib/utils'
 
 const Navbar = React.memo(() => {
   const pathname = usePathname()
 
   return (
-    <aside className="mb-16 tracking-tight">
-      <div className="lg:sticky lg:top-20">
+    <header className={cn(designSystem.spacing.component.nav, entranceClasses(0, 'fade'))}>
+      <div className="flex items-center justify-between gap-6">
+        <Link
+          href="/"
+          className={`text-sm font-semibold tracking-tight ${designSystem.colors.text.linkEmphasis}`}
+        >
+          M1n
+        </Link>
         <nav
-          className="flex flex-row items-start relative px-0 pb-0 scroll-pr-6 md:relative"
+          className="flex items-center gap-1 overflow-x-auto scrollbar-none sm:gap-2"
           id="nav"
           role="navigation"
           aria-label="Main navigation"
         >
-          <div className="flex flex-row items-center w-full">
-            <div className="flex flex-row items-center border-[3px] border-border bg-card shadow-brutal animate-fade-in">
-              {navItems.map(({ path, name }, index) => {
-                const isExternal = path.startsWith('http')
-                const isActive = !isExternal && pathname !== null && pathname === path
+          {navItems.map(({ path, name }) => {
+            const isExternal = path.startsWith('http')
+            const isActive = !isExternal && pathname !== null && pathname === path
 
-                return (
-                  <Link
-                    key={path}
-                    href={path}
-                    className={`relative flex items-center px-4 py-2 text-sm font-mono uppercase tracking-wider font-bold transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
-                      isActive
-                        ? 'bg-accent text-accent-foreground font-black shadow-brutal-accent'
-                        : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                    } ${index > 0 ? 'border-l-[3px] border-border' : ''} ${
-                      isActive && index > 0 ? 'border-l-accent' : ''
-                    }`}
-                    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    aria-label={isExternal ? `${name} (opens in new tab)` : name}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
-                    <span className="inline-flex items-center">
-                      {name}
-                      {isExternal && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className="ml-1 h-3 w-3 opacity-60"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M7 17L17 7"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M7 7h10v10"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </span>
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
+            return (
+              <Link
+                key={path}
+                href={path}
+                className={cn(
+                  'inline-flex shrink-0 items-center gap-1 rounded-md px-2.5 py-1.5 text-sm transition-[color,background-color] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                  isActive
+                    ? 'bg-muted font-medium text-foreground'
+                    : cn('text-muted-foreground', designSystem.interactions.navItem)
+                )}
+                {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                aria-label={isExternal ? `${name} (opens in new tab)` : name}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {name}
+                {isExternal && <ArrowUpRight className="h-3 w-3 opacity-50" aria-hidden="true" />}
+              </Link>
+            )
+          })}
         </nav>
       </div>
-    </aside>
+    </header>
   )
 })
 
