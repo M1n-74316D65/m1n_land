@@ -37,7 +37,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       >
         {title}
       </h1>
-      {subtitle && <p className={cn('mt-1.5', designSystem.typography.subtitle)}>{subtitle}</p>}
+      {subtitle && (
+        <p className={cn('mt-2 max-w-prose', designSystem.typography.subtitle)}>{subtitle}</p>
+      )}
     </header>
   )
 }

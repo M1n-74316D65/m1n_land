@@ -30,13 +30,13 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'group -mx-2 flex items-start gap-3 px-2 py-3',
+        'group flex items-start gap-3 px-3 py-3 sm:px-4',
         !featured && designSystem.interactions.row,
         featured && 'py-1',
         className
       )}
     >
-      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-muted/60 transition-colors duration-200 ease-out group-hover:border-accent/30">
+      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border/80 bg-muted/50 transition-[border-color,background-color] duration-200 ease-out group-hover:border-accent/30 group-hover:bg-accent/5">
         <Icon className={cn('h-4 w-4 text-muted-foreground', designSystem.interactions.icon)} />
       </div>
       <div className="min-w-0 flex-1">
@@ -63,7 +63,9 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
 
   if (featured) {
     return (
-      <Card className={cn('gap-0 py-4 shadow-sm', designSystem.interactions.card)}>
+      <Card
+        className={cn('gap-0 border-border/80 py-4 shadow-card', designSystem.interactions.card)}
+      >
         <CardContent className="px-4 pt-0 pb-0">{content}</CardContent>
       </Card>
     )

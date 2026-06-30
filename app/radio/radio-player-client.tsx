@@ -76,7 +76,7 @@ export default function RadioPlayerClient() {
       {/* Station identity */}
       <StationInfo isPlaying={isPlaying} />
 
-      {/* Waveform visualizer — the hero element */}
+      {/* Waveform visualizer: the hero element */}
       <WaveformVisualizer isPlaying={isPlaying} isLoading={isLoading} />
 
       {/* Play button or connection status */}
@@ -86,7 +86,7 @@ export default function RadioPlayerClient() {
         <PlayButton isPlaying={isPlaying} isLoading={false} onToggle={togglePlay} />
       )}
 
-      {/* Volume control — integrated, always visible */}
+      {/* Volume control: integrated, always visible */}
       <VolumeControl
         volume={volume}
         isMuted={isMuted}

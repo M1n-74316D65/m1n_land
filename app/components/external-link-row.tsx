@@ -25,7 +25,7 @@ const ExternalLinkRow: React.FC<ExternalLinkRowProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'group -mx-2 flex items-center gap-3 px-2 py-2.5',
+        'group flex items-center gap-3 px-3 py-3 sm:px-4',
         designSystem.interactions.row,
         className
       )}

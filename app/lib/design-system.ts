@@ -20,14 +20,14 @@ export const designSystem = {
     },
   },
   spacing: {
-    page: 'space-y-12',
+    page: 'space-y-14',
     component: {
       xs: 'mb-2',
       sm: 'mb-4',
       md: 'mb-8',
       lg: 'mb-10',
       section: 'mb-12',
-      nav: 'mb-12',
+      nav: 'mb-14',
     },
     padding: {
       card: 'p-4',
@@ -41,16 +41,20 @@ export const designSystem = {
   },
   interactions: {
     link: 'transition-colors duration-200 ease-out hover:text-accent',
-    row: 'rounded-md transition-[color,background-color,transform] duration-200 ease-out hover:bg-muted/60',
+    row: 'transition-[color,background-color,box-shadow] duration-200 ease-out hover:bg-muted/50',
     navItem: 'transition-colors duration-200 ease-out hover:text-foreground',
-    card: 'transition-[border-color,box-shadow] duration-200 ease-out hover:border-accent/30',
+    card: 'transition-[border-color,box-shadow] duration-200 ease-out hover:border-accent/25 hover:shadow-card',
     icon: 'transition-[color,opacity,transform] duration-200 ease-out group-hover:text-accent group-hover:translate-x-px group-hover:-translate-y-px',
     press: 'active:scale-[0.98] transition-transform duration-100 ease-out',
   },
+  surfaces: {
+    list: 'surface-list',
+    tag: 'inline-flex items-center rounded-md border border-border/70 bg-muted/35 px-2 py-0.5 font-mono text-xs text-muted-foreground',
+  },
   typography: {
-    display: 'text-3xl font-semibold tracking-tight text-balance',
-    pageTitle: 'text-2xl font-semibold tracking-tight',
-    sectionTitle: 'text-sm font-medium text-muted-foreground',
+    display: 'text-3xl sm:text-4xl font-semibold tracking-tight text-balance leading-[1.1]',
+    pageTitle: 'text-2xl sm:text-[1.75rem] font-semibold tracking-tight',
+    sectionTitle: 'text-sm font-medium text-foreground/65',
     subtitle: 'text-sm leading-relaxed text-muted-foreground',
     secondaryText: 'text-muted-foreground',
     body: 'text-sm leading-relaxed',

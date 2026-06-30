@@ -27,7 +27,10 @@ export default function Page() {
         strategy="afterInteractive"
       />
 
-      <Card id="guestbooks___guestbook-form-container" className={entranceClasses(1, 'reveal')}>
+      <Card
+        id="guestbooks___guestbook-form-container"
+        className={cn('border-border/80 shadow-card', entranceClasses(1, 'reveal'))}
+      >
         <CardHeader>
           <CardTitle className="text-base">Leave a message</CardTitle>
         </CardHeader>

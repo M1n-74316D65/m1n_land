@@ -22,7 +22,13 @@ export default function RadioPage() {
         subtitle="Deep Space One by SomaFM"
         className={entranceClasses(0)}
       />
-      <Card className={cn(designSystem.interactions.card, entranceClasses(1, 'reveal'))}>
+      <Card
+        className={cn(
+          'border-border/80 shadow-card',
+          designSystem.interactions.card,
+          entranceClasses(1, 'reveal')
+        )}
+      >
         <CardContent className="pt-6">
           <ErrorBoundary>
             <RadioPlayerClient />

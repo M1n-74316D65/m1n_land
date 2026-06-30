@@ -33,12 +33,12 @@ export default function Page() {
             featured
           />
         </div>
-        <ul className="border-t border-border">
+        <ul className={cn(designSystem.surfaces.list, 'border-t-0')}>
           {rest.map((project, index) => (
             <li
               key={project.label}
               className={cn(
-                index > 0 && 'border-t border-border',
+                index > 0 && 'border-t border-border/70',
                 entranceClasses(index + 2, 'reveal')
               )}
             >

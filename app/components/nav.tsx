@@ -13,11 +13,21 @@ const Navbar = React.memo(() => {
   const pathname = usePathname()
 
   return (
-    <header className={cn(designSystem.spacing.component.nav, entranceClasses(0, 'fade'))}>
+    <header
+      className={cn(
+        designSystem.spacing.component.nav,
+        'border-b border-border/60 pb-5',
+        entranceClasses(0, 'fade')
+      )}
+    >
       <div className="flex items-center justify-between gap-6">
         <Link
           href="/"
-          className={`text-sm font-semibold tracking-tight ${designSystem.colors.text.linkEmphasis}`}
+          className={cn(
+            'text-sm font-semibold tracking-tight',
+            designSystem.colors.text.linkEmphasis,
+            'transition-colors duration-200 ease-out hover:text-accent'
+          )}
         >
           M1n
         </Link>
@@ -38,7 +48,7 @@ const Navbar = React.memo(() => {
                 className={cn(
                   'inline-flex shrink-0 items-center gap-1 rounded-md px-2.5 py-1.5 text-sm transition-[color,background-color] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                   isActive
-                    ? 'bg-muted font-medium text-foreground'
+                    ? 'bg-accent/10 font-medium text-foreground ring-1 ring-accent/15'
                     : cn('text-muted-foreground', designSystem.interactions.navItem)
                 )}
                 {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

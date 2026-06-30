@@ -13,13 +13,19 @@ const Page: React.FC = () => {
           Hi, I&apos;m <span className="text-accent">M1n</span>.
         </h1>
         <p
-          className={`mt-3 max-w-lg ${designSystem.typography.body} ${designSystem.typography.secondaryText}`}
+          className={`mt-4 max-w-lg text-base leading-relaxed ${designSystem.typography.secondaryText}`}
         >
           I love coding, thinking about philosophy, and playing games.
           <br />
           Linux user. Rust as the most entertaining language.
         </p>
-        <p className={`mt-4 ${designSystem.typography.meta}`}>{techStack.join(' · ')}</p>
+        <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Tech stack">
+          {techStack.map((tech) => (
+            <li key={tech}>
+              <span className={designSystem.surfaces.tag}>{tech}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <LinkSection
