@@ -9,7 +9,7 @@ import { featuredProjects } from 'app/constants/links'
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'Explore my open source projects including Miraviewer, Pastol, rusted-yadm, and RustedLessPass - built with Rust, Go, and modern web technologies.',
+    'Explore my open source projects including Pastol, rusted-yadm, and RustedLessPass - built with Rust, Go, and modern web technologies.',
 }
 
 export default function Page() {

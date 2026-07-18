@@ -10,7 +10,6 @@ import {
   LayoutTemplate,
   Code,
   FolderCog,
-  LayoutDashboard,
 } from 'lucide-react'
 
 export const navItems = [
@@ -23,14 +22,6 @@ export const navItems = [
 export const techStack = ['Rust', 'Go', 'TypeScript', 'Linux', 'Neovim'] as const
 
 export const projects = [
-  {
-    href: 'https://links.m1n.land/miraviewer',
-    icon: LayoutDashboard,
-    label: 'Miraviewer',
-    description: 'All-in-one dashboard for managing sales, invoices, and reports.',
-    category: 'Projects',
-    tags: ['Go', 'Web'],
-  },
   {
     href: 'https://links.m1n.land/pastol',
     icon: Terminal,
@@ -111,7 +102,7 @@ export const externalLinks = [
   },
 ] as const
 
-export const featuredProjects = [projects[0], projects[1], projects[2], projects[3]] as const
+export const featuredProjects = [projects[0], projects[1], projects[2]] as const
 
 export const homeFeaturedProjects = [projects[0], projects[1]] as const
 
