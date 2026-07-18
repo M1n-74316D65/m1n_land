@@ -36,7 +36,7 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
         className
       )}
     >
-      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border/80 bg-muted/50 transition-[border-color,background-color] duration-200 ease-out group-hover:border-accent/30 group-hover:bg-accent/5">
+      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center border border-border bg-card transition-[border-color,background-color] duration-[var(--duration-normal)] ease-out group-hover:border-accent/40 group-hover:bg-focus">
         <Icon className={cn('h-4 w-4 text-muted-foreground', designSystem.interactions.icon)} />
       </div>
       <div className="min-w-0 flex-1">

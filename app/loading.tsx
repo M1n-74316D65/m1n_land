@@ -10,7 +10,7 @@ export default function Loading() {
         <Skeleton className={cn('h-4 w-full', entranceClasses(1, 'reveal'))} />
         <Skeleton className={cn('h-4 w-4/5', entranceClasses(2, 'reveal'))} />
       </div>
-      <Skeleton className={cn('h-24 w-full rounded-lg', entranceClasses(3, 'reveal'))} />
+      <Skeleton className={cn('h-24 w-full', entranceClasses(3, 'reveal'))} />
     </section>
   )
 }

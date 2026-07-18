@@ -49,7 +49,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               <details className="mt-6 w-full max-w-md text-left">
                 <summary className={designSystem.typography.caption}>Error details</summary>
                 <pre
-                  className={`mt-2 overflow-auto rounded-lg border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
+                  className={`mt-2 overflow-auto border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
                 >
                   {this.state.error.message}
                 </pre>

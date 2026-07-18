@@ -1,8 +1,9 @@
 import { FC, ReactNode } from 'react'
 import './global.css'
+import '@fontsource/ibm-plex-mono/400.css'
+import '@fontsource/ibm-plex-mono/500.css'
+import '@fontsource/outfit/500.css'
 import type { Metadata, Viewport } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
 import Navbar from 'app/components/nav'
 import DarkModeDetector from 'app/components/ui/dark-mode-detector'
 import { baseUrl } from 'app/constants/baseUrl'
@@ -55,8 +56,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#1a1a1a' },
+    { media: '(prefers-color-scheme: light)', color: '#f5f3ee' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f0f0f' },
   ],
 }
 
@@ -76,7 +77,7 @@ const themeScript = `
 `
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
-  const htmlClassName = cn('bg-background text-foreground', GeistSans.variable, GeistMono.variable)
+  const htmlClassName = cn('bg-background text-foreground')
 
   return (
     <html lang="en" className={htmlClassName}>
@@ -98,10 +99,10 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-mono antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-md focus:text-sm focus:font-medium"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:text-sm focus:font-medium"
         >
           Skip to main content
         </a>

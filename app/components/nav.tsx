@@ -16,7 +16,7 @@ const Navbar = React.memo(() => {
     <header
       className={cn(
         designSystem.spacing.component.nav,
-        'border-b border-border/60 pb-5',
+        'border-b border-border-subtle pb-5',
         entranceClasses(0, 'fade')
       )}
     >
@@ -24,9 +24,8 @@ const Navbar = React.memo(() => {
         <Link
           href="/"
           className={cn(
-            'text-sm font-semibold tracking-tight',
-            designSystem.colors.text.linkEmphasis,
-            'transition-colors duration-200 ease-out hover:text-accent'
+            'font-sans text-sm font-medium tracking-tight',
+            designSystem.colors.text.linkEmphasis
           )}
         >
           M1n
@@ -46,9 +45,9 @@ const Navbar = React.memo(() => {
                 key={path}
                 href={path}
                 className={cn(
-                  'inline-flex shrink-0 items-center gap-1 rounded-md px-2.5 py-1.5 text-sm transition-[color,background-color] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                  'inline-flex shrink-0 items-center gap-1 px-2.5 py-1.5 text-sm transition-[color,background-color] duration-[var(--duration-normal)] ease-out focus-visible:outline-none',
                   isActive
-                    ? 'bg-accent/10 font-medium text-foreground ring-1 ring-accent/15'
+                    ? 'bg-focus font-medium text-foreground shadow-[inset_0_-1px_0_0_var(--accent)]'
                     : cn('text-muted-foreground', designSystem.interactions.navItem)
                 )}
                 {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

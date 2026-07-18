@@ -44,7 +44,7 @@ const LinkSection: React.FC<LinkSectionProps> = ({
             )}
           >
             {viewAllLabel}
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover/view:translate-x-0.5" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-[var(--duration-normal)] ease-out group-hover/view:translate-x-0.5" />
           </Link>
         )}
       </div>
@@ -53,7 +53,7 @@ const LinkSection: React.FC<LinkSectionProps> = ({
           <li
             key={link.href}
             className={cn(
-              index > 0 && 'border-t border-border/70',
+              index > 0 && 'border-t border-border-subtle',
               entranceClasses(staggerOffset + index + 1, 'reveal')
             )}
           >

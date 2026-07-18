@@ -35,7 +35,7 @@ export default function Error({ error, reset }: ErrorProps) {
             Error details
           </summary>
           <pre
-            className={`mt-2 overflow-auto rounded-lg border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
+            className={`mt-2 overflow-auto border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
           >
             {error.message}
           </pre>

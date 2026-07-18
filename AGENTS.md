@@ -19,11 +19,10 @@ Personal portfolio website built with Next.js 16, React 19, Tailwind CSS v4, and
 
 ## Critical Architecture Notes
 
-- **Two CSS files with different purposes**:
-  - `app/global.css` - imported by layout, contains prose styles and syntax highlighting
-  - `app/globals.css` - theme tokens, semantic utilities, shadcn/ui variables (OKLCH color space)
-  - Don't confuse them!
-- **Dark mode**: Uses `media` query strategy (system preference), NOT class-based - configured in `tailwind.config.js`
+- **Single CSS entry**: `app/global.css` - imported by layout; holds theme tokens (start.m1n.land palette, hex values), Tailwind v4 `@theme inline` mapping, prose styles, and syntax highlighting. There is no `globals.css`.
+- **Theme**: Mirrors `start.m1n.land` - dark `#0f0f0f` / light `#f5f3ee`, burnt-orange accent (`#c24a2e` dark, `#a83c24` light), zero border radius, hairline borders, motion 80/140/220ms on `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Fonts**: IBM Plex Mono (UI body, 13px base) and Outfit (display headings) via `@fontsource` imports in `app/layout.tsx`. No Geist.
+- **Dark mode**: `.dark` class toggled from `prefers-color-scheme` by the inline script in `app/layout.tsx` (custom variant in `app/global.css`).
 - **Analytics**: Custom Umami integration at `analytics.m1n.land`
 - **Path alias**: Use `app/` prefix for imports (e.g., `import { cn } from 'app/lib/utils'`)
 
@@ -124,8 +123,7 @@ app/
 │   └── *.tsx         # Shared components
 ├── constants/        # Static data (navItems, socials, footerLinks)
 ├── lib/              # Utilities (utils.ts, design-system.ts)
-├── globals.css       # Theme tokens (OKLCH)
-├── global.css        # Prose styles, syntax highlighting
+├── global.css        # Theme tokens, Tailwind theme mapping, prose styles, syntax highlighting
 └── */                # Route segments
 ```
 

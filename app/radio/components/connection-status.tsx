@@ -32,7 +32,7 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
           {...motionEnter}
           transition={transition}
           className={cn(
-            'flex items-center justify-center gap-2 rounded-lg border border-border bg-muted/40 px-4 py-3',
+            'flex items-center justify-center gap-2 border border-border bg-muted/40 px-4 py-3',
             className
           )}
         >
@@ -46,7 +46,7 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
           {...motionEnter}
           transition={transition}
           className={cn(
-            'flex flex-col items-center justify-center gap-3 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3',
+            'flex flex-col items-center justify-center gap-3 border border-destructive/30 bg-destructive/5 px-4 py-3',
             className
           )}
           role="alert"

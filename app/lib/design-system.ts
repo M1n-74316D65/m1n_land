@@ -1,10 +1,13 @@
+const durationNormal = 'duration-[var(--duration-normal)]'
+const durationFast = 'duration-[var(--duration-fast)]'
+
 export const designSystem = {
   colors: {
     text: {
       primary: 'text-foreground',
       secondary: 'text-muted-foreground',
-      link: 'text-muted-foreground hover:text-accent transition-colors duration-200 ease-out',
-      linkEmphasis: 'text-foreground hover:text-accent transition-colors duration-200 ease-out',
+      link: `text-muted-foreground hover:text-accent transition-colors ${durationNormal} ease-out`,
+      linkEmphasis: `text-foreground hover:text-accent transition-colors ${durationNormal} ease-out`,
       accent: 'text-accent',
       mono: 'font-mono text-muted-foreground',
     },
@@ -16,7 +19,7 @@ export const designSystem = {
     },
     border: {
       default: 'border border-border',
-      subtle: 'border border-border/60',
+      subtle: 'border border-border-subtle',
     },
   },
   spacing: {
@@ -35,26 +38,26 @@ export const designSystem = {
     },
   },
   radius: {
-    default: 'rounded-md',
-    card: 'rounded-lg',
-    button: 'rounded-md',
+    default: 'rounded-none',
+    card: 'rounded-none',
+    button: 'rounded-none',
   },
   interactions: {
-    link: 'transition-colors duration-200 ease-out hover:text-accent',
-    row: 'transition-[color,background-color,box-shadow] duration-200 ease-out hover:bg-muted/50',
-    navItem: 'transition-colors duration-200 ease-out hover:text-foreground',
-    card: 'transition-[border-color,box-shadow] duration-200 ease-out hover:border-accent/25 hover:shadow-card',
-    icon: 'transition-[color,opacity,transform] duration-200 ease-out group-hover:text-accent group-hover:translate-x-px group-hover:-translate-y-px',
-    press: 'active:scale-[0.98] transition-transform duration-100 ease-out',
+    link: `transition-colors ${durationNormal} ease-out hover:text-accent`,
+    row: `transition-[color,background-color,box-shadow] ${durationNormal} ease-out hover:bg-focus`,
+    navItem: `transition-colors ${durationNormal} ease-out hover:text-foreground`,
+    card: `transition-[border-color,background-color] ${durationNormal} ease-out hover:border-accent/40`,
+    icon: `transition-[color,opacity,transform] ${durationNormal} ease-out group-hover:text-accent group-hover:translate-x-px group-hover:-translate-y-px`,
+    press: `active:scale-[0.98] transition-transform ${durationFast} ease-out`,
   },
   surfaces: {
     list: 'surface-list',
-    tag: 'inline-flex items-center rounded-md border border-border/70 bg-muted/35 px-2 py-0.5 font-mono text-xs text-muted-foreground',
+    tag: 'inline-flex items-center border border-border bg-transparent px-2 py-0.5 font-mono text-xs text-muted-foreground',
   },
   typography: {
-    display: 'text-3xl sm:text-4xl font-semibold tracking-tight text-balance leading-[1.1]',
-    pageTitle: 'text-2xl sm:text-[1.75rem] font-semibold tracking-tight',
-    sectionTitle: 'text-sm font-medium text-foreground/65',
+    display: 'font-sans text-3xl sm:text-4xl font-medium tracking-tight text-balance leading-[1.1]',
+    pageTitle: 'font-sans text-2xl sm:text-[1.75rem] font-medium tracking-tight',
+    sectionTitle: 'text-xs font-medium uppercase tracking-[0.06em] text-muted-foreground',
     subtitle: 'text-sm leading-relaxed text-muted-foreground',
     secondaryText: 'text-muted-foreground',
     body: 'text-sm leading-relaxed',

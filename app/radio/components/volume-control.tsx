@@ -28,7 +28,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
   return (
     <div
       className={cn(
-        'flex w-full max-w-sm items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2',
+        'flex w-full max-w-sm items-center gap-3 border border-border bg-muted/40 px-3 py-2',
         className
       )}
     >
@@ -54,7 +54,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         aria-valuenow={displayVolume}
         aria-valuemin={0}
         aria-valuemax={1}
-        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-3.5 [&::-moz-slider-thumb]:rounded-full [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
+        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-border focus-visible:outline-none [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-3.5 [&::-moz-slider-thumb]:rounded-full [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
         style={{
           background: `linear-gradient(to right, var(--foreground) ${volumePercent}%, var(--border) ${volumePercent}%)`,
         }}
