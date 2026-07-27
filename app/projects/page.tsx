@@ -8,8 +8,7 @@ import { featuredProjects } from 'app/constants/links'
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description:
-    'Explore my open source projects including Pastol, rusted-yadm, and RustedLessPass - built with Rust, Go, and modern web technologies.',
+  description: 'Open-source projects by M1n. They use Rust, Go, and web technologies.',
 }
 
 export default function Page() {

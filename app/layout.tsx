@@ -15,7 +15,7 @@ const siteMetadata: Metadata = {
     default: 'M1n',
     template: '%s | M1n',
   },
-  description: 'M1n portfolio - Developer, Linux enthusiast, and creator of open source projects.',
+  description: 'Personal site of M1n, a developer who uses Linux and makes open-source projects.',
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -24,8 +24,7 @@ const siteMetadata: Metadata = {
   manifest: '/manifest.json',
   openGraph: {
     title: 'M1n',
-    description:
-      'M1n portfolio - Developer, Linux enthusiast, and creator of open source projects.',
+    description: 'Personal site of M1n, a developer who uses Linux and makes open-source projects.',
     url: baseUrl,
     siteName: 'M1n',
     locale: 'en_US',
@@ -45,8 +44,7 @@ const siteMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'M1n',
-    description:
-      'M1n portfolio - Developer, Linux enthusiast, and creator of open source projects.',
+    description: 'Personal site of M1n, a developer who uses Linux and makes open-source projects.',
   },
 }
 
@@ -92,7 +90,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
               name: 'M1n',
               url: baseUrl,
               sameAs: ['https://m1n.omg.lol'],
-              description: 'Developer, Linux enthusiast, and creator of open source projects',
+              description: 'Developer who uses Linux and makes open-source projects',
               knowsAbout: ['Rust', 'Go', 'Next.js', 'Linux', 'Neovim', 'Zed'],
               jobTitle: 'Developer',
             }),

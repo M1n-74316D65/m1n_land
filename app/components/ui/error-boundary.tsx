@@ -36,7 +36,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <h3 className={designSystem.typography.pageTitle}>Radio player error</h3>
             <p className={`mt-2 ${designSystem.typography.subtitle}`}>
-              Something went wrong with the radio player. Please try refreshing the page.
+              The radio player cannot start. Reload the page, then try again.
             </p>
             <Button
               className="mt-4"

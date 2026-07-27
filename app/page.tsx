@@ -34,9 +34,8 @@ const Page: React.FC = () => {
           </span>
         </div>
         <p className="profile-bio mx-auto mt-6 max-w-md text-lg leading-relaxed">
-          Hi, I&apos;m <strong>David</strong>, also known as M1n.
-          <br />
-          I&apos;m passionate about <strong>coding</strong>, <strong>games</strong>, and{' '}
+          I am <strong>David</strong>, also known as M1n.
+          <br />I write <strong>code</strong> and enjoy <strong>games</strong> and{' '}
           <strong>philosophy</strong>.
         </p>
       </header>

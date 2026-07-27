@@ -13,8 +13,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Guestbook',
-  description:
-    'Leave a message in my guestbook - share your thoughts, feedback, or just say hello!',
+  description: "Leave a message in M1n's guestbook.",
 }
 
 export default function Page() {
@@ -56,7 +55,7 @@ export default function Page() {
                 id="text"
                 name="text"
                 required
-                placeholder="Plain text only..."
+                placeholder="Plain text only."
                 className="w-full min-h-[100px] resize-y"
               />
             </div>
