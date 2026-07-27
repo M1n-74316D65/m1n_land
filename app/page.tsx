@@ -1,32 +1,45 @@
+import Image from 'next/image'
+import { BadgeCheck, BriefcaseBusiness, MapPin } from 'lucide-react'
 import React from 'react'
 
 import LinkSection from 'app/components/link-section'
 import { entranceClasses } from 'app/lib/animation'
-import { designSystem } from 'app/lib/design-system'
-import { techStack, homeFeaturedProjects, socialLinks, externalLinks } from 'app/constants/links'
+import { homeFeaturedProjects, socialLinks, externalLinks } from 'app/constants/links'
 
 const Page: React.FC = () => {
   return (
-    <section className={designSystem.spacing.page}>
-      <div className={entranceClasses(0)}>
-        <h1 className={designSystem.typography.display}>
-          Hi, I&apos;m <span className="text-accent">M1n</span>.
+    <section className="space-y-9">
+      <header className={`text-center ${entranceClasses(0)}`}>
+        <Image
+          src="https://profiles.cache.lol/m1n/picture?v=1767470215"
+          alt="M1n"
+          width={167}
+          height={167}
+          priority
+          className="mx-auto aspect-square rounded-xl object-cover"
+        />
+        <h1 className="mt-4 flex items-center justify-center gap-1.5 font-mono text-2xl font-semibold tracking-tight">
+          M1n
+          <BadgeCheck className="h-5 w-5 text-accent" aria-label="Verified profile" />
         </h1>
-        <p
-          className={`mt-4 max-w-lg text-base leading-relaxed ${designSystem.typography.secondaryText}`}
-        >
-          I love coding, thinking about philosophy, and playing games.
+        <p className="mt-1 text-sm text-muted-foreground">he/him</p>
+        <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
+          <span className="inline-flex items-center gap-1.5">
+            <BriefcaseBusiness className="h-4 w-4" aria-hidden="true" />
+            Developer
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin className="h-4 w-4" aria-hidden="true" />
+            Galicia, Spain
+          </span>
+        </div>
+        <p className="profile-bio mx-auto mt-6 max-w-md text-lg leading-relaxed">
+          Hi, I&apos;m <strong>David</strong>, also known as M1n.
           <br />
-          Linux user. Rust as the most entertaining language.
+          I&apos;m passionate about <strong>coding</strong>, <strong>games</strong>, and{' '}
+          <strong>philosophy</strong>.
         </p>
-        <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Tech stack">
-          {techStack.map((tech) => (
-            <li key={tech}>
-              <span className={designSystem.surfaces.tag}>{tech}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      </header>
 
       <LinkSection
         className={entranceClasses(1)}

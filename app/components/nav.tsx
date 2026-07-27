@@ -13,25 +13,19 @@ const Navbar = React.memo(() => {
   const pathname = usePathname()
 
   return (
-    <header
-      className={cn(
-        designSystem.spacing.component.nav,
-        'border-b border-border-subtle pb-5',
-        entranceClasses(0, 'fade')
-      )}
-    >
+    <header className={cn(designSystem.spacing.component.nav, 'pb-6', entranceClasses(0, 'fade'))}>
       <div className="flex items-center justify-between gap-6">
         <Link
           href="/"
           className={cn(
-            'font-sans text-sm font-medium tracking-tight',
+            'font-mono text-sm font-semibold tracking-tight',
             designSystem.colors.text.linkEmphasis
           )}
         >
           M1n
         </Link>
         <nav
-          className="flex items-center gap-1 overflow-x-auto scrollbar-none sm:gap-2"
+          className="flex items-center gap-3 overflow-x-auto scrollbar-none sm:gap-4"
           id="nav"
           role="navigation"
           aria-label="Main navigation"
@@ -45,10 +39,13 @@ const Navbar = React.memo(() => {
                 key={path}
                 href={path}
                 className={cn(
-                  'inline-flex shrink-0 items-center gap-1 px-2.5 py-1.5 text-sm transition-[color,background-color] duration-[var(--duration-normal)] ease-out focus-visible:outline-none',
+                  'inline-flex shrink-0 items-center gap-1 border-b text-sm transition-[color,border-color] duration-[var(--duration-normal)] ease-out focus-visible:outline-none',
                   isActive
-                    ? 'bg-focus font-medium text-foreground shadow-[inset_0_-1px_0_0_var(--accent)]'
-                    : cn('text-muted-foreground', designSystem.interactions.navItem)
+                    ? 'border-foreground font-medium text-foreground'
+                    : cn(
+                        'border-transparent text-muted-foreground hover:border-foreground',
+                        designSystem.interactions.navItem
+                      )
                 )}
                 {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 aria-label={isExternal ? `${name} (opens in new tab)` : name}

@@ -26,12 +26,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2
 
   return (
-    <div
-      className={cn(
-        'flex w-full max-w-sm items-center gap-3 border border-border bg-muted/40 px-3 py-2',
-        className
-      )}
-    >
+    <div className={cn('flex w-full max-w-sm items-center gap-3', className)}>
       <Button
         type="button"
         variant="ghost"

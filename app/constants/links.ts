@@ -2,13 +2,11 @@ import {
   Github,
   AtSign,
   Rss,
-  CircleUserRound,
   BookOpenText,
   LockKeyhole,
   Terminal,
   Circle,
   LayoutTemplate,
-  Code,
   FolderCog,
 } from 'lucide-react'
 
@@ -47,13 +45,13 @@ export const projects = [
     tags: ['Rust', 'Security'],
   },
   {
-    href: 'https://links.m1n.land/sourcehut-profile',
+    href: 'https://sr.ht/~m1n/',
     icon: Circle,
     label: 'SourceHut',
     category: 'Projects',
   },
   {
-    href: 'https://links.m1n.land/github-profile',
+    href: 'https://github.com/M1n-74316D65',
     icon: Github,
     label: 'GitHub',
     category: 'Projects',
@@ -62,9 +60,15 @@ export const projects = [
 
 export const socialLinks = [
   {
-    href: 'https://m1n.omg.lol',
-    icon: CircleUserRound,
-    label: 'Profile',
+    href: 'https://sr.ht/~m1n/',
+    icon: Circle,
+    label: 'SourceHut',
+    category: 'Connect',
+  },
+  {
+    href: 'https://github.com/M1n-74316D65',
+    icon: Github,
+    label: 'GitHub',
     category: 'Connect',
   },
   {
@@ -86,12 +90,6 @@ export const externalLinks = [
     href: 'https://journal.m1n.land/atom.xml',
     icon: Rss,
     label: 'RSS',
-    category: 'Links',
-  },
-  {
-    href: 'https://links.m1n.land/nextjs-portfolio',
-    icon: Code,
-    label: 'Source',
     category: 'Links',
   },
   {

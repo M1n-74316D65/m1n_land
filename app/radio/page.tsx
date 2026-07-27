@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'app/components/ui/error-boundary'
 import PageHeader from 'app/components/page-header'
-import { Card, CardContent } from 'app/components/ui/card'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
@@ -22,19 +21,11 @@ export default function RadioPage() {
         subtitle="Deep Space One by SomaFM"
         className={entranceClasses(0)}
       />
-      <Card
-        className={cn(
-          'border-border/80 shadow-card',
-          designSystem.interactions.card,
-          entranceClasses(1, 'reveal')
-        )}
-      >
-        <CardContent className="pt-6">
-          <ErrorBoundary>
-            <RadioPlayerClient />
-          </ErrorBoundary>
-        </CardContent>
-      </Card>
+      <div className={cn('border-y border-border py-6', entranceClasses(1, 'reveal'))}>
+        <ErrorBoundary>
+          <RadioPlayerClient />
+        </ErrorBoundary>
+      </div>
       <p
         className={cn(
           `text-center ${designSystem.typography.caption}`,
@@ -50,7 +41,7 @@ export default function RadioPage() {
         >
           SomaFM
         </a>
-        {' · '}
+        {' / '}
         <a
           href="https://somafm.com/support/"
           target="_blank"

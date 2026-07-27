@@ -9,44 +9,44 @@
 }
 
 :root {
-  /* start.m1n.land theme: light variant */
-  --background: #f5f3ee;
-  --foreground: #191919;
-  --card: #faf8f4;
-  --card-foreground: #191919;
-  --popover: #ffffff;
-  --popover-foreground: #191919;
-  --primary: #191919;
-  --primary-foreground: #f5f3ee;
-  --secondary: #eceae4;
-  --secondary-foreground: #191919;
-  --muted: #eceae4;
-  --muted-foreground: #6b6b6b;
-  --accent: #a83c24;
-  --accent-foreground: #f5f3ee;
-  --accent-hover: #8a2f1b;
-  --accent-dim: #bf4e33;
+  /* Gruvbox palette from the original m1n.omg.lol profile */
+  --background: #fbf1c7;
+  --foreground: #3c3836;
+  --card: #f5e9b9;
+  --card-foreground: #3c3836;
+  --popover: #fbf1c7;
+  --popover-foreground: #3c3836;
+  --primary: #3c3836;
+  --primary-foreground: #fbf1c7;
+  --secondary: #ebdbb2;
+  --secondary-foreground: #3c3836;
+  --muted: #ebdbb2;
+  --muted-foreground: #665c54;
+  --accent: #79740e;
+  --accent-foreground: #fbf1c7;
+  --accent-hover: #5f5b0b;
+  --accent-dim: #98971a;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: #ddd9d2;
-  --border-subtle: #e7e4de;
-  --input: #ddd9d2;
-  --ring: #a83c24;
-  --focus: #eceae4;
+  --border: #bdae93;
+  --border-subtle: #d5c4a1;
+  --input: #bdae93;
+  --ring: #79740e;
+  --focus: #ebdbb2;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0;
-  --sidebar: #faf8f4;
-  --sidebar-foreground: #191919;
-  --sidebar-primary: #a83c24;
-  --sidebar-primary-foreground: #f5f3ee;
-  --sidebar-accent: #eceae4;
-  --sidebar-accent-foreground: #191919;
-  --sidebar-border: #ddd9d2;
-  --sidebar-ring: #a83c24;
+  --radius: 0.75rem;
+  --sidebar: #f5e9b9;
+  --sidebar-foreground: #3c3836;
+  --sidebar-primary: #79740e;
+  --sidebar-primary-foreground: #fbf1c7;
+  --sidebar-accent: #ebdbb2;
+  --sidebar-accent-foreground: #3c3836;
+  --sidebar-border: #bdae93;
+  --sidebar-ring: #79740e;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
@@ -69,43 +69,42 @@
 }
 
 .dark {
-  /* start.m1n.land theme: dark variant (primary identity) */
-  --background: #0f0f0f;
-  --foreground: #d6d6d6;
-  --card: #161616;
-  --card-foreground: #d6d6d6;
-  --popover: #1c1c1c;
-  --popover-foreground: #d6d6d6;
-  --primary: #d6d6d6;
-  --primary-foreground: #0f0f0f;
-  --secondary: #1c1c1c;
-  --secondary-foreground: #d6d6d6;
-  --muted: #161616;
-  --muted-foreground: #8a8a8a;
-  --accent: #c24a2e;
-  --accent-foreground: #0f0f0f;
-  --accent-hover: #d95f40;
-  --accent-dim: #96402a;
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --card: #32302f;
+  --card-foreground: #ebdbb2;
+  --popover: #32302f;
+  --popover-foreground: #ebdbb2;
+  --primary: #ebdbb2;
+  --primary-foreground: #282828;
+  --secondary: #3c3836;
+  --secondary-foreground: #ebdbb2;
+  --muted: #3c3836;
+  --muted-foreground: #bdae93;
+  --accent: #b8bb26;
+  --accent-foreground: #282828;
+  --accent-hover: #d3d74a;
+  --accent-dim: #98971a;
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: #262626;
-  --border-subtle: #1e1e1e;
-  --input: #262626;
-  --ring: #c24a2e;
-  --focus: #1a1a1a;
+  --border: #665c54;
+  --border-subtle: #504945;
+  --input: #665c54;
+  --ring: #b8bb26;
+  --focus: #3c3836;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: #161616;
-  --sidebar-foreground: #d6d6d6;
-  --sidebar-primary: #c24a2e;
-  --sidebar-primary-foreground: #0f0f0f;
-  --sidebar-accent: #1c1c1c;
-  --sidebar-accent-foreground: #d6d6d6;
-  --sidebar-border: #262626;
-  --sidebar-ring: #c24a2e;
+  --sidebar: #32302f;
+  --sidebar-foreground: #ebdbb2;
+  --sidebar-primary: #b8bb26;
+  --sidebar-primary-foreground: #282828;
+  --sidebar-accent: #3c3836;
+  --sidebar-accent-foreground: #ebdbb2;
+  --sidebar-border: #665c54;
+  --sidebar-ring: #b8bb26;
   --shadow-card: none;
   --shadow-card-hover: none;
 
@@ -179,8 +178,8 @@
     @apply border-border outline-ring/50;
   }
   html {
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.5;
   }
   body {
     @apply bg-background text-foreground;
@@ -188,7 +187,16 @@
 }
 
 html {
-  min-width: 360px;
+  min-width: 320px;
+}
+
+.profile-bio {
+  font-family: Georgia, 'Times New Roman', serif;
+  text-wrap: balance;
+}
+
+svg.lucide {
+  stroke-width: 1.5;
 }
 
 /* Base styles */
@@ -424,9 +432,9 @@ html {
 }
 
 .surface-list {
-  overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  background: var(--card);
+  overflow: visible;
+  border: 0;
+  background: transparent;
 }
 
 #guestbooks___guestbook-messages-container [class*='guestbooks___message'] {

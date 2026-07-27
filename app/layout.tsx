@@ -56,8 +56,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f5f3ee' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f0f0f' },
+    { media: '(prefers-color-scheme: light)', color: '#fbf1c7' },
+    { media: '(prefers-color-scheme: dark)', color: '#282828' },
   ],
 }
 
@@ -106,7 +106,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
         >
           Skip to main content
         </a>
-        <div className="mx-auto min-h-screen w-full max-w-2xl px-6 py-8 sm:px-8 sm:py-12 lg:py-14">
+        <div className="mx-auto min-h-[100dvh] w-full max-w-[34rem] px-4 py-6 sm:px-6 sm:py-10">
           <main id="main-content" className="flex flex-col">
             <DarkModeDetector />
             <Navbar />

@@ -32,7 +32,7 @@ const LinkSection: React.FC<LinkSectionProps> = ({
 }) => {
   return (
     <section className={className}>
-      <div className="mb-3.5 flex items-center justify-between gap-4">
+      <div className="mb-2 flex items-center justify-between gap-4">
         <h2 className={designSystem.typography.sectionTitle}>{title}</h2>
         {viewAllHref && (
           <Link
@@ -50,13 +50,7 @@ const LinkSection: React.FC<LinkSectionProps> = ({
       </div>
       <ul className={designSystem.surfaces.list}>
         {links.map((link, index) => (
-          <li
-            key={link.href}
-            className={cn(
-              index > 0 && 'border-t border-border-subtle',
-              entranceClasses(staggerOffset + index + 1, 'reveal')
-            )}
-          >
+          <li key={link.href} className={entranceClasses(staggerOffset + index + 1, 'reveal')}>
             <ExternalLinkRow
               href={link.href}
               label={link.label}

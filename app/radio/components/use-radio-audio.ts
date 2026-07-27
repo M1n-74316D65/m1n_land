@@ -33,7 +33,7 @@ export function useRadioAudio() {
   // Keep the ref in sync with state
   isPlayingRef.current = isPlaying
 
-  // Attach event listeners — no dependency on isPlaying to avoid re-attaching
+  // Attach event listeners without depending on isPlaying to avoid re-attaching.
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return

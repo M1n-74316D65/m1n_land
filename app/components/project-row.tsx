@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { ArrowUpRight, LucideIcon } from 'lucide-react'
 
-import { Card, CardContent } from 'app/components/ui/card'
 import { cn } from 'app/lib/utils'
 import { designSystem } from 'app/lib/design-system'
 
@@ -30,13 +29,13 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'group flex items-start gap-3 px-3 py-3 sm:px-4',
+        'group flex items-start gap-3 py-2',
         !featured && designSystem.interactions.row,
-        featured && 'py-1',
+        featured && 'border-y border-border py-4',
         className
       )}
     >
-      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center border border-border bg-card transition-[border-color,background-color] duration-[var(--duration-normal)] ease-out group-hover:border-accent/40 group-hover:bg-focus">
+      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center">
         <Icon className={cn('h-4 w-4 text-muted-foreground', designSystem.interactions.icon)} />
       </div>
       <div className="min-w-0 flex-1">
@@ -62,13 +61,7 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
   )
 
   if (featured) {
-    return (
-      <Card
-        className={cn('gap-0 border-border/80 py-4 shadow-card', designSystem.interactions.card)}
-      >
-        <CardContent className="px-4 pt-0 pb-0">{content}</CardContent>
-      </Card>
-    )
+    return content
   }
 
   return content
