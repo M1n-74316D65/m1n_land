@@ -25,43 +25,45 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
   const transition = reduceMotion ? { duration: 0 } : motionTransition.standard
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading && (
-        <motion.div
-          key="loading"
-          {...motionEnter}
-          transition={transition}
-          className={cn(
-            'flex items-center justify-center gap-2 border border-border bg-muted/40 px-4 py-3',
-            className
-          )}
-        >
-          <LoaderCircle className="h-4 w-4 animate-spin text-muted-foreground" />
-          <span className={designSystem.typography.subtitle}>Connecting to stream...</span>
-        </motion.div>
-      )}
-      {error && (
-        <motion.div
-          key="error"
-          {...motionEnter}
-          transition={transition}
-          className={cn(
-            'flex flex-col items-center justify-center gap-3 border border-destructive/30 bg-destructive/5 px-4 py-3',
-            className
-          )}
-          role="alert"
-          aria-live="assertive"
-        >
-          <WifiOff className="h-5 w-5 text-destructive" aria-hidden="true" />
-          <span className="text-sm text-destructive" id="error-message">
-            Unable to connect
-          </span>
-          <Button variant="outline" size="sm" onClick={onRetry} aria-describedby="error-message">
-            Retry
-          </Button>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className={cn('flex min-h-8 items-center', className)}>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <motion.div
+            key="loading"
+            {...motionEnter}
+            transition={transition}
+            className="flex items-center gap-2 text-muted-foreground"
+            role="status"
+            aria-live="polite"
+          >
+            <LoaderCircle
+              className={cn('h-4 w-4 text-muted-foreground', !reduceMotion && 'animate-spin')}
+            />
+            <span className={designSystem.typography.subtitle}>Connecting to stream...</span>
+          </motion.div>
+        )}
+        {error && (
+          <motion.div
+            key="error"
+            {...motionEnter}
+            transition={transition}
+            className="flex w-full items-center justify-between gap-4"
+            role="alert"
+            aria-live="assertive"
+          >
+            <div className="flex items-center gap-2">
+              <WifiOff className="h-4 w-4 text-destructive" aria-hidden="true" />
+              <span className="text-sm text-destructive" id="error-message">
+                Unable to connect
+              </span>
+            </div>
+            <Button variant="outline" size="sm" onClick={onRetry} aria-describedby="error-message">
+              Retry
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 

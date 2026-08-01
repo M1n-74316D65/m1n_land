@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
 import { useRadioAudio } from './components/use-radio-audio'
 import WaveformVisualizer from './components/waveform-visualizer'
@@ -24,77 +24,80 @@ export default function RadioPlayerClient() {
     retry,
   } = useRadioAudio()
 
-  const showConnectionStatus = isLoading || error
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Keyboard controls
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      // Only handle keyboard events when the container is focused
-      if (e.target !== containerRef.current) return
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.target !== event.currentTarget) return
 
-      switch (e.key) {
+      switch (event.key) {
         case ' ':
         case 'Spacebar':
-          e.preventDefault()
+          event.preventDefault()
+          if (isLoading || error) return
           togglePlay()
           break
         case 'm':
         case 'M':
-          e.preventDefault()
+          event.preventDefault()
           toggleMute()
           break
         case 'ArrowUp':
-          e.preventDefault()
+          event.preventDefault()
           setVolume(Math.min(volume + 0.05, 1))
           break
         case 'ArrowDown':
-          e.preventDefault()
+          event.preventDefault()
           setVolume(Math.max(volume - 0.05, 0))
           break
       }
     },
-    [togglePlay, toggleMute, setVolume, volume]
+    [togglePlay, toggleMute, setVolume, volume, isLoading, error]
   )
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    container.addEventListener('keydown', handleKeyDown)
-    return () => container.removeEventListener('keydown', handleKeyDown)
-  }, [handleKeyDown])
 
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col items-center gap-8 py-2 sm:gap-10"
-      tabIndex={-1}
-      role="application"
+      className="group/player relative border border-border bg-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
       aria-label="Radio player"
+      aria-describedby="radio-keyboard-help"
     >
-      {/* Station identity */}
-      <StationInfo isPlaying={isPlaying} />
+      <div className="flex min-h-72 flex-col p-4 sm:min-h-80 sm:p-5">
+        <StationInfo isPlaying={isPlaying} isLoading={isLoading} hasError={Boolean(error)} />
 
-      {/* Waveform visualizer: the hero element */}
-      <WaveformVisualizer isPlaying={isPlaying} isLoading={isLoading} />
+        <WaveformVisualizer
+          isPlaying={isPlaying}
+          isLoading={isLoading}
+          className="my-8 flex-1 sm:my-10"
+        />
 
-      {/* Play button or connection status */}
-      {showConnectionStatus ? (
         <ConnectionStatus isLoading={isLoading} error={error} onRetry={retry} />
-      ) : (
-        <PlayButton isPlaying={isPlaying} isLoading={false} onToggle={togglePlay} />
-      )}
+      </div>
 
-      {/* Volume control: integrated, always visible */}
-      <VolumeControl
-        volume={volume}
-        isMuted={isMuted}
-        onVolumeChange={setVolume}
-        onToggleMute={toggleMute}
-      />
+      <div className="grid grid-cols-[auto_1fr] border-t border-border">
+        <PlayButton
+          isPlaying={isPlaying}
+          isLoading={isLoading}
+          disabled={isLoading || Boolean(error)}
+          onToggle={togglePlay}
+        />
+        <VolumeControl
+          volume={volume}
+          isMuted={isMuted}
+          onVolumeChange={setVolume}
+          onToggleMute={toggleMute}
+        />
+      </div>
 
-      {/* Audio element */}
+      <p
+        id="radio-keyboard-help"
+        className="border-t border-border px-4 py-2.5 font-mono text-[10px] leading-none text-muted-foreground sm:px-5"
+      >
+        Space: play/pause&nbsp;&nbsp; M: mute&nbsp;&nbsp; Up/Down: volume
+      </p>
+
       <audio ref={audioRef} src={streamUrl} preload="none" />
     </div>
   )

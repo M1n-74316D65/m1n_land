@@ -26,7 +26,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2
 
   return (
-    <div className={cn('flex w-full max-w-sm items-center gap-3', className)}>
+    <div className={cn('flex min-w-0 items-center gap-3 px-3 sm:px-4', className)}>
       <Button
         type="button"
         variant="ghost"
@@ -49,14 +49,14 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         aria-valuenow={displayVolume}
         aria-valuemin={0}
         aria-valuemax={1}
-        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-border focus-visible:outline-none [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-3.5 [&::-moz-slider-thumb]:rounded-full [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
+        className="h-px min-w-0 flex-1 cursor-pointer appearance-none bg-border focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-2 [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
         style={{
           background: `linear-gradient(to right, var(--foreground) ${volumePercent}%, var(--border) ${volumePercent}%)`,
         }}
       />
 
       <span
-        className={`w-10 shrink-0 text-right ${designSystem.typography.mono} text-xs tabular-nums`}
+        className={`hidden w-10 shrink-0 text-right sm:block ${designSystem.typography.mono} text-xs tabular-nums`}
       >
         {volumePercent}%
       </span>

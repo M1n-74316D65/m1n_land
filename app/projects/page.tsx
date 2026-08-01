@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
-import PageHeader from 'app/components/page-header'
 import ProjectRow from 'app/components/project-row'
 import { entranceClasses } from 'app/lib/animation'
-import { designSystem } from 'app/lib/design-system'
-import { cn } from 'app/lib/utils'
 import { featuredProjects } from 'app/constants/links'
 
 export const metadata: Metadata = {
@@ -12,46 +9,28 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  const [featured, ...rest] = featuredProjects
-
   return (
-    <section className={designSystem.spacing.page}>
-      <PageHeader
-        title="Projects"
-        subtitle="Selected work and experiments."
-        className={entranceClasses(0)}
-      />
-      <div className="space-y-4">
-        <div className={entranceClasses(1, 'reveal')}>
-          <ProjectRow
-            href={featured.href}
-            label={featured.label}
-            description={featured.description}
-            icon={featured.icon}
-            tags={featured.tags}
-            featured
-          />
-        </div>
-        <ul className={cn(designSystem.surfaces.list, 'border-t-0')}>
-          {rest.map((project, index) => (
-            <li
-              key={project.label}
-              className={cn(
-                index > 0 && 'border-t border-border/70',
-                entranceClasses(index + 2, 'reveal')
-              )}
-            >
-              <ProjectRow
-                href={project.href}
-                label={project.label}
-                description={project.description}
-                icon={project.icon}
-                tags={project.tags}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+    <section className="flex flex-1 flex-col">
+      <header className={`border-y border-border py-4 ${entranceClasses(0)}`}>
+        <h1 className="font-mono text-2xl font-semibold tracking-tight text-balance">Projects</h1>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+          Selected work and experiments.
+        </p>
+      </header>
+
+      <ul className="divide-y divide-border/70 border-b border-border">
+        {featuredProjects.map((project, index) => (
+          <li key={project.label} className={entranceClasses(index + 1, 'reveal')}>
+            <ProjectRow
+              href={project.href}
+              label={project.label}
+              description={project.description}
+              icon={project.icon}
+              tags={project.tags}
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

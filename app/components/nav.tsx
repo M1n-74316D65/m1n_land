@@ -11,14 +11,20 @@ import { cn } from 'app/lib/utils'
 
 const Navbar = React.memo(() => {
   const pathname = usePathname()
+  const hasCompactSpacing = pathname === '/' || pathname === '/projects'
 
   return (
-    <header className={cn(designSystem.spacing.component.nav, 'pb-6', entranceClasses(0, 'fade'))}>
+    <header
+      className={cn(
+        hasCompactSpacing ? 'mb-0 pb-5' : cn(designSystem.spacing.component.nav, 'pb-6'),
+        entranceClasses(0, 'fade')
+      )}
+    >
       <div className="flex items-center justify-between gap-6">
         <Link
           href="/"
           className={cn(
-            'font-mono text-sm font-semibold tracking-tight',
+            'font-mono text-sm font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
             designSystem.colors.text.linkEmphasis
           )}
         >
@@ -39,7 +45,7 @@ const Navbar = React.memo(() => {
                 key={path}
                 href={path}
                 className={cn(
-                  'inline-flex shrink-0 items-center gap-1 border-b text-sm transition-[color,border-color] duration-[var(--duration-normal)] ease-out focus-visible:outline-none',
+                  'inline-flex shrink-0 items-center gap-1 border-b text-sm transition-[color,border-color] duration-[var(--duration-normal)] ease-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
                   isActive
                     ? 'border-foreground font-medium text-foreground'
                     : cn(

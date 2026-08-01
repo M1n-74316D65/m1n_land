@@ -31,18 +31,22 @@ const PlayButton: React.FC<PlayButtonProps> = ({
     <motion.div whileTap={reduceMotion || disabled ? undefined : { scale: 0.96 }}>
       <Button
         type="button"
-        variant={isPlaying ? 'secondary' : 'default'}
+        variant="default"
         size="icon"
         onClick={onToggle}
         disabled={disabled}
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
-        className={cn('h-16 w-16 rounded-full', designSystem.interactions.press, className)}
+        className={cn(
+          'h-16 w-16 border-r border-border sm:h-20 sm:w-20',
+          designSystem.interactions.press,
+          className
+        )}
       >
         <AnimatePresence mode="wait" initial={false}>
           {isLoading ? (
             <motion.span key="loading" {...motionFade} transition={iconTransition}>
-              <LoaderCircle className="h-6 w-6 animate-spin" />
+              <LoaderCircle className={cn('h-6 w-6', !reduceMotion && 'animate-spin')} />
             </motion.span>
           ) : isPlaying ? (
             <motion.span key="pause" {...motionFade} transition={iconTransition}>

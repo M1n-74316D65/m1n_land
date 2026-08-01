@@ -104,8 +104,8 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
         >
           Skip to main content
         </a>
-        <div className="mx-auto min-h-[100dvh] w-full max-w-[34rem] px-4 py-6 sm:px-6 sm:py-10">
-          <main id="main-content" className="flex flex-col">
+        <div className="mx-auto flex min-h-[100dvh] w-full max-w-[34rem] flex-col px-4 py-6 sm:px-6 sm:py-10">
+          <main id="main-content" className="flex flex-1 flex-col">
             <DarkModeDetector />
             <Navbar />
             {children}

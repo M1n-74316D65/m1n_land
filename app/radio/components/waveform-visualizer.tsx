@@ -11,9 +11,11 @@ interface WaveformVisualizerProps {
   className?: string
 }
 
-const BAR_COUNT = 7
-
-const playingKeyframes = [0.3, 1, 0.5, 0.9, 0.4, 0.8, 0.3]
+const BAR_COUNT = 31
+const barProfile = [
+  0.16, 0.22, 0.18, 0.34, 0.28, 0.48, 0.38, 0.64, 0.46, 0.72, 0.56, 0.84, 0.68, 0.92, 0.76, 1, 0.72,
+  0.9, 0.64, 0.82, 0.54, 0.7, 0.42, 0.6, 0.32, 0.48, 0.24, 0.36, 0.18, 0.28, 0.14,
+]
 const loadingKeyframes = [0.2, 0.5, 0.2]
 
 const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
@@ -30,32 +32,42 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
         key={state}
         {...motionEnter}
         transition={reduceMotion ? { duration: 0 } : motionTransition.standard}
-        className={`flex h-32 items-end justify-center gap-1.5 sm:h-40 ${className ?? ''}`}
+        className={`flex min-h-24 items-center justify-center gap-1 sm:min-h-28 sm:gap-1.5 ${className ?? ''}`}
+        role="img"
+        aria-label={
+          isPlaying ? 'Live audio signal' : isLoading ? 'Tuning signal' : 'Audio signal idle'
+        }
       >
         {Array.from({ length: BAR_COUNT }).map((_, index) => (
           <motion.div
             key={index}
-            className={`w-1.5 origin-bottom rounded-full ${isPlaying ? 'bg-accent' : 'bg-foreground/70'}`}
-            style={{ height: '100%' }}
+            className={`h-full min-w-px flex-1 origin-center ${isPlaying ? 'bg-accent' : 'bg-foreground/55'}`}
+            style={{ maxWidth: '3px' }}
             animate={
               reduceMotion
-                ? { scaleY: state === 'idle' ? 0.15 : 0.45 }
+                ? { scaleY: state === 'idle' ? barProfile[index] * 0.35 : barProfile[index] }
                 : state === 'playing'
-                  ? { scaleY: playingKeyframes }
+                  ? {
+                      scaleY: [
+                        Math.max(0.12, barProfile[index] * 0.35),
+                        barProfile[index],
+                        Math.max(0.18, barProfile[(index + 7) % BAR_COUNT] * 0.7),
+                      ],
+                    }
                   : state === 'loading'
                     ? { scaleY: loadingKeyframes }
-                    : { scaleY: 0.15 }
+                    : { scaleY: barProfile[index] * 0.35 }
             }
             transition={
               reduceMotion
                 ? { duration: 0 }
                 : state === 'playing'
                   ? {
-                      duration: 1.1,
+                      duration: 0.9 + (index % 5) * 0.12,
                       repeat: Infinity,
                       repeatType: 'reverse',
                       ease: 'easeInOut',
-                      delay: index * 0.07,
+                      delay: (index % 7) * 0.04,
                     }
                   : state === 'loading'
                     ? {

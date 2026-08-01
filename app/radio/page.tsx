@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'app/components/ui/error-boundary'
-import PageHeader from 'app/components/page-header'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
@@ -16,12 +15,7 @@ export const metadata: Metadata = {
 export default function RadioPage() {
   return (
     <section className={designSystem.spacing.page}>
-      <PageHeader
-        title="Radio"
-        subtitle="Deep Space One by SomaFM"
-        className={entranceClasses(0)}
-      />
-      <div className={cn('border-y border-border py-6', entranceClasses(1, 'reveal'))}>
+      <div className={cn(entranceClasses(0, 'reveal'))}>
         <ErrorBoundary>
           <RadioPlayerClient />
         </ErrorBoundary>
@@ -29,10 +23,10 @@ export default function RadioPage() {
       <p
         className={cn(
           `text-center ${designSystem.typography.caption}`,
-          entranceClasses(2, 'reveal')
+          entranceClasses(1, 'reveal')
         )}
       >
-        Powered by{' '}
+        Streamed by{' '}
         <a
           href="https://somafm.com"
           target="_blank"
