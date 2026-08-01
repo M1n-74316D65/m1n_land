@@ -55,7 +55,7 @@ const ProjectRow: React.FC<ProjectRowProps> = ({
           </span>
         </div>
         {description && (
-          <p className="mt-1.5 font-mono text-[0.8rem] leading-relaxed normal-case tracking-[0.02em] text-muted-foreground">
+          <p className="prose-desc mt-1.5 text-[0.9rem] leading-relaxed text-muted-foreground">
             {description}
           </p>
         )}

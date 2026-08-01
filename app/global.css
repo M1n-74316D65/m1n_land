@@ -329,18 +329,27 @@ html {
   text-wrap: balance;
 }
 
+/* Human-readable prose — serif contrast against mono telemetry chrome */
+.prose-desc,
 .profile-bio {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-transform: none;
   text-wrap: balance;
   color: var(--muted-foreground);
 }
 
-.profile-bio strong {
+.profile-bio {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.profile-bio strong,
+.prose-desc strong {
   color: var(--foreground);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 svg.lucide {

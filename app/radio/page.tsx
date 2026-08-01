@@ -20,7 +20,7 @@ export default function RadioPage() {
         <ZoneLabel label="RADIO / RX" unitId="STREAM" />
         <div className="zone-body pb-0">
           <h1 className="display-type !text-[clamp(2.25rem,9vw,3.75rem)]">RX</h1>
-          <p className="mt-3 font-mono text-[0.8rem] leading-relaxed text-muted-foreground">
+          <p className="prose-desc mt-3 text-muted-foreground">
             Deep Space One — ambient / experimental.
           </p>
         </div>

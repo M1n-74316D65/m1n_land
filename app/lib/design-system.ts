@@ -63,9 +63,9 @@ export const designSystem = {
       'font-sans text-2xl font-extrabold uppercase tracking-[-0.04em] leading-none text-foreground sm:text-3xl',
     sectionTitle:
       'font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground',
-    subtitle: 'font-mono text-[0.8rem] leading-relaxed text-muted-foreground',
+    subtitle: 'prose-desc text-[0.95rem] leading-relaxed text-muted-foreground',
     secondaryText: 'text-muted-foreground',
-    body: 'font-mono text-[0.9rem] leading-relaxed',
+    body: 'prose-desc text-[0.95rem] leading-relaxed',
     caption: 'font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground',
     mono: 'font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground',
     label: 'font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground',

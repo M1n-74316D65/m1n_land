@@ -87,7 +87,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
               url: baseUrl,
               sameAs: ['https://m1n.omg.lol'],
               description: 'Developer who uses Linux and makes open-source projects',
-              knowsAbout: ['Rust', 'Go', 'Next.js', 'Linux', 'Neovim', 'Zed'],
+              knowsAbout: ['Go', 'TypeScript', 'Neovim', 'MacOS', 'Next.js'],
               jobTitle: 'Developer',
             }),
           }}

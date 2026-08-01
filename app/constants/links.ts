@@ -16,7 +16,7 @@ export const navItems = [
   { path: '/radio', name: 'radio' },
 ] as const
 
-export const techStack = ['Rust', 'Go', 'TypeScript', 'Linux', 'Neovim'] as const
+export const techStack = ['Go', 'TypeScript', 'Neovim', 'MacOS'] as const
 
 export const projects = [
   {

@@ -17,7 +17,7 @@ export default function Page() {
         <ZoneLabel label="PROJECTS" unitId="OPS / SEL" />
         <div className="zone-body">
           <h1 className="display-type !text-[clamp(2.25rem,9vw,3.75rem)]">Work</h1>
-          <p className="mt-3 font-mono text-[0.8rem] leading-relaxed text-muted-foreground">
+          <p className="prose-desc mt-3 text-muted-foreground">
             Selected open-source tools and experiments.
           </p>
         </div>
