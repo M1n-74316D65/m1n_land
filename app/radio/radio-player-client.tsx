@@ -17,6 +17,8 @@ export default function RadioPlayerClient() {
     volume,
     isMuted,
     audioRef,
+    analyserRef,
+    analyserReady,
     streamUrl,
     togglePlay,
     toggleMute,
@@ -68,9 +70,11 @@ export default function RadioPlayerClient() {
         <StationInfo isPlaying={isPlaying} isLoading={isLoading} hasError={Boolean(error)} />
 
         <WaveformVisualizer
+          analyserRef={analyserRef}
+          analyserReady={analyserReady}
           isPlaying={isPlaying}
           isLoading={isLoading}
-          className="my-8 flex-1 sm:my-10"
+          className="my-6 flex-1 sm:my-8"
         />
 
         <ConnectionStatus isLoading={isLoading} error={error} onRetry={retry} />
@@ -98,7 +102,7 @@ export default function RadioPlayerClient() {
         Space: play/pause&nbsp;&nbsp; M: mute&nbsp;&nbsp; Up/Down: volume
       </p>
 
-      <audio ref={audioRef} src={streamUrl} preload="none" />
+      <audio ref={audioRef} src={streamUrl} preload="none" crossOrigin="anonymous" />
     </div>
   )
 }
