@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import ErrorBoundary from 'app/components/ui/error-boundary'
+import ZoneLabel from 'app/components/zone-label'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
@@ -14,16 +15,29 @@ export const metadata: Metadata = {
 
 export default function RadioPage() {
   return (
-    <section className={designSystem.spacing.page}>
-      <div className={cn(entranceClasses(0, 'reveal'))}>
+    <section className="flex flex-1 flex-col">
+      <div className={cn('zone', entranceClasses(0))}>
+        <ZoneLabel label="RADIO / RX" unitId="STREAM" />
+        <div className="zone-body pb-0">
+          <h1 className="display-type !text-[clamp(2.25rem,9vw,3.75rem)]">RX</h1>
+          <p className="mt-3 font-mono text-[0.8rem] leading-relaxed text-muted-foreground">
+            Deep Space One — ambient / experimental.
+          </p>
+        </div>
+      </div>
+
+      <div className={cn('zone flex-1', entranceClasses(1, 'reveal'))}>
+        <ZoneLabel label="PLAYER" unitId="AUD / 01" />
         <ErrorBoundary>
           <RadioPlayerClient />
         </ErrorBoundary>
       </div>
+
       <p
         className={cn(
-          `text-center ${designSystem.typography.caption}`,
-          entranceClasses(1, 'reveal')
+          'border-t border-border px-4 py-2.5 text-center sm:px-5',
+          designSystem.typography.caption,
+          entranceClasses(2, 'reveal')
         )}
       >
         Streamed by{' '}

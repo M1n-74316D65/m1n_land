@@ -1,73 +1,94 @@
 import Image from 'next/image'
-import { BadgeCheck, BriefcaseBusiness, MapPin } from 'lucide-react'
+import { BadgeCheck } from 'lucide-react'
 import React from 'react'
 
-import LinkSection from 'app/components/link-section'
+import ZoneLabel from 'app/components/zone-label'
 import { entranceClasses } from 'app/lib/animation'
-import { socialLinks, externalLinks } from 'app/constants/links'
+import { socialLinks, externalLinks, techStack } from 'app/constants/links'
+import { cn } from 'app/lib/utils'
 
 const Page: React.FC = () => {
   return (
-    <section className="flex flex-1 flex-col justify-between gap-5 sm:gap-8">
-      <header
-        className={`grid grid-cols-[5rem_1fr] items-center gap-4 border-y border-border py-4 sm:grid-cols-[6rem_1fr] sm:gap-6 sm:py-5 ${entranceClasses(0)}`}
-      >
-        <Image
-          src="https://profiles.cache.lol/m1n/picture?v=1767470215"
-          alt="M1n"
-          width={112}
-          height={112}
-          priority
-          sizes="(min-width: 640px) 96px, 80px"
-          className="aspect-square h-20 w-20 object-cover sm:h-24 sm:w-24"
-        />
-        <div className="min-w-0">
-          <div className="flex items-baseline gap-2">
-            <h1 className="flex items-center gap-1.5 font-mono text-2xl font-semibold tracking-tight">
-              M1n
-              <BadgeCheck className="h-5 w-5 text-accent" aria-label="Verified profile" />
-            </h1>
-            <span className="text-xs text-muted-foreground">he/him</span>
+    <section className="flex flex-1 flex-col">
+      <div className={cn('zone', entranceClasses(0))}>
+        <ZoneLabel label="IDENTITY" unitId="UNIT / ID-01" />
+        <div className="zone-body">
+          <div className="grid grid-cols-[4.5rem_1fr] items-start gap-4 sm:grid-cols-[5.5rem_1fr] sm:gap-6">
+            <Image
+              src="https://profiles.cache.lol/m1n/picture?v=1767470215"
+              alt="M1n"
+              width={112}
+              height={112}
+              priority
+              sizes="(min-width: 640px) 88px, 72px"
+              className="aspect-square h-[4.5rem] w-[4.5rem] border border-border object-cover sm:h-[5.5rem] sm:w-[5.5rem]"
+            />
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-end gap-x-3 gap-y-1">
+                <h1 className="display-type !text-[clamp(2.5rem,10vw,4rem)]">M1n</h1>
+                <BadgeCheck
+                  className="mb-1.5 h-5 w-5 text-accent sm:mb-2"
+                  aria-label="Verified profile"
+                />
+              </div>
+              <dl className="mt-3 grid gap-1 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground sm:text-[0.75rem]">
+                <div className="flex gap-3">
+                  <dt className="text-text-dim">Role</dt>
+                  <dd className="text-foreground">Developer</dd>
+                </div>
+                <div className="flex gap-3">
+                  <dt className="text-text-dim">Loc</dt>
+                  <dd className="text-foreground">Galicia / ES</dd>
+                </div>
+                <div className="flex gap-3">
+                  <dt className="text-text-dim">Pron</dt>
+                  <dd className="text-foreground">he/him</dd>
+                </div>
+              </dl>
+            </div>
           </div>
-          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground sm:text-sm">
-            <span className="inline-flex items-center gap-1.5">
-              <BriefcaseBusiness className="h-3.5 w-3.5" aria-hidden="true" />
-              Developer
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-              Galicia, Spain
-            </span>
-          </div>
-          <p className="profile-bio mt-3 text-sm leading-relaxed sm:text-base">
+
+          <p className="profile-bio mt-5 border-t border-border pt-4">
             I am <strong>David</strong>, also known as M1n. I write <strong>code</strong> and enjoy{' '}
             <strong>games</strong> and <strong>philosophy</strong>.
           </p>
+
+          <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-text-dim">
+            Stack // {techStack.join(' / ')}
+          </p>
         </div>
-      </header>
+      </div>
 
-      <div className="grid grid-cols-2 gap-x-8">
-        <LinkSection
-          className={`[&_a]:py-1.5 ${entranceClasses(1)}`}
-          staggerOffset={1}
-          title="Connect"
-          links={socialLinks.map((link) => ({
-            href: link.href,
-            label: link.label,
-            icon: link.icon,
-          }))}
-        />
+      <div className={cn('zone', entranceClasses(1, 'reveal'))}>
+        <ZoneLabel label="CONNECT" unitId="NET" />
+        <ul className="divide-y divide-border px-4 sm:px-5">
+          {socialLinks.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} target="_blank" rel="noopener noreferrer" className="cmd-row">
+                <span className="min-w-0 flex-1 truncate">{link.label}</span>
+                <span className="shrink-0 text-text-dim" aria-hidden="true">
+                  EXT
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        <LinkSection
-          className={`[&_a]:py-1.5 ${entranceClasses(2)}`}
-          staggerOffset={3}
-          title="Links"
-          links={externalLinks.map((link) => ({
-            href: link.href,
-            label: link.label,
-            icon: link.icon,
-          }))}
-        />
+      <div className={cn('zone', entranceClasses(2, 'reveal'))}>
+        <ZoneLabel label="LINKS" unitId="EXT" />
+        <ul className="divide-y divide-border px-4 sm:px-5">
+          {externalLinks.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} target="_blank" rel="noopener noreferrer" className="cmd-row">
+                <span className="min-w-0 flex-1 truncate">{link.label}</span>
+                <span className="shrink-0 text-text-dim" aria-hidden="true">
+                  EXT
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

@@ -6,37 +6,29 @@ import React from 'react'
 import { usePathname } from 'next/navigation'
 import { navItems } from 'app/constants/links'
 import { entranceClasses } from 'app/lib/animation'
-import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
+import ZoneLabel from 'app/components/zone-label'
 
 const Navbar = React.memo(() => {
   const pathname = usePathname()
-  const hasCompactSpacing = pathname === '/' || pathname === '/projects'
 
   return (
-    <header
-      className={cn(
-        hasCompactSpacing ? 'mb-0 pb-5' : cn(designSystem.spacing.component.nav, 'pb-6'),
-        entranceClasses(0, 'fade')
-      )}
-    >
-      <div className="flex items-center justify-between gap-6">
+    <header className={cn('zone', entranceClasses(0, 'fade'))}>
+      <ZoneLabel label="NAV / ROUTING" unitId="SYS" />
+      <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
         <Link
           href="/"
-          className={cn(
-            'font-mono text-sm font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
-            designSystem.colors.text.linkEmphasis
-          )}
+          className="font-sans text-sm font-extrabold uppercase tracking-[-0.03em] text-foreground transition-colors duration-[var(--duration-normal)] ease-out hover:text-accent focus-visible:outline-none"
         >
           M1n
         </Link>
         <nav
-          className="flex items-center gap-3 overflow-x-auto scrollbar-none sm:gap-4"
+          className="flex items-center gap-0 overflow-x-auto scrollbar-none"
           id="nav"
           role="navigation"
           aria-label="Main navigation"
         >
-          {navItems.map(({ path, name }) => {
+          {navItems.map(({ path, name }, index) => {
             const isExternal = path.startsWith('http')
             const isActive = !isExternal && pathname !== null && pathname === path
 
@@ -45,13 +37,9 @@ const Navbar = React.memo(() => {
                 key={path}
                 href={path}
                 className={cn(
-                  'inline-flex shrink-0 items-center gap-1 border-b text-sm transition-[color,border-color] duration-[var(--duration-normal)] ease-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
-                  isActive
-                    ? 'border-foreground font-medium text-foreground'
-                    : cn(
-                        'border-transparent text-muted-foreground hover:border-foreground',
-                        designSystem.interactions.navItem
-                      )
+                  'inline-flex shrink-0 items-center gap-1 border-l border-border px-3 py-1.5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] transition-colors duration-[var(--duration-normal)] ease-out focus-visible:outline-none sm:px-4',
+                  index === 0 && 'border-l-0 pl-0 sm:pl-0',
+                  isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
                 )}
                 {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 aria-label={isExternal ? `${name} (opens in new tab)` : name}
@@ -67,5 +55,7 @@ const Navbar = React.memo(() => {
     </header>
   )
 })
+
+Navbar.displayName = 'Navbar'
 
 export default Navbar

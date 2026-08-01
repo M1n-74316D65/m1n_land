@@ -6,9 +6,11 @@ export const designSystem = {
     text: {
       primary: 'text-foreground',
       secondary: 'text-muted-foreground',
+      dim: 'text-text-dim',
       link: `text-muted-foreground hover:text-accent transition-colors ${durationNormal} ease-out`,
       linkEmphasis: `text-foreground hover:text-accent transition-colors ${durationNormal} ease-out`,
       accent: 'text-accent',
+      phosphor: 'text-phosphor',
       mono: 'font-mono text-muted-foreground',
     },
     background: {
@@ -16,6 +18,7 @@ export const designSystem = {
       secondary: 'bg-card',
       tertiary: 'bg-muted',
       accent: 'bg-accent',
+      focus: 'bg-focus',
     },
     border: {
       default: 'border border-border',
@@ -23,18 +26,18 @@ export const designSystem = {
     },
   },
   spacing: {
-    page: 'space-y-9',
+    page: 'flex flex-col',
     component: {
       xs: 'mb-2',
       sm: 'mb-4',
-      md: 'mb-8',
-      lg: 'mb-10',
-      section: 'mb-12',
-      nav: 'mb-8',
+      md: 'mb-0',
+      lg: 'mb-0',
+      section: 'mb-0',
+      nav: 'mb-0',
     },
     padding: {
       card: 'p-4',
-      cardLg: 'p-6',
+      cardLg: 'p-5',
     },
   },
   radius: {
@@ -46,26 +49,27 @@ export const designSystem = {
     link: `transition-colors ${durationNormal} ease-out hover:text-accent`,
     row: `transition-colors ${durationNormal} ease-out`,
     navItem: `transition-colors ${durationNormal} ease-out hover:text-foreground`,
-    card: `transition-[border-color,background-color] ${durationNormal} ease-out hover:border-accent/40`,
+    card: `transition-[border-color,background-color] ${durationNormal} ease-out hover:border-accent`,
     icon: `transition-colors ${durationNormal} ease-out group-hover:text-accent`,
     press: `active:scale-[0.98] transition-transform ${durationFast} ease-out`,
   },
   surfaces: {
-    list: 'surface-list',
-    tag: 'inline-flex items-center border border-border bg-transparent px-2 py-0.5 font-mono text-xs text-muted-foreground',
+    list: 'surface-list divide-y divide-border',
+    tag: 'inline-flex items-center border border-border bg-transparent px-2 py-0.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground',
   },
   typography: {
-    display:
-      'font-mono text-3xl sm:text-4xl font-semibold tracking-tight text-balance leading-[1.1]',
-    pageTitle: 'font-mono text-2xl font-semibold tracking-tight',
-    sectionTitle: 'text-sm font-semibold text-foreground',
-    subtitle: 'text-sm leading-relaxed text-muted-foreground',
+    display: 'display-type text-foreground',
+    pageTitle:
+      'font-sans text-2xl font-extrabold uppercase tracking-[-0.04em] leading-none text-foreground sm:text-3xl',
+    sectionTitle:
+      'font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground',
+    subtitle: 'font-mono text-[0.8rem] leading-relaxed text-muted-foreground',
     secondaryText: 'text-muted-foreground',
-    body: 'text-sm leading-relaxed',
-    caption: 'text-xs text-muted-foreground',
-    mono: 'font-mono text-xs text-muted-foreground',
-    label: 'text-xs font-medium text-muted-foreground',
-    meta: 'font-mono text-xs text-muted-foreground',
+    body: 'font-mono text-[0.9rem] leading-relaxed',
+    caption: 'font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground',
+    mono: 'font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground',
+    label: 'font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground',
+    meta: 'font-mono text-[0.7rem] uppercase tracking-[0.1em] text-text-dim',
   },
   animations: {
     entrance: {

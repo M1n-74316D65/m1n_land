@@ -41,7 +41,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
         {Array.from({ length: BAR_COUNT }).map((_, index) => (
           <motion.div
             key={index}
-            className={`h-full min-w-px flex-1 origin-center ${isPlaying ? 'bg-accent' : 'bg-foreground/55'}`}
+            className={`h-full min-w-px flex-1 origin-center ${isPlaying ? 'bg-phosphor' : 'bg-foreground/40'}`}
             style={{ maxWidth: '3px' }}
             animate={
               reduceMotion

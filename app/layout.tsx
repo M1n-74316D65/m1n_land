@@ -2,10 +2,9 @@ import { FC, ReactNode } from 'react'
 import './global.css'
 import '@fontsource/ibm-plex-mono/400.css'
 import '@fontsource/ibm-plex-mono/500.css'
-import '@fontsource/outfit/500.css'
+import '@fontsource/outfit/800.css'
 import type { Metadata, Viewport } from 'next'
 import Navbar from 'app/components/nav'
-import DarkModeDetector from 'app/components/ui/dark-mode-detector'
 import { baseUrl } from 'app/constants/baseUrl'
 import { cn } from 'app/lib/utils'
 
@@ -53,10 +52,8 @@ export const metadata = siteMetadata
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fbf1c7' },
-    { media: '(prefers-color-scheme: dark)', color: '#282828' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#0a0a0a',
 }
 
 interface RootLayoutProps {
@@ -66,16 +63,15 @@ interface RootLayoutProps {
 const themeScript = `
 (() => {
   try {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    document.documentElement.classList.toggle('dark', prefersDark)
+    document.documentElement.classList.add('dark')
   } catch (error) {
-    console.error('Theme detection error', error)
+    console.error('Theme bootstrap error', error)
   }
 })()
 `
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
-  const htmlClassName = cn('bg-background text-foreground')
+  const htmlClassName = cn('dark bg-background text-foreground')
 
   return (
     <html lang="en" className={htmlClassName}>
@@ -97,19 +93,20 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           }}
         />
       </head>
-      <body className="font-mono antialiased">
+      <body className="crt-shell font-mono antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:text-sm focus:font-medium"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:border focus:border-accent focus:bg-card focus:px-3 focus:py-2 focus:font-mono focus:text-[0.7rem] focus:uppercase focus:tracking-[0.1em] focus:text-foreground"
         >
           Skip to main content
         </a>
-        <div className="mx-auto flex min-h-[100dvh] w-full max-w-[34rem] flex-col px-4 py-6 sm:px-6 sm:py-10">
-          <main id="main-content" className="flex flex-1 flex-col">
-            <DarkModeDetector />
-            <Navbar />
-            {children}
-          </main>
+        <div className="flex min-h-[100dvh] w-full flex-col px-3 py-[clamp(1.25rem,5vw,3.5rem)] sm:px-6">
+          <div className="crt-frame crt-frame-footer flex min-h-0 flex-1 flex-col">
+            <main id="main-content" className="flex flex-1 flex-col">
+              <Navbar />
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>

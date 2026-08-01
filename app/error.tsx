@@ -3,6 +3,7 @@
 import React from 'react'
 
 import { Button } from 'app/components/ui/button'
+import ZoneLabel from 'app/components/zone-label'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
@@ -14,33 +15,29 @@ interface ErrorProps {
 
 export default function Error({ error, reset }: ErrorProps) {
   return (
-    <section className="flex flex-col items-center justify-center py-12 text-center">
-      <h2 className={cn(designSystem.typography.pageTitle, entranceClasses(0))}>
-        Something went wrong
-      </h2>
-      <p
-        className={cn(
-          `mt-2 max-w-sm ${designSystem.typography.subtitle}`,
-          entranceClasses(1, 'reveal')
-        )}
-      >
-        An error occurred while loading this page. You can try again.
-      </p>
-      <Button className={cn('mt-6', entranceClasses(2, 'reveal'))} onClick={reset}>
-        Try again
-      </Button>
-      {error?.message && (
-        <details className={cn('mt-8 w-full max-w-md text-left', entranceClasses(3, 'reveal'))}>
-          <summary className={`cursor-pointer ${designSystem.typography.caption}`}>
-            Error details
-          </summary>
-          <pre
-            className={`mt-2 overflow-auto border border-border bg-muted p-3 text-xs ${designSystem.typography.mono}`}
-          >
-            {error.message}
-          </pre>
-        </details>
-      )}
+    <section className="flex flex-1 flex-col">
+      <div className={cn('zone', entranceClasses(0))}>
+        <ZoneLabel label="FAULT" unitId="ERR / SYS" />
+        <div className="zone-body flex flex-col items-start py-10">
+          <h2 className={designSystem.typography.pageTitle}>Fault detected</h2>
+          <p className={cn('mt-3 max-w-sm', designSystem.typography.subtitle)}>
+            An error occurred while loading this page. You can try again.
+          </p>
+          <Button className={cn('mt-6', entranceClasses(2, 'reveal'))} onClick={reset}>
+            Retry {'>>>'}
+          </Button>
+          {error?.message && (
+            <details className={cn('mt-8 w-full max-w-md', entranceClasses(3, 'reveal'))}>
+              <summary className={`cursor-pointer ${designSystem.typography.caption}`}>
+                Error details
+              </summary>
+              <pre className="mt-2 overflow-auto border border-border bg-card p-3 font-mono text-[0.7rem] text-muted-foreground">
+                {error.message}
+              </pre>
+            </details>
+          )}
+        </div>
+      </div>
     </section>
   )
 }

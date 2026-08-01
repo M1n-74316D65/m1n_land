@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import ProjectRow from 'app/components/project-row'
+import ZoneLabel from 'app/components/zone-label'
 import { entranceClasses } from 'app/lib/animation'
 import { featuredProjects } from 'app/constants/links'
+import { cn } from 'app/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -11,26 +13,39 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <section className="flex flex-1 flex-col">
-      <header className={`border-y border-border py-4 ${entranceClasses(0)}`}>
-        <h1 className="font-mono text-2xl font-semibold tracking-tight text-balance">Projects</h1>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-          Selected work and experiments.
-        </p>
-      </header>
+      <div className={cn('zone', entranceClasses(0))}>
+        <ZoneLabel label="PROJECTS" unitId="OPS / SEL" />
+        <div className="zone-body">
+          <h1 className="display-type !text-[clamp(2.25rem,9vw,3.75rem)]">Work</h1>
+          <p className="mt-3 font-mono text-[0.8rem] leading-relaxed text-muted-foreground">
+            Selected open-source tools and experiments.
+          </p>
+        </div>
+      </div>
 
-      <ul className="divide-y divide-border/70 border-b border-border">
-        {featuredProjects.map((project, index) => (
-          <li key={project.label} className={entranceClasses(index + 1, 'reveal')}>
-            <ProjectRow
-              href={project.href}
-              label={project.label}
-              description={project.description}
-              icon={project.icon}
-              tags={project.tags}
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="zone flex-1">
+        <ZoneLabel label="MANIFEST" unitId={`N=${featuredProjects.length}`} />
+        <ul>
+          {featuredProjects.map((project, index) => (
+            <li
+              key={project.label}
+              className={cn(
+                'border-b border-border last:border-b-0',
+                entranceClasses(index + 1, 'reveal')
+              )}
+            >
+              <ProjectRow
+                href={project.href}
+                label={project.label}
+                description={project.description}
+                icon={project.icon}
+                tags={project.tags}
+                index={index}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

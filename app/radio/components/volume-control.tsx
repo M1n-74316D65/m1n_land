@@ -49,9 +49,9 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         aria-valuenow={displayVolume}
         aria-valuemin={0}
         aria-valuemax={1}
-        className="h-px min-w-0 flex-1 cursor-pointer appearance-none bg-border focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-2 [&::-moz-slider-thumb]:bg-foreground [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
+        className="h-px min-w-0 flex-1 cursor-pointer appearance-none bg-border focus-visible:outline-none [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-2 [&::-moz-slider-thumb]:bg-accent [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
         style={{
-          background: `linear-gradient(to right, var(--foreground) ${volumePercent}%, var(--border) ${volumePercent}%)`,
+          background: `linear-gradient(to right, var(--accent) ${volumePercent}%, var(--border) ${volumePercent}%)`,
         }}
       />
 

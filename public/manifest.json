@@ -4,8 +4,8 @@
   "description": "M1n portfolio - Developer, Linux enthusiast, and creator of open source projects.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
   "icons": [
     {
       "src": "/favicon.svg",

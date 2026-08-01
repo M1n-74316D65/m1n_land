@@ -58,13 +58,13 @@ export default function RadioPlayerClient() {
   return (
     <div
       ref={containerRef}
-      className="group/player relative border border-border bg-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+      className="group/player relative bg-background focus-visible:outline-none"
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label="Radio player"
       aria-describedby="radio-keyboard-help"
     >
-      <div className="flex min-h-72 flex-col p-4 sm:min-h-80 sm:p-5">
+      <div className="flex min-h-64 flex-col p-4 sm:min-h-72 sm:p-5">
         <StationInfo isPlaying={isPlaying} isLoading={isLoading} hasError={Boolean(error)} />
 
         <WaveformVisualizer
@@ -93,7 +93,7 @@ export default function RadioPlayerClient() {
 
       <p
         id="radio-keyboard-help"
-        className="border-t border-border px-4 py-2.5 font-mono text-[10px] leading-none text-muted-foreground sm:px-5"
+        className="border-t border-border px-4 py-2.5 font-mono text-[0.65rem] uppercase leading-none tracking-[0.1em] text-text-dim sm:px-5"
       >
         Space: play/pause&nbsp;&nbsp; M: mute&nbsp;&nbsp; Up/Down: volume
       </p>

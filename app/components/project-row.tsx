@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowUpRight, LucideIcon } from 'lucide-react'
+import { LucideIcon } from 'lucide-react'
 
 import { cn } from 'app/lib/utils'
 import { designSystem } from 'app/lib/design-system'
@@ -11,46 +11,60 @@ interface ProjectRowProps {
   description?: string
   tags?: readonly string[]
   className?: string
+  index?: number
 }
 
 const ProjectRow: React.FC<ProjectRowProps> = ({
   href,
   label,
-  icon: Icon,
   description,
   tags,
   className,
+  index = 0,
 }) => {
+  const unit = String(index + 1).padStart(2, '0')
+
   return (
     <Link
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'group grid grid-cols-[2rem_1fr_auto] items-start gap-3 py-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:gap-4 sm:py-5',
-        designSystem.interactions.row,
+        'group flex items-start gap-3 px-4 py-4 transition-colors duration-[var(--duration-normal)] ease-out hover:bg-focus focus-visible:outline-none sm:gap-4 sm:px-5 sm:py-5',
         className
       )}
     >
-      <div className="flex h-8 w-8 items-center justify-center" aria-hidden="true">
-        <Icon className={cn('h-4 w-4 text-muted-foreground', designSystem.interactions.icon)} />
-      </div>
-      <div className="min-w-0 flex-1">
-        <span className={cn('text-sm font-medium text-foreground', designSystem.interactions.link)}>
-          {label}
-        </span>
-        {description && <p className={`mt-1 ${designSystem.typography.subtitle}`}>{description}</p>}
-        {tags && tags.length > 0 && (
-          <p className={`mt-2 ${designSystem.typography.mono}`}>{tags.join(' / ')}</p>
-        )}
-      </div>
-      <ArrowUpRight
-        className={cn(
-          'mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground/60',
-          designSystem.interactions.icon
-        )}
+      <span
+        className="mt-0.5 shrink-0 font-mono text-[0.7rem] font-medium tracking-[0.1em] text-accent"
         aria-hidden="true"
-      />
+      >
+        {'>>>'}
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline justify-between gap-3">
+          <span
+            className={cn(
+              'font-mono text-[0.85rem] font-medium uppercase tracking-[0.06em] text-foreground',
+              designSystem.interactions.link
+            )}
+          >
+            {label}
+          </span>
+          <span className="shrink-0 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-text-dim">
+            D-{unit}
+          </span>
+        </div>
+        {description && (
+          <p className="mt-1.5 font-mono text-[0.8rem] leading-relaxed normal-case tracking-[0.02em] text-muted-foreground">
+            {description}
+          </p>
+        )}
+        {tags && tags.length > 0 && (
+          <p className="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-text-dim">
+            {tags.join(' / ')}
+          </p>
+        )}
+      </div>
     </Link>
   )
 }

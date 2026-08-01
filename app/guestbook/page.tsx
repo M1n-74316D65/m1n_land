@@ -1,11 +1,10 @@
 import { Button } from 'app/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from 'app/components/ui/card'
 import { Input } from 'app/components/ui/input'
 import { Label } from 'app/components/ui/label'
 import { Textarea } from 'app/components/ui/textarea'
+import ZoneLabel from 'app/components/zone-label'
 import Script from 'next/script'
 import Link from 'next/link'
-import PageHeader from 'app/components/page-header'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
@@ -18,22 +17,28 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <section className={designSystem.spacing.page}>
-      <PageHeader title="My Guestbook" className={entranceClasses(0)} />
+    <section className="flex flex-1 flex-col">
+      <div className={cn('zone', entranceClasses(0))}>
+        <ZoneLabel label="GUESTBOOK" unitId="LOG / IN" />
+        <div className="zone-body">
+          <h1 className="display-type !text-[clamp(2.25rem,9vw,3.75rem)]">Log</h1>
+          <p className="mt-3 font-mono text-[0.8rem] leading-relaxed text-muted-foreground">
+            Leave a message. Plain text only.
+          </p>
+        </div>
+      </div>
 
       <Script
         src="https://guestbooks.meadow.cafe/resources/js/embed_script/590/script.js"
         strategy="afterInteractive"
       />
 
-      <Card
+      <div
         id="guestbooks___guestbook-form-container"
-        className={cn('border-border/80 shadow-card', entranceClasses(1, 'reveal'))}
+        className={cn('zone', entranceClasses(1, 'reveal'))}
       >
-        <CardHeader>
-          <CardTitle className="text-base">Leave a message</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <ZoneLabel label="TRANSMIT" unitId="FORM" />
+        <div className="zone-body">
           <form
             id="guestbooks___guestbook-form"
             action="https://guestbooks.meadow.cafe/guestbook/590/submit"
@@ -55,19 +60,22 @@ export default function Page() {
                 id="text"
                 name="text"
                 required
-                placeholder="Plain text only."
+                placeholder="PLAIN TEXT ONLY."
                 className="w-full min-h-[100px] resize-y"
               />
             </div>
             <Button type="submit" className="w-full sm:w-auto">
-              Submit
+              Submit {'>>>'}
             </Button>
             <div id="guestbooks___error-message"></div>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <div id="guestbooks___guestbook-made-with" className="text-right">
+      <div
+        id="guestbooks___guestbook-made-with"
+        className="border-b border-border px-4 py-2 sm:px-5"
+      >
         <small className={designSystem.typography.caption}>
           Made with{' '}
           <Link
@@ -80,14 +88,12 @@ export default function Page() {
         </small>
       </div>
 
-      <div className={cn('border-t border-border pt-6', entranceClasses(2, 'reveal'))}>
-        <h2
-          id="guestbooks___guestbook-messages-header"
-          className={`${designSystem.spacing.component.sm} ${designSystem.typography.sectionTitle}`}
-        >
+      <div className={cn('zone flex-1', entranceClasses(2, 'reveal'))}>
+        <ZoneLabel label="MESSAGES" unitId="FEED" />
+        <h2 id="guestbooks___guestbook-messages-header" className="sr-only">
           Messages
         </h2>
-        <div id="guestbooks___guestbook-messages-container" className="mt-4" />
+        <div id="guestbooks___guestbook-messages-container" />
       </div>
     </section>
   )

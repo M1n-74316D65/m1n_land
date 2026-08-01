@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { designSystem } from 'app/lib/design-system'
 import { motionEnter, motionTransition } from 'app/lib/motion'
+import { cn } from 'app/lib/utils'
 
 interface StationInfoProps {
   isPlaying: boolean
@@ -19,10 +20,8 @@ const StationInfo: React.FC<StationInfoProps> = ({ isPlaying, isLoading, hasErro
   return (
     <div className={`flex items-start justify-between gap-6 ${className ?? ''}`}>
       <div>
-        <p className="mb-1 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-          SomaFM
-        </p>
-        <h2 className={`${designSystem.typography.pageTitle} text-xl sm:text-2xl`}>
+        <p className={designSystem.typography.meta}>SomaFM</p>
+        <h2 className="mt-1 font-sans text-xl font-extrabold uppercase tracking-[-0.04em] text-foreground sm:text-2xl">
           Deep Space One
         </h2>
         <p className={`mt-2 max-w-sm ${designSystem.typography.subtitle}`}>
@@ -35,15 +34,18 @@ const StationInfo: React.FC<StationInfoProps> = ({ isPlaying, isLoading, hasErro
           key={status}
           {...motionEnter}
           transition={transition}
-          className="flex shrink-0 items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.12em]"
+          className="flex shrink-0 items-center gap-2 font-mono text-[0.65rem] font-medium uppercase tracking-[0.12em]"
           role="status"
           aria-live="polite"
         >
           <span
-            className={`h-1.5 w-1.5 ${hasError ? 'bg-destructive' : isPlaying ? 'bg-accent' : 'bg-muted-foreground'}`}
+            className={cn(
+              'h-1.5 w-1.5',
+              hasError ? 'bg-destructive' : isPlaying ? 'bg-phosphor' : 'bg-text-dim'
+            )}
             aria-hidden="true"
           />
-          <span className={isPlaying ? 'text-accent' : 'text-muted-foreground'}>{status}</span>
+          <span className={isPlaying ? 'text-phosphor' : 'text-muted-foreground'}>{status}</span>
         </motion.div>
       </AnimatePresence>
     </div>
