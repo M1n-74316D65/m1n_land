@@ -20,17 +20,11 @@ const IDLE_PROFILE = Array.from({ length: BAR_COUNT }, (_, i) => {
   return 0.08 + envelope * 0.22
 })
 
-function sampleBars(
-  frequencyData: Uint8Array,
-  out: Float32Array,
-  barCount: number
-): void {
+function sampleBars(frequencyData: Uint8Array, out: Float32Array, barCount: number): void {
   const len = frequencyData.length
-  // Skip the very top bins (often empty on stream bitrate) and weight lows/mids
   const usable = Math.max(8, Math.floor(len * 0.72))
 
   for (let i = 0; i < barCount; i++) {
-    // Logarithmic bin distribution for more musical spacing
     const t0 = i / barCount
     const t1 = (i + 1) / barCount
     const start = Math.floor(Math.pow(t0, 1.65) * usable)
@@ -41,8 +35,8 @@ function sampleBars(
       sum += frequencyData[j]
     }
     const avg = sum / (end - start)
-    // Soft curve so quiet ambient material still has presence
-    out[i] = Math.pow(avg / 255, 0.72)
+    // Ambient streams are quiet — boost so motion is visible
+    out[i] = Math.min(1, Math.pow(avg / 255, 0.55) * 1.55)
   }
 }
 
@@ -60,6 +54,17 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
   const freqRef = useRef<Uint8Array<ArrayBuffer> | null>(null)
   const rafRef = useRef<number>(0)
   const phaseRef = useRef(0)
+
+  // Keep draw-loop flags current without tearing down the rAF pipeline
+  const isPlayingRef = useRef(isPlaying)
+  const isLoadingRef = useRef(isLoading)
+  const analyserReadyRef = useRef(analyserReady)
+  const reduceMotionRef = useRef(reduceMotion)
+
+  isPlayingRef.current = isPlaying
+  isLoadingRef.current = isLoading
+  analyserReadyRef.current = analyserReady
+  reduceMotionRef.current = reduceMotion
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -90,38 +95,62 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
 
       resize()
       const { width, height } = canvas
+      if (width < 2 || height < 2) {
+        rafRef.current = requestAnimationFrame(draw)
+        return
+      }
+
+      const playing = isPlayingRef.current
+      const loading = isLoadingRef.current
+      const ready = analyserReadyRef.current
+      const reduced = Boolean(reduceMotionRef.current)
       const analyser = analyserRef.current
       const bars = barsRef.current
       const targets = targetRef.current
 
-      // Drive targets from live FFT, loading pulse, or idle profile
-      if (isPlaying && analyser && analyserReady && !reduceMotion) {
+      if (playing && analyser && ready && !reduced) {
         if (!freqRef.current || freqRef.current.length !== analyser.frequencyBinCount) {
           freqRef.current = new Uint8Array(analyser.frequencyBinCount) as Uint8Array<ArrayBuffer>
         }
         analyser.getByteFrequencyData(freqRef.current)
         sampleBars(freqRef.current, targets, BAR_COUNT)
-      } else if (isLoading && !reduceMotion) {
+
+        // If stream is still silent (buffering), keep a subtle pulse so LIVE feels alive
+        let energy = 0
+        for (let i = 0; i < BAR_COUNT; i++) energy += targets[i]
+        if (energy / BAR_COUNT < 0.04) {
+          phaseRef.current = now * 0.003
+          for (let i = 0; i < BAR_COUNT; i++) {
+            const wave = 0.5 + 0.5 * Math.sin(phaseRef.current + i * 0.4)
+            targets[i] = Math.max(targets[i], 0.08 + wave * 0.12 * IDLE_PROFILE[i] * 3)
+          }
+        }
+      } else if (loading && !reduced) {
         phaseRef.current = now * 0.0025
         for (let i = 0; i < BAR_COUNT; i++) {
           const wave = 0.5 + 0.5 * Math.sin(phaseRef.current + i * 0.35)
           targets[i] = 0.1 + wave * 0.35 * IDLE_PROFILE[i] * 2.2
         }
+      } else if (playing && !reduced) {
+        // Playing without analyser — synthetic fallback
+        phaseRef.current = now * 0.0035
+        for (let i = 0; i < BAR_COUNT; i++) {
+          const wave = 0.5 + 0.5 * Math.sin(phaseRef.current + i * 0.28)
+          targets[i] = 0.12 + wave * 0.55 * IDLE_PROFILE[i] * 2.4
+        }
       } else {
         for (let i = 0; i < BAR_COUNT; i++) {
-          targets[i] = IDLE_PROFILE[i] * (isPlaying && reduceMotion ? 1.4 : 1)
+          targets[i] = IDLE_PROFILE[i] * (playing && reduced ? 1.4 : 1)
         }
       }
 
-      // Smooth follow so bars don't strobe
-      const lerp = isPlaying && analyserReady ? 0.28 : 0.12
+      const lerp = playing ? 0.28 : 0.12
       for (let i = 0; i < BAR_COUNT; i++) {
         bars[i] += (targets[i] - bars[i]) * lerp
       }
 
       ctx.clearRect(0, 0, width, height)
 
-      // Subtle baseline grid (CRT telemetry)
       ctx.save()
       ctx.strokeStyle = 'rgba(42, 42, 42, 0.9)'
       ctx.lineWidth = dpr
@@ -136,6 +165,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       const totalGap = gap * (BAR_COUNT - 1)
       const barWidth = Math.max(1, (width - totalGap) / BAR_COUNT)
       const maxBarH = height * 0.92
+      const live = playing && ready
 
       for (let i = 0; i < BAR_COUNT; i++) {
         const level = Math.max(0.04, Math.min(1, bars[i]))
@@ -143,19 +173,20 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
         const x = i * (barWidth + gap)
         const y = (height - barH) * 0.5
 
-        const live = isPlaying && analyserReady
         if (live) {
-          // Phosphor core
           ctx.fillStyle = '#4af626'
           ctx.globalAlpha = 0.85 + level * 0.15
           ctx.fillRect(x, y, barWidth, barH)
-          // Soft top tick (hazard accent on peaks)
           if (level > 0.72) {
             ctx.fillStyle = '#e61919'
             ctx.globalAlpha = Math.min(1, (level - 0.72) * 3)
             ctx.fillRect(x, y, barWidth, Math.max(1, 2 * dpr))
           }
-        } else if (isLoading) {
+        } else if (playing) {
+          ctx.fillStyle = '#4af626'
+          ctx.globalAlpha = 0.45 + level * 0.25
+          ctx.fillRect(x, y, barWidth, barH)
+        } else if (loading) {
           ctx.fillStyle = '#8a8a8a'
           ctx.globalAlpha = 0.55 + level * 0.35
           ctx.fillRect(x, y, barWidth, barH)
@@ -177,7 +208,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       cancelAnimationFrame(rafRef.current)
       ro.disconnect()
     }
-  }, [analyserRef, analyserReady, isPlaying, isLoading, reduceMotion])
+  }, [analyserRef])
 
   const label = isPlaying
     ? analyserReady
@@ -190,7 +221,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
   return (
     <div
       className={cn(
-        'relative min-h-24 w-full overflow-hidden border border-border bg-card sm:min-h-28',
+        'relative min-h-28 w-full overflow-hidden border border-border bg-card sm:min-h-32',
         className
       )}
       role="img"
@@ -202,7 +233,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
         aria-hidden="true"
       >
         <span>FFT / {BAR_COUNT}</span>
-        <span className={isPlaying && analyserReady ? 'text-phosphor' : undefined}>
+        <span className={isPlaying ? 'text-phosphor' : undefined}>
           {isPlaying ? (analyserReady ? 'LIVE' : 'SYN') : isLoading ? 'SYNC' : 'IDLE'}
         </span>
       </div>

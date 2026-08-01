@@ -1,12 +1,10 @@
-import dynamic from 'next/dynamic'
 import ErrorBoundary from 'app/components/ui/error-boundary'
 import ZoneLabel from 'app/components/zone-label'
+import RadioPlayerLoader from 'app/radio/radio-player-loader'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
 import type { Metadata } from 'next'
-
-const RadioPlayerClient = dynamic(() => import('./radio-player-client'))
 
 export const metadata: Metadata = {
   title: 'Radio',
@@ -29,7 +27,7 @@ export default function RadioPage() {
       <div className={cn('zone flex-1', entranceClasses(1, 'reveal'))}>
         <ZoneLabel label="PLAYER" unitId="AUD / 01" />
         <ErrorBoundary>
-          <RadioPlayerClient />
+          <RadioPlayerLoader />
         </ErrorBoundary>
       </div>
 

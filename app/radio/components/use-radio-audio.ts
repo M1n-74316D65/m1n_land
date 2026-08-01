@@ -7,6 +7,62 @@ const STORAGE_KEY = 'radio-volume'
 const DEFAULT_VOLUME = 0.5
 const FFT_SIZE = 256
 
+interface AudioGraph {
+  ctx: AudioContext
+  analyser: AnalyserNode
+  source: MediaElementAudioSourceNode
+}
+
+// Survive React Strict Mode remounts / soft navigations: one graph per media element.
+const graphByAudio = new WeakMap<HTMLMediaElement, AudioGraph>()
+
+function createAudioElement(): HTMLAudioElement {
+  const audio = new Audio()
+  audio.crossOrigin = 'anonymous'
+  audio.preload = 'none'
+  audio.src = STREAM_URL
+  return audio
+}
+
+function getAudioContextCtor(): typeof AudioContext | null {
+  if (typeof window === 'undefined') return null
+  return (
+    window.AudioContext ||
+    (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext ||
+    null
+  )
+}
+
+function getOrCreateGraph(audio: HTMLMediaElement): AudioGraph | null {
+  const existing = graphByAudio.get(audio)
+  if (existing && existing.ctx.state !== 'closed') {
+    return existing
+  }
+
+  const AudioContextCtor = getAudioContextCtor()
+  if (!AudioContextCtor) return null
+
+  try {
+    const ctx = new AudioContextCtor()
+    const source = ctx.createMediaElementSource(audio)
+    const analyser = ctx.createAnalyser()
+    analyser.fftSize = FFT_SIZE
+    analyser.smoothingTimeConstant = 0.78
+    analyser.minDecibels = -90
+    analyser.maxDecibels = -20
+
+    source.connect(analyser)
+    analyser.connect(ctx.destination)
+
+    const graph: AudioGraph = { ctx, analyser, source }
+    graphByAudio.set(audio, graph)
+    return graph
+  } catch {
+    // Element already wired, or browser blocked Web Audio
+    return graphByAudio.get(audio) ?? null
+  }
+}
+
 export function useRadioAudio() {
   const [volume, setVolumeState] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -27,22 +83,18 @@ export function useRadioAudio() {
   const [isMuted, setIsMuted] = useState(false)
   const [analyserReady, setAnalyserReady] = useState(false)
 
-  const audioRef = useRef<HTMLAudioElement>(null)
+  // Stable across Strict Mode remounts (same hook state)
+  const [audio] = useState(createAudioElement)
+  const audioRef = useRef(audio)
+  audioRef.current = audio
+
   const isPlayingRef = useRef(isPlaying)
   const previousVolumeRef = useRef(DEFAULT_VOLUME)
-  const audioContextRef = useRef<AudioContext | null>(null)
   const analyserRef = useRef<AnalyserNode | null>(null)
-  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null)
 
   isPlayingRef.current = isPlaying
 
   useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
-
-    // Required for Web Audio analysis of cross-origin streams
-    audio.crossOrigin = 'anonymous'
-
     const onLoadStart = () => {
       if (isPlayingRef.current || audio.readyState > 0) setIsLoading(true)
       setError(null)
@@ -80,15 +132,15 @@ export function useRadioAudio() {
       audio.removeEventListener('error', onError)
       audio.removeEventListener('abort', onAbort)
       audio.removeEventListener('stalled', onStalled)
+      // Pause on leave, but do NOT close AudioContext — recreating
+      // MediaElementSource on the same element is impossible.
+      audio.pause()
     }
-  }, [])
+  }, [audio])
 
   useEffect(() => {
-    const audio = audioRef.current
-    if (audio) {
-      audio.volume = isMuted ? 0 : volume
-    }
-  }, [volume, isMuted])
+    audio.volume = isMuted ? 0 : volume
+  }, [audio, volume, isMuted])
 
   useEffect(() => {
     if (typeof window !== 'undefined' && !isMuted) {
@@ -96,72 +148,29 @@ export function useRadioAudio() {
     }
   }, [volume, isMuted])
 
-  // Tear down Web Audio graph on unmount
-  useEffect(() => {
-    return () => {
-      try {
-        sourceRef.current?.disconnect()
-        analyserRef.current?.disconnect()
-        void audioContextRef.current?.close()
-      } catch {
-        // ignore teardown errors
-      }
-      sourceRef.current = null
-      analyserRef.current = null
-      audioContextRef.current = null
-    }
-  }, [])
-
   const ensureAnalyser = useCallback(async () => {
-    const audio = audioRef.current
-    if (!audio) return null
-
-    if (analyserRef.current && audioContextRef.current) {
-      if (audioContextRef.current.state === 'suspended') {
-        await audioContextRef.current.resume()
-      }
-      return analyserRef.current
-    }
-
-    try {
-      const AudioContextCtor = window.AudioContext || (window as typeof window & {
-        webkitAudioContext?: typeof AudioContext
-      }).webkitAudioContext
-      if (!AudioContextCtor) return null
-
-      const ctx = new AudioContextCtor()
-      // MediaElementSource can only be created once per element
-      const source = ctx.createMediaElementSource(audio)
-      const analyser = ctx.createAnalyser()
-      analyser.fftSize = FFT_SIZE
-      analyser.smoothingTimeConstant = 0.78
-      analyser.minDecibels = -85
-      analyser.maxDecibels = -15
-
-      source.connect(analyser)
-      analyser.connect(ctx.destination)
-
-      audioContextRef.current = ctx
-      sourceRef.current = source
-      analyserRef.current = analyser
-      setAnalyserReady(true)
-
-      if (ctx.state === 'suspended') {
-        await ctx.resume()
-      }
-
-      return analyser
-    } catch {
-      // CORS / browser limits — visualizer falls back to synthetic motion
+    const graph = getOrCreateGraph(audio)
+    if (!graph) {
       setAnalyserReady(false)
+      analyserRef.current = null
       return null
     }
-  }, [])
+
+    analyserRef.current = graph.analyser
+    setAnalyserReady(true)
+
+    if (graph.ctx.state === 'suspended') {
+      try {
+        await graph.ctx.resume()
+      } catch {
+        // Autoplay policy — play() gesture usually unlocks it
+      }
+    }
+
+    return graph.analyser
+  }, [audio])
 
   const togglePlay = useCallback(async () => {
-    const audio = audioRef.current
-    if (!audio) return
-
     if (isPlayingRef.current) {
       audio.pause()
       setIsPlaying(false)
@@ -172,15 +181,18 @@ export function useRadioAudio() {
     try {
       setIsLoading(true)
       setError(null)
+      // Wire Web Audio before play so the first buffer is analysed
       await ensureAnalyser()
       await audio.play()
+      // Resume again after play — some browsers suspend until playback starts
+      await ensureAnalyser()
       setIsPlaying(true)
     } catch {
       setError('Unable to play')
       setIsPlaying(false)
       setIsLoading(false)
     }
-  }, [ensureAnalyser])
+  }, [audio, ensureAnalyser])
 
   const toggleMute = useCallback(() => {
     setIsMuted((prev) => {
@@ -205,7 +217,7 @@ export function useRadioAudio() {
 
   const retry = useCallback(() => {
     setError(null)
-    togglePlay()
+    void togglePlay()
   }, [togglePlay])
 
   return {

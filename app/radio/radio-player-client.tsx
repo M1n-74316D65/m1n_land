@@ -16,10 +16,8 @@ export default function RadioPlayerClient() {
     error,
     volume,
     isMuted,
-    audioRef,
     analyserRef,
     analyserReady,
-    streamUrl,
     togglePlay,
     toggleMute,
     setVolume,
@@ -101,8 +99,6 @@ export default function RadioPlayerClient() {
       >
         Space: play/pause&nbsp;&nbsp; M: mute&nbsp;&nbsp; Up/Down: volume
       </p>
-
-      <audio ref={audioRef} src={streamUrl} preload="none" crossOrigin="anonymous" />
     </div>
   )
 }
