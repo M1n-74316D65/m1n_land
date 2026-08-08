@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* Tactical Telemetry / CRT — locked to start.m1n.land tokens. Dark-only. */
+/* Industrial Brutalist Archetypes: Swiss Industrial Print (Light) & Tactical Telemetry (Dark) */
 @custom-variant dark (&:is(.dark *));
 
 ::selection {
@@ -9,7 +9,76 @@
   color: var(--background);
 }
 
+/* Swiss Industrial Print — High-contrast matte documentation paper substrate (Light) */
 :root {
+  color-scheme: light;
+
+  --background: #f4f4f0;
+  --foreground: #111111;
+  --card: #e8e5de;
+  --card-foreground: #111111;
+  --popover: #e8e5de;
+  --popover-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #f4f4f0;
+  --secondary: #e2ded5;
+  --secondary-foreground: #111111;
+  --muted: #e2ded5;
+  --muted-foreground: #525252;
+  --accent: #e61919;
+  --accent-foreground: #ffffff;
+  --accent-hover: #c21515;
+  --accent-dim: #8b0000;
+  --phosphor: #1b7a0f;
+  --destructive: #e61919;
+  --destructive-foreground: #ffffff;
+  --border: #d0cdb8;
+  --border-subtle: #dcd9c8;
+  --input: #d0cdb8;
+  --ring: #e61919;
+  --focus: #e2ded5;
+  --chart-1: #e61919;
+  --chart-2: #1b7a0f;
+  --chart-3: #525252;
+  --chart-4: #111111;
+  --chart-5: #767676;
+  --radius: 0;
+  --sidebar: #e8e5de;
+  --sidebar-foreground: #111111;
+  --sidebar-primary: #e61919;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e2ded5;
+  --sidebar-accent-foreground: #111111;
+  --sidebar-border: #d0cdb8;
+  --sidebar-ring: #e61919;
+
+  --text-dim: #767676;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast: 80ms;
+  --duration-normal: 140ms;
+  --duration-slow: 220ms;
+  --shadow-card: none;
+  --shadow-card-hover: none;
+  --shadow-panel: 4px 4px 0 color-mix(in srgb, #000 12%, transparent);
+
+  /* Syntax highlighting (sugar-high) — Light (Print-aligned) */
+  --sh-class: #111111;
+  --sh-identifier: #111111;
+  --sh-sign: #525252;
+  --sh-string: #1b7a0f;
+  --sh-keyword: #e61919;
+  --sh-comment: #767676;
+  --sh-jsxliterals: #525252;
+  --sh-property: #c21515;
+  --sh-entity: #c21515;
+}
+
+/* Tactical Telemetry / CRT — Dark Mode */
+.dark {
+  color-scheme: dark;
+
   --background: #0a0a0a;
   --foreground: #eaeaea;
   --card: #121212;
@@ -39,7 +108,6 @@
   --chart-3: #8a8a8a;
   --chart-4: #eaeaea;
   --chart-5: #5c5c5c;
-  --radius: 0;
   --sidebar: #121212;
   --sidebar-foreground: #eaeaea;
   --sidebar-primary: #e61919;
@@ -51,16 +119,8 @@
 
   --text-dim: #5c5c5c;
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
-  --duration-fast: 80ms;
-  --duration-normal: 140ms;
-  --duration-slow: 220ms;
-  --shadow-card: none;
-  --shadow-card-hover: none;
   --shadow-panel: 4px 4px 0 color-mix(in srgb, #000 80%, transparent);
 
-  /* Syntax highlighting (sugar-high) — CRT-aligned */
   --sh-class: #eaeaea;
   --sh-identifier: #eaeaea;
   --sh-sign: #8a8a8a;
@@ -70,11 +130,6 @@
   --sh-jsxliterals: #8a8a8a;
   --sh-property: #ff2a2a;
   --sh-entity: #ff2a2a;
-}
-
-/* Keep .dark identical — theme is dark-only */
-.dark {
-  color-scheme: dark;
 }
 
 /* Tailwind v4 Theme Mapping */
@@ -133,7 +188,6 @@
     font-size: 12px;
     line-height: 1.35;
     letter-spacing: 0.04em;
-    color-scheme: dark;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -159,6 +213,16 @@ html {
   inset: 0;
   pointer-events: none;
   z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+}
+
+.dark .crt-shell::before {
   background: repeating-linear-gradient(
     0deg,
     transparent,
@@ -610,6 +674,7 @@ html {
   border-bottom: 1px solid var(--border);
   border-radius: 0;
   background: transparent;
+  color: var(--foreground);
   font-size: 0.8rem;
   line-height: 1.5;
   letter-spacing: 0.02em;

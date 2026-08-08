@@ -151,8 +151,10 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
 
       ctx.clearRect(0, 0, width, height)
 
+      const isDark = document.documentElement.classList.contains('dark')
+
       ctx.save()
-      ctx.strokeStyle = 'rgba(42, 42, 42, 0.9)'
+      ctx.strokeStyle = isDark ? 'rgba(42, 42, 42, 0.9)' : 'rgba(208, 205, 184, 0.9)'
       ctx.lineWidth = dpr
       const midY = height * 0.5
       ctx.beginPath()
@@ -167,6 +169,10 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       const maxBarH = height * 0.92
       const live = playing && ready
 
+      const phosphorColor = isDark ? '#4af626' : '#1b7a0f'
+      const idleColor = isDark ? '#eaeaea' : '#111111'
+      const loadingColor = isDark ? '#8a8a8a' : '#525252'
+
       for (let i = 0; i < BAR_COUNT; i++) {
         const level = Math.max(0.04, Math.min(1, bars[i]))
         const barH = Math.max(2 * dpr, level * maxBarH)
@@ -174,7 +180,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
         const y = (height - barH) * 0.5
 
         if (live) {
-          ctx.fillStyle = '#4af626'
+          ctx.fillStyle = phosphorColor
           ctx.globalAlpha = 0.85 + level * 0.15
           ctx.fillRect(x, y, barWidth, barH)
           if (level > 0.72) {
@@ -183,15 +189,15 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
             ctx.fillRect(x, y, barWidth, Math.max(1, 2 * dpr))
           }
         } else if (playing) {
-          ctx.fillStyle = '#4af626'
+          ctx.fillStyle = phosphorColor
           ctx.globalAlpha = 0.45 + level * 0.25
           ctx.fillRect(x, y, barWidth, barH)
         } else if (loading) {
-          ctx.fillStyle = '#8a8a8a'
+          ctx.fillStyle = loadingColor
           ctx.globalAlpha = 0.55 + level * 0.35
           ctx.fillRect(x, y, barWidth, barH)
         } else {
-          ctx.fillStyle = '#eaeaea'
+          ctx.fillStyle = idleColor
           ctx.globalAlpha = 0.28 + level * 0.2
           ctx.fillRect(x, y, barWidth, barH)
         }

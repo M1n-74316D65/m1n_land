@@ -52,8 +52,7 @@ export const metadata = siteMetadata
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  colorScheme: 'dark',
-  themeColor: '#0a0a0a',
+  colorScheme: 'light dark',
 }
 
 interface RootLayoutProps {
@@ -63,7 +62,13 @@ interface RootLayoutProps {
 const themeScript = `
 (() => {
   try {
-    document.documentElement.classList.add('dark')
+    const saved = localStorage.getItem('theme')
+    const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    if (saved === 'dark' || (!saved && prefDark)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   } catch (error) {
     console.error('Theme bootstrap error', error)
   }
@@ -71,10 +76,10 @@ const themeScript = `
 `
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
-  const htmlClassName = cn('dark bg-background text-foreground')
+  const htmlClassName = cn('bg-background text-foreground')
 
   return (
-    <html lang="en" className={htmlClassName}>
+    <html lang="en" className={htmlClassName} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script

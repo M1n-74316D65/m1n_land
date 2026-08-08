@@ -27,10 +27,7 @@ export function GET() {
         >
           M1n
         </h1>
-        <p
-          tw="text-xl font-mono mt-6 uppercase tracking-widest m-0"
-          style={{ color: '#8a8a8a' }}
-        >
+        <p tw="text-xl font-mono mt-6 uppercase tracking-widest m-0" style={{ color: '#8a8a8a' }}>
           Developer / Open Source / Galicia
         </p>
       </div>

@@ -8,6 +8,7 @@ import { navItems } from 'app/constants/links'
 import { entranceClasses } from 'app/lib/animation'
 import { cn } from 'app/lib/utils'
 import ZoneLabel from 'app/components/zone-label'
+import ThemeToggle from 'app/components/ui/theme-toggle'
 
 const Navbar = React.memo(() => {
   const pathname = usePathname()
@@ -50,6 +51,7 @@ const Navbar = React.memo(() => {
               </Link>
             )
           })}
+          <ThemeToggle />
         </nav>
       </div>
     </header>
