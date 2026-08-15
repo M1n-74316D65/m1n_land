@@ -105,9 +105,9 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
         >
           Skip to main content
         </a>
-        <div className="flex min-h-[100dvh] w-full flex-col px-3 py-[clamp(1.25rem,5vw,3.5rem)] sm:px-6">
-          <div className="crt-frame crt-frame-footer flex min-h-0 flex-1 flex-col">
-            <main id="main-content" className="flex flex-1 flex-col">
+        <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center px-3 py-[clamp(1.25rem,5vw,3.5rem)] sm:px-6">
+          <div className="crt-frame crt-frame-footer flex w-full flex-col">
+            <main id="main-content" className="flex flex-col">
               <Navbar />
               {children}
             </main>
