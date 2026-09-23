@@ -58,13 +58,13 @@ export default function RadioPlayerClient() {
   return (
     <div
       ref={containerRef}
-      className="group/player relative bg-background focus-visible:outline-none"
+      className="group/player relative rounded-lg border border-border-subtle bg-card p-4 sm:p-7"
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label="Radio player"
       aria-describedby="radio-keyboard-help"
     >
-      <div className="flex min-h-64 flex-col p-4 sm:min-h-72 sm:p-5">
+      <div className="flex flex-col">
         <StationInfo isPlaying={isPlaying} isLoading={isLoading} hasError={Boolean(error)} />
 
         <WaveformVisualizer
@@ -72,13 +72,13 @@ export default function RadioPlayerClient() {
           analyserReady={analyserReady}
           isPlaying={isPlaying}
           isLoading={isLoading}
-          className="my-6 flex-1 sm:my-8"
+          className="my-6 sm:my-8"
         />
 
         <ConnectionStatus isLoading={isLoading} error={error} onRetry={retry} />
       </div>
 
-      <div className="grid grid-cols-[auto_1fr] border-t border-border">
+      <div className="flex flex-col gap-4 border-t border-border-subtle pt-5 sm:flex-row sm:items-center sm:gap-6">
         <PlayButton
           isPlaying={isPlaying}
           isLoading={isLoading}
@@ -95,9 +95,17 @@ export default function RadioPlayerClient() {
 
       <p
         id="radio-keyboard-help"
-        className="border-t border-border px-4 py-2.5 font-mono text-[0.65rem] uppercase leading-none tracking-[0.1em] text-text-dim sm:px-5"
+        className="mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.625rem] leading-relaxed text-text-dim"
       >
-        Space: play/pause&nbsp;&nbsp; M: mute&nbsp;&nbsp; Up/Down: volume
+        <span>
+          <kbd className="text-muted-foreground">Space</kbd> play / pause
+        </span>
+        <span>
+          <kbd className="text-muted-foreground">M</kbd> mute
+        </span>
+        <span>
+          <kbd className="text-muted-foreground">↑ ↓</kbd> volume
+        </span>
       </p>
     </div>
   )

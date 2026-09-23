@@ -75,6 +75,20 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
 
     let running = true
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const root = document.documentElement
+    const readColors = () => {
+      const style = getComputedStyle(root)
+      return {
+        accent: style.getPropertyValue('--accent').trim(),
+        muted: style.getPropertyValue('--muted-foreground').trim(),
+        border: style.getPropertyValue('--border-subtle').trim(),
+      }
+    }
+    let colors = readColors()
+    const themeObserver = new MutationObserver(() => {
+      colors = readColors()
+    })
+    themeObserver.observe(root, { attributes: true, attributeFilter: ['class'] })
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
@@ -151,10 +165,8 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
 
       ctx.clearRect(0, 0, width, height)
 
-      const isDark = document.documentElement.classList.contains('dark')
-
       ctx.save()
-      ctx.strokeStyle = isDark ? 'rgba(42, 42, 42, 0.9)' : 'rgba(208, 205, 184, 0.9)'
+      ctx.strokeStyle = colors.border
       ctx.lineWidth = dpr
       const midY = height * 0.5
       ctx.beginPath()
@@ -169,10 +181,6 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       const maxBarH = height * 0.92
       const live = playing && ready
 
-      const phosphorColor = isDark ? '#4af626' : '#1b7a0f'
-      const idleColor = isDark ? '#eaeaea' : '#111111'
-      const loadingColor = isDark ? '#8a8a8a' : '#525252'
-
       for (let i = 0; i < BAR_COUNT; i++) {
         const level = Math.max(0.04, Math.min(1, bars[i]))
         const barH = Math.max(2 * dpr, level * maxBarH)
@@ -180,24 +188,19 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
         const y = (height - barH) * 0.5
 
         if (live) {
-          ctx.fillStyle = phosphorColor
+          ctx.fillStyle = colors.accent
           ctx.globalAlpha = 0.85 + level * 0.15
           ctx.fillRect(x, y, barWidth, barH)
-          if (level > 0.72) {
-            ctx.fillStyle = '#e61919'
-            ctx.globalAlpha = Math.min(1, (level - 0.72) * 3)
-            ctx.fillRect(x, y, barWidth, Math.max(1, 2 * dpr))
-          }
         } else if (playing) {
-          ctx.fillStyle = phosphorColor
+          ctx.fillStyle = colors.accent
           ctx.globalAlpha = 0.45 + level * 0.25
           ctx.fillRect(x, y, barWidth, barH)
         } else if (loading) {
-          ctx.fillStyle = loadingColor
+          ctx.fillStyle = colors.muted
           ctx.globalAlpha = 0.55 + level * 0.35
           ctx.fillRect(x, y, barWidth, barH)
         } else {
-          ctx.fillStyle = idleColor
+          ctx.fillStyle = colors.muted
           ctx.globalAlpha = 0.28 + level * 0.2
           ctx.fillRect(x, y, barWidth, barH)
         }
@@ -213,6 +216,7 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       running = false
       cancelAnimationFrame(rafRef.current)
       ro.disconnect()
+      themeObserver.disconnect()
     }
   }, [analyserRef])
 
@@ -226,23 +230,11 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
 
   return (
     <div
-      className={cn(
-        'relative min-h-28 w-full overflow-hidden border border-border bg-card sm:min-h-32',
-        className
-      )}
+      className={cn('relative h-28 w-full overflow-hidden sm:h-36', className)}
       role="img"
       aria-label={label}
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-2 py-1 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-text-dim"
-        aria-hidden="true"
-      >
-        <span>FFT / {BAR_COUNT}</span>
-        <span className={isPlaying ? 'text-phosphor' : undefined}>
-          {isPlaying ? (analyserReady ? 'LIVE' : 'SYN') : isLoading ? 'SYNC' : 'IDLE'}
-        </span>
-      </div>
     </div>
   )
 }

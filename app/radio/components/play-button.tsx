@@ -5,7 +5,6 @@ import { LoaderCircle, Pause, Play } from 'lucide-react'
 
 import { Button } from 'app/components/ui/button'
 import { motionFade, motionTransition } from 'app/lib/motion'
-import { designSystem } from 'app/lib/design-system'
 import { cn } from 'app/lib/utils'
 
 interface PlayButtonProps {
@@ -28,18 +27,19 @@ const PlayButton: React.FC<PlayButtonProps> = ({
   const iconTransition = reduceMotion ? { duration: 0 } : motionTransition.quick
 
   return (
-    <motion.div whileTap={reduceMotion || disabled ? undefined : { scale: 0.96 }}>
+    <motion.div
+      className="w-full shrink-0 sm:w-auto"
+      whileTap={reduceMotion || disabled ? undefined : { scale: 0.98 }}
+    >
       <Button
         type="button"
         variant="default"
-        size="icon"
         onClick={onToggle}
         disabled={disabled}
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
         className={cn(
-          'h-16 w-16 rounded-none border-0 border-r border-border sm:h-20 sm:w-20',
-          designSystem.interactions.press,
+          'h-12 w-full rounded-md px-5 font-sans text-sm font-medium normal-case tracking-normal sm:w-36',
           className
         )}
       >
@@ -58,6 +58,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({
             </motion.span>
           )}
         </AnimatePresence>
+        <span>{isLoading ? 'Connecting…' : isPlaying ? 'Pause radio' : 'Play radio'}</span>
       </Button>
     </motion.div>
   )

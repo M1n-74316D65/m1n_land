@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { LucideIcon } from 'lucide-react'
+import { ArrowUpRight, LucideIcon } from 'lucide-react'
 
 import { cn } from 'app/lib/utils'
-import { designSystem } from 'app/lib/design-system'
 
 interface ProjectRowProps {
   href: string
@@ -11,58 +10,46 @@ interface ProjectRowProps {
   description?: string
   tags?: readonly string[]
   className?: string
-  index?: number
 }
 
 const ProjectRow: React.FC<ProjectRowProps> = ({
   href,
   label,
+  icon: Icon,
   description,
   tags,
   className,
-  index = 0,
 }) => {
-  const unit = String(index + 1).padStart(2, '0')
-
   return (
     <Link
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={`${label} (opens in new tab)`}
       className={cn(
-        'group flex items-start gap-3 px-4 py-4 transition-colors duration-[var(--duration-normal)] ease-out hover:bg-focus focus-visible:outline-none sm:gap-4 sm:px-5 sm:py-5',
+        'group flex items-start gap-4 rounded-md px-2 py-6 transition-colors duration-[var(--duration-normal)] ease-out hover:bg-card focus-visible:bg-card sm:gap-5 sm:px-3 sm:py-7',
         className
       )}
     >
       <span
-        className="mt-0.5 shrink-0 font-mono text-[0.7rem] font-medium tracking-[0.1em] text-accent"
+        className="flex size-11 shrink-0 items-center justify-center rounded-md border border-border-subtle bg-card text-muted-foreground transition-colors group-hover:text-accent"
         aria-hidden="true"
       >
-        {'>>>'}
+        <Icon className="size-5" />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between gap-3">
-          <span
-            className={cn(
-              'font-mono text-[0.85rem] font-medium uppercase tracking-[0.06em] text-foreground',
-              designSystem.interactions.link
-            )}
-          >
+          <h3 className="break-words font-sans text-xl font-medium tracking-[-0.025em] text-foreground sm:text-2xl">
             {label}
-          </span>
-          <span className="shrink-0 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-text-dim">
-            D-{unit}
-          </span>
+          </h3>
+          <ArrowUpRight
+            className="size-4 shrink-0 text-muted-foreground transition-transform duration-[var(--duration-normal)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+            aria-hidden="true"
+          />
         </div>
-        {description && (
-          <p className="prose-desc mt-1.5 text-[0.9rem] leading-relaxed text-muted-foreground">
-            {description}
-          </p>
-        )}
+        {description && <p className="prose-desc mt-2 max-w-md">{description}</p>}
         {tags && tags.length > 0 && (
-          <p className="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-text-dim">
-            {tags.join(' / ')}
-          </p>
+          <p className="mt-3 font-mono text-[0.6875rem] text-text-dim">{tags.join(' · ')}</p>
         )}
       </div>
     </Link>

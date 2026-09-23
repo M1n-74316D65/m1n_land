@@ -5,7 +5,6 @@ import {
   BookOpenText,
   LockKeyhole,
   Terminal,
-  Circle,
   LayoutTemplate,
   FolderCog,
 } from 'lucide-react'
@@ -44,12 +43,6 @@ export const projects = [
     tags: ['Rust', 'Security'],
   },
   {
-    href: 'https://sr.ht/~m1n/',
-    icon: Circle,
-    label: 'SourceHut',
-    category: 'Projects',
-  },
-  {
     href: 'https://github.com/M1n-74316D65',
     icon: Github,
     label: 'GitHub',
@@ -58,12 +51,6 @@ export const projects = [
 ] as const
 
 export const socialLinks = [
-  {
-    href: 'https://sr.ht/~m1n/',
-    icon: Circle,
-    label: 'SourceHut',
-    category: 'Connect',
-  },
   {
     href: 'https://github.com/M1n-74316D65',
     icon: Github,

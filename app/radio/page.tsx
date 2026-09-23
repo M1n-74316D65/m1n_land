@@ -1,5 +1,4 @@
 import ErrorBoundary from 'app/components/ui/error-boundary'
-import ZoneLabel from 'app/components/zone-label'
 import RadioPlayerLoader from 'app/radio/radio-player-loader'
 import { entranceClasses } from 'app/lib/animation'
 import { designSystem } from 'app/lib/design-system'
@@ -14,18 +13,12 @@ export const metadata: Metadata = {
 export default function RadioPage() {
   return (
     <section className="flex flex-1 flex-col">
-      <div className={cn('zone', entranceClasses(0))}>
-        <ZoneLabel label="RADIO / RX" unitId="STREAM" />
-        <div className="zone-body pb-0">
-          <h1 className="display-type !text-[clamp(2.25rem,9vw,3.75rem)]">RX</h1>
-          <p className="prose-desc mt-3 text-muted-foreground">
-            Deep Space One — ambient / experimental.
-          </p>
-        </div>
-      </div>
+      <header className={cn('pb-8 pt-4 sm:pb-10 sm:pt-6', entranceClasses(0))}>
+        <h1 className="display-type !text-[clamp(3rem,10vw,4.5rem)]">Radio</h1>
+        <p className="prose-desc mt-5">A little space to listen. Ambient and experimental music.</p>
+      </header>
 
-      <div className={cn('zone flex-1', entranceClasses(1, 'reveal'))}>
-        <ZoneLabel label="PLAYER" unitId="AUD / 01" />
+      <div className={entranceClasses(1, 'reveal')}>
         <ErrorBoundary>
           <RadioPlayerLoader />
         </ErrorBoundary>
@@ -33,28 +26,28 @@ export default function RadioPage() {
 
       <p
         className={cn(
-          'border-t border-border px-4 py-2.5 text-center sm:px-5',
-          designSystem.typography.caption,
+          'mt-6 flex flex-wrap items-center justify-between gap-3 font-mono text-[0.6875rem] text-muted-foreground',
           entranceClasses(2, 'reveal')
         )}
       >
-        Streamed by{' '}
-        <a
-          href="https://somafm.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={designSystem.colors.text.linkEmphasis}
-        >
-          SomaFM
-        </a>
-        {' / '}
+        <span>
+          Streamed by{' '}
+          <a
+            href="https://somafm.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={designSystem.colors.text.linkEmphasis}
+          >
+            SomaFM
+          </a>
+        </span>
         <a
           href="https://somafm.com/support/"
           target="_blank"
           rel="noopener noreferrer"
           className={designSystem.colors.text.linkEmphasis}
         >
-          Support
+          Support SomaFM ↗
         </a>
       </p>
     </section>

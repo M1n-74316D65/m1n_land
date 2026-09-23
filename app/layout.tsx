@@ -2,6 +2,8 @@ import { FC, ReactNode } from 'react'
 import './global.css'
 import '@fontsource/ibm-plex-mono/400.css'
 import '@fontsource/ibm-plex-mono/500.css'
+import '@fontsource/outfit/400.css'
+import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/800.css'
 import type { Metadata, Viewport } from 'next'
 import Navbar from 'app/components/nav'
@@ -59,8 +61,18 @@ interface RootLayoutProps {
   children: ReactNode
 }
 
-const themeScript = `
+const appearanceScript = `
 (() => {
+  // Meteorological seasons in Spain, calculated on each visit rather than at build time.
+  const month = Number(new Intl.DateTimeFormat('en-US', {
+    month: 'numeric',
+    timeZone: 'Europe/Madrid',
+  }).format(new Date()))
+  const season = Math.floor((month % 12) / 3)
+  const names = ['winter', 'spring', 'summer', 'autumn']
+  const root = document.documentElement
+  root.dataset.season = names[season]
+
   try {
     const saved = localStorage.getItem('theme')
     const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -77,11 +89,18 @@ const themeScript = `
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   const htmlClassName = cn('bg-background text-foreground')
+  // Static-export fallback; the startup script refreshes this on each visit.
+  const month = Number(
+    new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: 'Europe/Madrid' }).format(
+      new Date()
+    )
+  )
+  const season = ['winter', 'spring', 'summer', 'autumn'][Math.floor((month % 12) / 3)]
 
   return (
-    <html lang="en" className={htmlClassName} suppressHydrationWarning>
+    <html lang="en" className={htmlClassName} data-season={season} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: appearanceScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -98,7 +117,8 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           }}
         />
       </head>
-      <body className="crt-shell font-mono antialiased">
+      <body className="crt-shell font-sans antialiased">
+        <div className="landscape-background" aria-hidden="true" />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:border focus:border-accent focus:bg-card focus:px-3 focus:py-2 focus:font-mono focus:text-[0.7rem] focus:uppercase focus:tracking-[0.1em] focus:text-foreground"

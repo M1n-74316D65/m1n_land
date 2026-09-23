@@ -9,11 +9,10 @@ interface ZoneLabelProps {
   as?: 'div' | 'header'
 }
 
-const ZoneLabel: React.FC<ZoneLabelProps> = ({ label, unitId, className, as: Tag = 'div' }) => {
+const ZoneLabel: React.FC<ZoneLabelProps> = ({ label, className, as: Tag = 'div' }) => {
   return (
-    <Tag className={cn('zone-label', className)} aria-hidden="true">
-      <span>[ {label} ]</span>
-      {unitId ? <span className="zone-label-id">{unitId}</span> : null}
+    <Tag className={cn('zone-label', className)}>
+      <span>{label}</span>
     </Tag>
   )
 }

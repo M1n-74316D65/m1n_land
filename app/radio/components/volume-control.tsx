@@ -4,7 +4,6 @@ import { Volume1, Volume2, VolumeX } from 'lucide-react'
 
 import { Button } from 'app/components/ui/button'
 import { cn } from 'app/lib/utils'
-import { designSystem } from 'app/lib/design-system'
 
 interface VolumeControlProps {
   volume: number
@@ -26,13 +25,13 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
   const VolumeIcon = isMuted || volume === 0 ? VolumeX : volume < 0.5 ? Volume1 : Volume2
 
   return (
-    <div className={cn('flex min-w-0 items-center gap-3 px-3 sm:px-4', className)}>
+    <div className={cn('flex min-w-0 flex-1 items-center gap-3', className)}>
       <Button
         type="button"
         variant="ghost"
         size="icon"
         onClick={onToggleMute}
-        className="h-8 w-8 shrink-0"
+        className="size-11 shrink-0 rounded-md"
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
         <VolumeIcon className="h-4 w-4" />
@@ -46,18 +45,14 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         value={displayVolume}
         onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
         aria-label="Radio volume"
+        aria-valuetext={`${volumePercent}%`}
         aria-valuenow={displayVolume}
         aria-valuemin={0}
         aria-valuemax={1}
-        className="h-px min-w-0 flex-1 cursor-pointer appearance-none bg-border focus-visible:outline-none [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:appearance-none [&::-moz-slider-thumb]:h-3.5 [&::-moz-slider-thumb]:w-2 [&::-moz-slider-thumb]:bg-accent [&::-moz-slider-thumb]:appearance-none [&::-moz-slider-thumb]:border-none"
-        style={{
-          background: `linear-gradient(to right, var(--accent) ${volumePercent}%, var(--border) ${volumePercent}%)`,
-        }}
+        className="h-11 min-w-0 flex-1 cursor-pointer accent-accent"
       />
 
-      <span
-        className={`hidden w-10 shrink-0 text-right sm:block ${designSystem.typography.mono} text-xs tabular-nums`}
-      >
+      <span className="w-9 shrink-0 text-right font-mono text-[0.6875rem] tabular-nums text-muted-foreground">
         {volumePercent}%
       </span>
     </div>

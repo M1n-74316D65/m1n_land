@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
@@ -28,11 +29,11 @@ export default function ThemeToggle() {
     return (
       <button
         type="button"
-        className="inline-flex shrink-0 items-center gap-1 border-l border-border px-3 py-1.5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground opacity-50 sm:px-4"
-        aria-label="Toggle visual mode"
+        className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-border-subtle text-muted-foreground opacity-50"
+        aria-label="Toggle color theme"
         disabled
       >
-        <span>MODE: ---</span>
+        <Sun className="size-4" aria-hidden="true" />
       </button>
     )
   }
@@ -41,12 +42,15 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="inline-flex shrink-0 items-center gap-1 border-l border-border px-3 py-1.5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-muted-foreground transition-colors duration-[var(--duration-normal)] ease-out hover:text-foreground focus-visible:outline-none sm:px-4"
-      aria-label={`Switch to ${isDark ? 'Light (Print)' : 'Dark (CRT)'} mode`}
-      title={`Current substrate: ${isDark ? 'Tactical CRT' : 'Swiss Print'}`}
+      className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-border-subtle text-muted-foreground transition-colors duration-[var(--duration-normal)] ease-out hover:bg-focus hover:text-foreground active:scale-95"
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
-      <span>SUBSTRATE:</span>
-      <span className="text-accent">{isDark ? 'CRT' : 'PRINT'}</span>
+      {isDark ? (
+        <Sun className="size-4" aria-hidden="true" />
+      ) : (
+        <Moon className="size-4" aria-hidden="true" />
+      )}
     </button>
   )
 }

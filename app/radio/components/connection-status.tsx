@@ -25,14 +25,14 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
   const transition = reduceMotion ? { duration: 0 } : motionTransition.standard
 
   return (
-    <div className={cn('flex min-h-8 items-center', className)}>
+    <div className={cn('flex items-center', className)}>
       <AnimatePresence mode="wait">
         {isLoading && (
           <motion.div
             key="loading"
             {...motionEnter}
             transition={transition}
-            className="flex items-center gap-2 text-muted-foreground"
+            className="mb-5 flex items-center gap-2 text-muted-foreground"
             role="status"
             aria-live="polite"
           >
@@ -47,7 +47,7 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
             key="error"
             {...motionEnter}
             transition={transition}
-            className="flex w-full items-center justify-between gap-4"
+            className="mb-5 flex w-full flex-wrap items-center justify-between gap-3"
             role="alert"
             aria-live="assertive"
           >
@@ -57,7 +57,13 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
                 Unable to connect
               </span>
             </div>
-            <Button variant="outline" size="sm" onClick={onRetry} aria-describedby="error-message">
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-11 rounded-md font-sans text-sm normal-case tracking-normal"
+              onClick={onRetry}
+              aria-describedby="error-message"
+            >
               Retry
             </Button>
           </motion.div>
