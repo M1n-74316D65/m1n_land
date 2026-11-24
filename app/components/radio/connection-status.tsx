@@ -53,14 +53,14 @@ const ConnectionStatus: React.FC<ConnectionStatusProps> = ({
           >
             <div className="flex items-center gap-2">
               <WifiOff className="h-4 w-4 text-destructive" aria-hidden="true" />
-              <span className="text-sm text-destructive" id="error-message">
+              <span className="text-base text-destructive" id="error-message">
                 Unable to connect
               </span>
             </div>
             <Button
               variant="outline"
               size="sm"
-              className="h-11 rounded-md font-sans text-sm normal-case tracking-normal"
+              className="h-11 font-sans text-sm normal-case tracking-normal"
               onClick={onRetry}
               aria-describedby="error-message"
             >

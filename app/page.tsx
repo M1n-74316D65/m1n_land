@@ -2,33 +2,26 @@ import Image from 'next/image'
 import React from 'react'
 import { ArrowUp, ArrowUpRight } from 'lucide-react'
 import { ProjectIndex } from 'app/components/home/project-index'
-import { SeasonalHero, type Season } from 'app/components/home/seasonal-hero'
+import { Hero } from 'app/components/home/hero'
+import { RadioSection } from 'app/components/home/radio-section'
 import { externalLinks, socialLinks, techStack } from 'app/constants/links'
 
 const contactLinks = [...socialLinks, ...externalLinks]
 
 const Page: React.FC = () => {
-  const month = Number(
-    new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: 'Europe/Madrid' }).format(
-      new Date()
-    )
-  )
-  const seasons: Season[] = ['winter', 'spring', 'summer', 'autumn']
-  const initialSeason = seasons[Math.floor((month % 12) / 3)]
-
   return (
     <div className="home-page">
-      <SeasonalHero initialSeason={initialSeason} />
+      <Hero />
       <ProjectIndex />
 
       <section id="about" className="about-section" aria-labelledby="about-title">
         <div className="section-heading" data-reveal>
-          <h2 id="about-title">About David</h2>
+          <h2 id="about-title">About me</h2>
         </div>
         <div className="about-grid">
           <Image
             src="https://profiles.cache.lol/m1n/picture?v=1767470215"
-            alt="M1n's black cat avatar"
+            alt="My black cat avatar"
             width={480}
             height={480}
             sizes="(max-width: 640px) 128px, 240px"
@@ -78,6 +71,8 @@ const Page: React.FC = () => {
           })}
         </ul>
       </section>
+
+      <RadioSection />
 
       <footer className="home-footer">
         <div className="footer-top" data-reveal>

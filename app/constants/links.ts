@@ -9,12 +9,6 @@ import {
   FolderCog,
 } from 'lucide-react'
 
-export const navItems = [
-  { path: '/', name: 'home' },
-  { path: '/projects', name: 'projects' },
-  { path: '/radio', name: 'radio' },
-] as const
-
 export const techStack = ['Go', 'TypeScript', 'Neovim', 'MacOS'] as const
 
 export const projects = [
@@ -91,13 +85,11 @@ export const featuredProjects = [projects[0], projects[1], projects[2]] as const
 export const homeFeaturedProjects = [projects[0], projects[1]] as const
 
 export const allLinks = [
-  ...navItems.map((n) => ({ href: n.path, label: n.name })),
   ...projects.map((p) => ({ href: p.href, label: p.label })),
   ...socialLinks.map((s) => ({ href: s.href, label: s.label })),
   ...externalLinks.map((e) => ({ href: e.href, label: e.label })),
 ] as const
 
-export type NavItem = (typeof navItems)[number]
 export type Project = (typeof projects)[number]
 export type SocialLink = (typeof socialLinks)[number]
 export type ExternalLink = (typeof externalLinks)[number]

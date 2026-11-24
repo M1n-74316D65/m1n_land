@@ -39,7 +39,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({
         aria-label={ariaLabel}
         aria-pressed={isPlaying}
         className={cn(
-          'h-12 w-full rounded-md px-5 font-sans text-sm font-medium normal-case tracking-normal sm:w-36',
+          'h-12 w-full px-5 font-sans text-base font-medium normal-case tracking-normal sm:w-40',
           className
         )}
       >

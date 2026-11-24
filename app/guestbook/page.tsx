@@ -12,7 +12,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Guestbook',
-  description: "Leave a message in M1n's guestbook.",
+  description: 'Leave a message in my guestbook.',
 }
 
 export default function Page() {

@@ -81,7 +81,6 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       return {
         accent: style.getPropertyValue('--accent').trim(),
         muted: style.getPropertyValue('--muted-foreground').trim(),
-        border: style.getPropertyValue('--border-subtle').trim(),
       }
     }
     let colors = readColors()
@@ -166,7 +165,8 @@ const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       ctx.clearRect(0, 0, width, height)
 
       ctx.save()
-      ctx.strokeStyle = colors.border
+      ctx.strokeStyle = colors.muted
+      ctx.globalAlpha = 0.3
       ctx.lineWidth = dpr
       const midY = height * 0.5
       ctx.beginPath()

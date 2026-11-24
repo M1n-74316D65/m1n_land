@@ -6,7 +6,7 @@ import '@fontsource/ibm-plex-mono/500.css'
 import '@fontsource/outfit/400.css'
 import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/800.css'
-import Navbar from 'app/components/nav'
+import SiteHeader from 'app/components/site-header'
 import { baseUrl } from 'app/constants/baseUrl'
 
 const siteMetadata: Metadata = {
@@ -15,7 +15,7 @@ const siteMetadata: Metadata = {
     default: 'M1n',
     template: '%s | M1n',
   },
-  description: 'Personal site of M1n, a developer who uses Linux and makes open-source projects.',
+  description: 'My personal site — I’m a developer who uses Linux and makes open-source projects.',
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -24,7 +24,8 @@ const siteMetadata: Metadata = {
   manifest: '/manifest.json',
   openGraph: {
     title: 'M1n',
-    description: 'Personal site of M1n, a developer who uses Linux and makes open-source projects.',
+    description:
+      'My personal site — I’m a developer who uses Linux and makes open-source projects.',
     url: baseUrl,
     siteName: 'M1n',
     locale: 'en_US',
@@ -44,7 +45,8 @@ const siteMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'M1n',
-    description: 'Personal site of M1n, a developer who uses Linux and makes open-source projects.',
+    description:
+      'My personal site — I’m a developer who uses Linux and makes open-source projects.',
   },
 }
 
@@ -65,15 +67,6 @@ const appearanceScript = `
   const root = document.documentElement
   root.classList.add('js')
 
-  // Meteorological seasons in Spain, calculated on each visit rather than at build time.
-  const month = Number(new Intl.DateTimeFormat('en-US', {
-    month: 'numeric',
-    timeZone: 'Europe/Madrid',
-  }).format(new Date()))
-  const season = Math.floor((month % 12) / 3)
-  const names = ['winter', 'spring', 'summer', 'autumn']
-  root.dataset.season = names[season]
-
   try {
     const saved = localStorage.getItem('theme')
     const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -89,21 +82,8 @@ const appearanceScript = `
 `
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
-  // Static-export fallback; the startup script refreshes this on each visit.
-  const month = Number(
-    new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: 'Europe/Madrid' }).format(
-      new Date()
-    )
-  )
-  const season = ['winter', 'spring', 'summer', 'autumn'][Math.floor((month % 12) / 3)]
-
   return (
-    <html
-      lang="en"
-      className="bg-background text-foreground"
-      data-season={season}
-      suppressHydrationWarning
-    >
+    <html lang="en" className="bg-background text-foreground" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: appearanceScript }} />
         <script
@@ -127,7 +107,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           Skip to main content
         </a>
         <div className="site-shell">
-          <Navbar />
+          <SiteHeader />
           <main id="main-content">{children}</main>
         </div>
       </body>

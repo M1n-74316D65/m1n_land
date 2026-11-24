@@ -31,7 +31,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         variant="ghost"
         size="icon"
         onClick={onToggleMute}
-        className="size-11 shrink-0 rounded-md"
+        className="size-11 shrink-0"
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
         <VolumeIcon className="h-4 w-4" />
@@ -52,7 +52,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({
         className="h-11 min-w-0 flex-1 cursor-pointer accent-accent"
       />
 
-      <span className="w-9 shrink-0 text-right font-mono text-[0.6875rem] tabular-nums text-muted-foreground">
+      <span className="w-9 shrink-0 text-right text-[0.8125rem] tabular-nums text-muted-foreground">
         {volumePercent}%
       </span>
     </div>

@@ -2,12 +2,12 @@
 
 import { useCallback, useRef } from 'react'
 
-import { useRadioAudio } from './components/use-radio-audio'
-import WaveformVisualizer from './components/waveform-visualizer'
-import PlayButton from './components/play-button'
-import VolumeControl from './components/volume-control'
-import StationInfo from './components/station-info'
-import ConnectionStatus from './components/connection-status'
+import { useRadioAudio } from './use-radio-audio'
+import WaveformVisualizer from './waveform-visualizer'
+import PlayButton from './play-button'
+import VolumeControl from './volume-control'
+import StationInfo from './station-info'
+import ConnectionStatus from './connection-status'
 
 export default function RadioPlayerClient() {
   const {
@@ -58,7 +58,7 @@ export default function RadioPlayerClient() {
   return (
     <div
       ref={containerRef}
-      className="group/player relative rounded-lg border border-border-subtle bg-card p-4 sm:p-7"
+      className="group/player relative bg-card p-4 sm:p-7"
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label="Radio player"
@@ -78,7 +78,7 @@ export default function RadioPlayerClient() {
         <ConnectionStatus isLoading={isLoading} error={error} onRetry={retry} />
       </div>
 
-      <div className="flex flex-col gap-4 border-t border-border-subtle pt-5 sm:flex-row sm:items-center sm:gap-6">
+      <div className="flex flex-col gap-4 pt-5 sm:flex-row sm:items-center sm:gap-6">
         <PlayButton
           isPlaying={isPlaying}
           isLoading={isLoading}
@@ -95,16 +95,16 @@ export default function RadioPlayerClient() {
 
       <p
         id="radio-keyboard-help"
-        className="mt-5 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.625rem] leading-relaxed text-text-dim"
+        className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[0.8125rem] leading-relaxed text-muted-foreground"
       >
         <span>
-          <kbd className="text-muted-foreground">Space</kbd> play / pause
+          <span className="text-foreground">Space</span> play / pause
         </span>
         <span>
-          <kbd className="text-muted-foreground">M</kbd> mute
+          <span className="text-foreground">M</span> mute
         </span>
         <span>
-          <kbd className="text-muted-foreground">↑ ↓</kbd> volume
+          <span className="text-foreground">↑ ↓</span> volume
         </span>
       </p>
     </div>

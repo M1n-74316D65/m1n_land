@@ -4,7 +4,7 @@ import { baseUrl } from 'app/constants/baseUrl'
 export const dynamic = 'force-static'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let routes = ['', '/projects', '/guestbook', '/radio'].map((route) => ({
+  let routes = ['', '/guestbook'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))
