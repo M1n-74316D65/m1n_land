@@ -1,100 +1,104 @@
 import Image from 'next/image'
 import React from 'react'
+import { ArrowUp, ArrowUpRight } from 'lucide-react'
+import { ProjectIndex } from 'app/components/home/project-index'
+import { SeasonalHero, type Season } from 'app/components/home/seasonal-hero'
+import { externalLinks, socialLinks, techStack } from 'app/constants/links'
 
-import { entranceClasses } from 'app/lib/animation'
-import { socialLinks, externalLinks, techStack } from 'app/constants/links'
-import { cn } from 'app/lib/utils'
+const contactLinks = [...socialLinks, ...externalLinks]
 
 const Page: React.FC = () => {
+  const month = Number(
+    new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: 'Europe/Madrid' }).format(
+      new Date()
+    )
+  )
+  const seasons: Season[] = ['winter', 'spring', 'summer', 'autumn']
+  const initialSeason = seasons[Math.floor((month % 12) / 3)]
+
   return (
-    <section className="flex flex-1 flex-col">
-      <div className={cn('zone', entranceClasses(0))}>
-        <div className="pb-8 pt-4 sm:pb-10 sm:pt-6">
-          <div className="flex items-center justify-between gap-6">
-            <div className="min-w-0">
-              <h1 className="display-type !text-[clamp(4.5rem,14vw,6rem)]">M1n</h1>
-            </div>
-            <Image
-              src="https://profiles.cache.lol/m1n/picture?v=1767470215"
-              alt="M1n"
-              width={112}
-              height={112}
-              priority
-              sizes="(min-width: 640px) 96px, 72px"
-              className="aspect-square size-[4.5rem] shrink-0 rounded-lg border border-border-subtle object-cover sm:size-24"
-            />
-          </div>
+    <div className="home-page">
+      <SeasonalHero initialSeason={initialSeason} />
+      <ProjectIndex />
 
-          <p className="mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[0.6875rem] tracking-[0.02em] text-muted-foreground">
-            <span>Developer</span>
-            <span aria-hidden="true">/</span>
-            <span>Galicia, ES</span>
-            <span aria-hidden="true">/</span>
-            <span>he/him</span>
-          </p>
-
-          <p className="profile-bio mt-6 sm:mt-7">
-            I am <strong>David</strong>, also known as M1n. I write <strong>code</strong> and enjoy{' '}
-            <strong>games</strong> and <strong>philosophy</strong>.
-          </p>
-
-          <ul
-            aria-label="Tools I use"
-            className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.6875rem] text-text-dim"
-          >
-            {techStack.map((tech) => (
-              <li key={tech}>{tech}</li>
-            ))}
-          </ul>
+      <section id="about" className="about-section" aria-labelledby="about-title">
+        <div className="section-heading" data-reveal>
+          <h2 id="about-title">About David</h2>
         </div>
-      </div>
+        <div className="about-grid">
+          <Image
+            src="https://profiles.cache.lol/m1n/picture?v=1767470215"
+            alt="M1n's black cat avatar"
+            width={480}
+            height={480}
+            sizes="(max-width: 640px) 128px, 240px"
+            className="about-avatar"
+            data-reveal
+          />
+          <div className="about-copy" data-reveal>
+            <p className="about-lead">I’m David, also known as M1n. I write code.</p>
+            <p className="about-detail">
+              I enjoy games and philosophy. My selected projects are small command-line tools made
+              with Rust. I also use Go, TypeScript, Neovim, and MacOS.
+            </p>
+            <ul className="about-tools" aria-label="Tools I use">
+              {techStack.map((tech) => (
+                <li key={tech}>{tech}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-      <div className="grid gap-7 pt-6 sm:grid-cols-2 sm:gap-8 sm:pt-8">
-        <section className={entranceClasses(1, 'reveal')} aria-labelledby="connect-title">
-          <h2
-            id="connect-title"
-            className="pb-3 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground"
-          >
-            Connect
-          </h2>
-          <ul>
-            {socialLinks.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} target="_blank" rel="noopener noreferrer" className="cmd-row">
-                  <link.icon className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-                  <span className="min-w-0 flex-1 truncate">{link.label}</span>
+      <section id="elsewhere" className="elsewhere-section" aria-labelledby="elsewhere-title">
+        <div className="section-heading" data-reveal>
+          <h2 id="elsewhere-title">Elsewhere</h2>
+        </div>
+        <ul className="contact-list">
+          {contactLinks.map((link) => {
+            const isExternal = link.href.startsWith('http')
+            const Icon = link.icon
+            const accessibleName = `${link.label}${link.label === 'Email' ? ' public@m1n.land' : ''}${isExternal ? ' (opens in new tab)' : ''}`
+
+            return (
+              <li key={link.href} data-reveal>
+                <a
+                  href={link.href}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  className="contact-link"
+                  aria-label={accessibleName}
+                >
+                  <Icon className="contact-icon" aria-hidden="true" />
+                  <span>{link.label === 'Email' ? 'public@m1n.land' : link.label}</span>
+                  <ArrowUpRight className="contact-arrow" aria-hidden="true" />
                 </a>
               </li>
-            ))}
-          </ul>
-        </section>
+            )
+          })}
+        </ul>
+      </section>
 
-        <section
-          className={cn(
-            'sm:border-l sm:border-border-subtle sm:pl-8',
-            entranceClasses(2, 'reveal')
-          )}
-          aria-labelledby="links-title"
-        >
-          <h2
-            id="links-title"
-            className="pb-3 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground"
-          >
-            Elsewhere
-          </h2>
-          <ul>
-            {externalLinks.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} target="_blank" rel="noopener noreferrer" className="cmd-row">
-                  <link.icon className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-                  <span className="min-w-0 flex-1 truncate">{link.label}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    </section>
+      <footer className="home-footer">
+        <div className="footer-top" data-reveal>
+          <h2>Say hello.</h2>
+          <a href="mailto:public@m1n.land" className="footer-email">
+            public@m1n.land
+            <ArrowUpRight aria-hidden="true" />
+          </a>
+        </div>
+        <div className="footer-bottom" data-reveal>
+          <span>© {new Date().getFullYear()} M1n</span>
+          <a href="#hero-title">
+            Back to top
+            <ArrowUp className="size-4" aria-hidden="true" />
+          </a>
+        </div>
+        <div className="footer-wordmark" aria-hidden="true" data-reveal>
+          M1n
+        </div>
+      </footer>
+    </div>
   )
 }
 

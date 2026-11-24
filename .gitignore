@@ -38,3 +38,7 @@ next-env.d.ts
 
 # tooling
 /.opencode/
+
+# agent task evidence and sdd scratch
+/.taste-skill/
+/.superpowers/

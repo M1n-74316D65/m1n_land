@@ -9,30 +9,19 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true)
-    const isCurrentlyDark = document.documentElement.classList.contains('dark')
-    setIsDark(isCurrentlyDark)
+    setIsDark(document.documentElement.classList.contains('dark'))
   }, [])
 
   const toggleTheme = () => {
     const nextTheme = !isDark
     setIsDark(nextTheme)
-    if (nextTheme) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
+    document.documentElement.classList.toggle('dark', nextTheme)
+    localStorage.setItem('theme', nextTheme ? 'dark' : 'light')
   }
 
   if (!mounted) {
     return (
-      <button
-        type="button"
-        className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-border-subtle text-muted-foreground opacity-50"
-        aria-label="Toggle color theme"
-        disabled
-      >
+      <button type="button" className="theme-toggle" aria-label="Toggle color theme" disabled>
         <Sun className="size-4" aria-hidden="true" />
       </button>
     )
@@ -42,7 +31,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-border-subtle text-muted-foreground transition-colors duration-[var(--duration-normal)] ease-out hover:bg-focus hover:text-foreground active:scale-95"
+      className="theme-toggle"
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
       title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >

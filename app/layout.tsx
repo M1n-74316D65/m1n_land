@@ -1,14 +1,13 @@
 import { FC, ReactNode } from 'react'
+import type { Metadata, Viewport } from 'next'
 import './global.css'
 import '@fontsource/ibm-plex-mono/400.css'
 import '@fontsource/ibm-plex-mono/500.css'
 import '@fontsource/outfit/400.css'
 import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/800.css'
-import type { Metadata, Viewport } from 'next'
 import Navbar from 'app/components/nav'
 import { baseUrl } from 'app/constants/baseUrl'
-import { cn } from 'app/lib/utils'
 
 const siteMetadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -63,6 +62,9 @@ interface RootLayoutProps {
 
 const appearanceScript = `
 (() => {
+  const root = document.documentElement
+  root.classList.add('js')
+
   // Meteorological seasons in Spain, calculated on each visit rather than at build time.
   const month = Number(new Intl.DateTimeFormat('en-US', {
     month: 'numeric',
@@ -70,16 +72,15 @@ const appearanceScript = `
   }).format(new Date()))
   const season = Math.floor((month % 12) / 3)
   const names = ['winter', 'spring', 'summer', 'autumn']
-  const root = document.documentElement
   root.dataset.season = names[season]
 
   try {
     const saved = localStorage.getItem('theme')
     const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     if (saved === 'dark' || (!saved && prefDark)) {
-      document.documentElement.classList.add('dark')
+      root.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      root.classList.remove('dark')
     }
   } catch (error) {
     console.error('Theme bootstrap error', error)
@@ -88,7 +89,6 @@ const appearanceScript = `
 `
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
-  const htmlClassName = cn('bg-background text-foreground')
   // Static-export fallback; the startup script refreshes this on each visit.
   const month = Number(
     new Intl.DateTimeFormat('en-US', { month: 'numeric', timeZone: 'Europe/Madrid' }).format(
@@ -98,7 +98,12 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   const season = ['winter', 'spring', 'summer', 'autumn'][Math.floor((month % 12) / 3)]
 
   return (
-    <html lang="en" className={htmlClassName} data-season={season} suppressHydrationWarning>
+    <html
+      lang="en"
+      className="bg-background text-foreground"
+      data-season={season}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: appearanceScript }} />
         <script
@@ -117,21 +122,13 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
           }}
         />
       </head>
-      <body className="crt-shell font-sans antialiased">
-        <div className="landscape-background" aria-hidden="true" />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:border focus:border-accent focus:bg-card focus:px-3 focus:py-2 focus:font-mono focus:text-[0.7rem] focus:uppercase focus:tracking-[0.1em] focus:text-foreground"
-        >
+      <body className="font-sans antialiased">
+        <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center px-3 py-[clamp(1.25rem,5vw,3.5rem)] sm:px-6">
-          <div className="crt-frame crt-frame-footer flex w-full flex-col">
-            <main id="main-content" className="flex flex-col">
-              <Navbar />
-              {children}
-            </main>
-          </div>
+        <div className="site-shell">
+          <Navbar />
+          <main id="main-content">{children}</main>
         </div>
       </body>
     </html>
